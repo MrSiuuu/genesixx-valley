@@ -71,5 +71,10 @@
     "serverError": "Erreur serveur",
     "unauthorized": "Non autorisé",
     "unauthorizedMessage": "Vous n'avez pas les droits pour accéder à cette page."
+  },
+  "templates": {
+    "title": "Modèles de CV",
+    "select": "Sélectionner",
+    "noTemplates": "Aucun modèle disponible pour le moment."
   }
 } 

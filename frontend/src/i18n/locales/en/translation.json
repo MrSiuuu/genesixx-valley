@@ -71,5 +71,10 @@
     "serverError": "Server Error",
     "unauthorized": "Unauthorized",
     "unauthorizedMessage": "You do not have permission to access this page."
+  },
+  "templates": {
+    "title": "CV Templates",
+    "select": "Select",
+    "noTemplates": "No templates available at the moment."
   }
 } 

@@ -1,128 +1,101 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../services/supabase';
+import { useTranslation } from 'react-i18next';
 import '../styles/auth.css';
 
 function Register() {
-  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
-  const { register, loading, error } = useAuth();
+  const [name, setName] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
-    setSuccessMessage('');
-    
-    // Validation de l'email
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setErrorMessage('Veuillez entrer une adresse email valide');
-      return;
-    }
-    
-    // Validation du mot de passe
-    if (password.length < 6) {
-      setErrorMessage('Le mot de passe doit contenir au moins 6 caractères');
-      return;
-    }
     
     try {
-      const result = await register(email, password, name);
+      setLoading(true);
+      setError(null);
       
-      // Si l'inscription a réussi mais que l'email n'est pas confirmé
-      if (error && error.includes('confirmer')) {
-        setSuccessMessage("Votre compte a été créé. Veuillez vérifier votre email pour confirmer votre inscription.");
-        return;
-      }
+      const { error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            name
+          }
+        }
+      });
       
-      // Si tout s'est bien passé, rediriger vers le tableau de bord
+      if (error) throw error;
+      
       navigate('/dashboard');
     } catch (error) {
       console.error('Erreur d\'inscription:', error);
-      
-      // Si l'erreur concerne la confirmation de l'email, c'est en fait un succès
-      if (error.message && error.message.includes('confirmer')) {
-        setSuccessMessage(error.message);
-      } else {
-        // Utiliser le message d'erreur du contexte d'authentification
-        setErrorMessage(error.message || 'Erreur d\'inscription. Veuillez réessayer.');
-      }
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="auth-container">
       <div className="auth-card">
-        <h1>Inscription</h1>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {successMessage && <p className="success-message">{successMessage}</p>}
+        <h1>{t('auth.registerTitle')}</h1>
         
-        {!successMessage ? (
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="name">Nom</label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                disabled={loading}
-                className="form-control"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={loading}
-                className="form-control"
-                placeholder="exemple@domaine.com"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="password">Mot de passe</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={loading}
-                minLength={6}
-                className="form-control"
-              />
-            </div>
-            <button 
-              type="submit" 
-              disabled={loading}
-              className="btn btn-primary"
-            >
-              {loading ? 'Inscription en cours...' : 'S\'inscrire'}
-            </button>
-          </form>
-        ) : (
-          <div className="text-center mt-4">
-            <button 
-              onClick={() => navigate('/login')} 
-              className="btn btn-primary"
-            >
-              Aller à la page de connexion
-            </button>
+        {error && <div className="auth-error">{error}</div>}
+        
+        <form onSubmit={handleRegister} className="auth-form">
+          <div className="form-group">
+            <label htmlFor="name">{t('common.name')}</label>
+            <input
+              type="text"
+              id="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
           </div>
-        )}
+          
+          <div className="form-group">
+            <label htmlFor="email">{t('common.email')}</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="password">{t('common.password')}</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          
+          <button 
+            type="submit" 
+            className="btn-auth"
+            disabled={loading}
+          >
+            {loading ? t('common.loading') : t('common.register')}
+          </button>
+        </form>
         
-        <p className="auth-link">
-          Déjà un compte ? <Link to="/login">Se connecter</Link>
-        </p>
+        <div className="auth-links">
+          <Link to="/login" className="auth-link">
+            {t('auth.alreadyHaveAccount')}
+          </Link>
+        </div>
       </div>
     </div>
   );
