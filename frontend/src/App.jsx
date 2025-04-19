@@ -11,6 +11,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
 import SetupAdmin from './pages/SetupAdmin';
+import AuthCallback from './pages/AuthCallback';
 
 // Styles
 import './App.css';
@@ -38,6 +39,8 @@ function App() {
           
           {/* Route temporaire pour la configuration de l'administrateur */}
           <Route path="/setup-admin" element={<SetupAdmin />} />
+          
+          <Route path="/auth/callback" element={<AuthCallback />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>

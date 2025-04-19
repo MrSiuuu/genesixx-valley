@@ -1,0 +1,75 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "back": "Back",
+    "home": "Home"
+  },
+  "auth": {
+    "loginTitle": "Login",
+    "registerTitle": "Register",
+    "forgotPassword": "Forgot password?",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "logoutSuccess": "Logout successful",
+    "passwordConfirm": "Confirm password",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "invalidCredentials": "Invalid email or password",
+    "loginWithGoogle": "Login with Google",
+    "orContinueWith": "or continue with"
+  },
+  "home": {
+    "title": "CV Generator",
+    "subtitle": "Easily create professional CVs",
+    "getStarted": "Get Started",
+    "features": {
+      "title": "Features",
+      "easyToUse": "Easy to use",
+      "professional": "Professional results",
+      "customizable": "Fully customizable"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome, {{name}}",
+    "createCV": "Create a new CV",
+    "myCVs": "My CVs",
+    "noCVs": "You haven't created any CVs yet.",
+    "createFirstCV": "Create your first CV to see it here."
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "usersList": "Users List",
+    "usersCount": "Users List ({{count}})",
+    "userName": "Name",
+    "userEmail": "Email",
+    "registrationDate": "Registration Date",
+    "emailConfirmed": "Email Confirmed",
+    "actions": "Actions",
+    "confirmEmail": "Confirm Email",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "errors": {
+    "notFound": "Page Not Found",
+    "notFoundMessage": "The page you are looking for does not exist.",
+    "serverError": "Server Error",
+    "unauthorized": "Unauthorized",
+    "unauthorizedMessage": "You do not have permission to access this page."
+  }
+} 
