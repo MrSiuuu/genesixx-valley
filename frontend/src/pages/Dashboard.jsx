@@ -11,7 +11,6 @@ function Dashboard() {
   const { t } = useTranslation();
 
   useEffect(() => {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     if (!loading && !user) {
       navigate('/login');
     }
@@ -31,7 +30,7 @@ function Dashboard() {
   }
 
   if (!user) {
-    return null; // La redirection sera gérée par useEffect
+    return null;
   }
 
   return (
@@ -45,17 +44,17 @@ function Dashboard() {
           {t('common.logout')}
         </button>
       </header>
-      
+
       <div className="dashboard-content">
         <div className="welcome-section">
           <h2>{t('dashboard.welcome', { name: user.name || user.email })}</h2>
           <p>{t('home.subtitle')}</p>
         </div>
-        
+
         <div className="action-section">
-          <button className="btn btn-primary">{t('dashboard.createCV')}</button>
+
         </div>
-        
+
         <div className="cv-list-section">
           <h3>{t('dashboard.myCVs')}</h3>
           <div className="cv-empty-state">
@@ -64,7 +63,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      
+
       <footer className="dashboard-footer">
         <Link to="/" className="home-link">{t('common.home')}</Link>
       </footer>
@@ -72,4 +71,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard; 
+export default Dashboard;
