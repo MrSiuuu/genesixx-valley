@@ -1,14 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import '../styles/dashboard.css';
 
 function Dashboard() {
   const { user, logout, loading } = useAuth();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     if (!loading && !user) {
       navigate('/login');
     }
@@ -28,42 +30,45 @@ function Dashboard() {
   }
 
   if (!user) {
-    return null; // La redirection sera gérée par useEffect
+    return null;
   }
 
   return (
     <div className="dashboard-container">
       <header className="dashboard-header">
-        <h1>Tableau de bord</h1>
+        <div className="header-left">
+          <h1>{t('dashboard.title')}</h1>
+          <LanguageSwitcher />
+        </div>
         <button onClick={handleLogout} className="btn btn-logout">
-          Se déconnecter
+          {t('common.logout')}
         </button>
       </header>
-      
+
       <div className="dashboard-content">
         <div className="welcome-section">
-          <h2>Bienvenue, {user.name || user.email}</h2>
-          <p>Commencez à créer votre CV professionnel dès maintenant.</p>
+          <h2>{t('dashboard.welcome', { name: user.name || user.email })}</h2>
+          <p>{t('home.subtitle')}</p>
         </div>
-        
+
         <div className="action-section">
-          <button className="btn btn-primary">Créer un nouveau CV</button>
+
         </div>
-        
+
         <div className="cv-list-section">
-          <h3>Mes CV</h3>
+          <h3>{t('dashboard.myCVs')}</h3>
           <div className="cv-empty-state">
-            <p>Vous n'avez pas encore créé de CV.</p>
-            <p>Créez votre premier CV pour le voir apparaître ici.</p>
+            <p>{t('dashboard.noCVs')}</p>
+            <p>{t('dashboard.createFirstCV')}</p>
           </div>
         </div>
       </div>
-      
+
       <footer className="dashboard-footer">
-        <Link to="/" className="home-link">Retour à l'accueil</Link>
+        <Link to="/" className="home-link">{t('common.home')}</Link>
       </footer>
     </div>
   );
 }
 
-export default Dashboard; 
+export default Dashboard;

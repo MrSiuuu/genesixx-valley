@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useAdmin } from '../hooks/useAdmin';
 import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import '../styles/home.css';
 
 function Home() {
@@ -9,6 +11,7 @@ function Home() {
   const { isAdmin } = useAdmin();
   const featuresRef = useRef(null);
   const statsRef = useRef(null);
+  const { t } = useTranslation();
   
   // State for counting animations
   const [counting, setCounting] = useState(false);
