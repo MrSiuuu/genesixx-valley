@@ -13,8 +13,6 @@ import AdminRoute from './components/AdminRoute';
 import SetupAdmin from './pages/SetupAdmin';
 import Templates from './pages/Templates';
 import AuthCallback from './pages/AuthCallback';
-import AuthCallback from './pages/AuthCallback';
-import Templates from './pages/Templates';
 
 // Styles
 import './App.css';
