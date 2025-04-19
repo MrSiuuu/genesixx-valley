@@ -35,13 +35,49 @@
   },
   "home": {
     "title": "Générateur de CV",
-    "subtitle": "Créez facilement des CV professionnels",
-    "getStarted": "Commencer",
+    "subtitle": "Créez un CV professionnel qui se démarque",
+    "description": "Générez facilement un CV moderne et une lettre de motivation en quelques minutes",
+    "accessDashboard": "Accéder à mon tableau de bord",
+    "accessAdmin": "Accéder à l'administration",
+    "adminArea": "Espace administrateur",
+    "resumePreview": "Aperçu CV",
+    "discoverMore": "Découvrir plus",
+    "whyChooseUs": "Pourquoi choisir Genesixx Valley ?",
     "features": {
       "title": "Fonctionnalités",
       "easyToUse": "Facile à utiliser",
       "professional": "Résultats professionnels",
-      "customizable": "Entièrement personnalisable"
+      "customizable": "Entièrement personnalisable",
+      "modernDesigns": "Des designs modernes et éprouvés pour mettre en valeur vos compétences",
+      "fastAndSimple": "Rapide et simple",
+      "createQuickly": "Créez un CV parfait en quelques minutes seulement",
+      "easyUpdate": "Mise à jour facile",
+      "modifyAnytime": "Modifiez et téléchargez votre CV à tout moment"
+    },
+    "stats": {
+      "users": "Utilisateurs",
+      "templates": "Templates disponibles",
+      "satisfied": "Clients satisfaits"
+    },
+    "partners": {
+      "title": "Ils nous font confiance",
+      "description": "Des entreprises de renom utilisent nos CV pour recruter leurs talents"
+    },
+    "footer": {
+      "tagline": "Votre partenaire pour une candidature réussie",
+      "product": "Produit",
+      "features": "Fonctionnalités",
+      "templates": "Modèles",
+      "pricing": "Tarifs",
+      "resources": "Ressources",
+      "blog": "Blog",
+      "guides": "Guides",
+      "faq": "FAQ",
+      "company": "Entreprise",
+      "about": "À propos",
+      "contact": "Contact",
+      "legal": "Mentions légales",
+      "rights": "Tous droits réservés."
     }
   },
   "dashboard": {
@@ -76,5 +112,29 @@
     "title": "Modèles de CV",
     "select": "Sélectionner",
     "noTemplates": "Aucun modèle disponible pour le moment."
+  },
+  "cv": {
+    "createTitle": "Créer votre CV",
+    "personalInfo": "Informations personnelles",
+    "fullName": "Nom complet",
+    "email": "Email",
+    "phone": "Téléphone",
+    "address": "Adresse",
+    "title": "Titre professionnel",
+    "titlePlaceholder": "ex: Développeur Web Senior",
+    "education": "Formation",
+    "institution": "Établissement",
+    "degree": "Diplôme",
+    "date": "Date",
+    "description": "Description",
+    "addEducation": "Ajouter une formation",
+    "experience": "Expérience professionnelle",
+    "company": "Entreprise",
+    "position": "Poste",
+    "addExperience": "Ajouter une expérience",
+    "skills": "Compétences",
+    "skillPlaceholder": "ex: JavaScript, React, Node.js",
+    "addSkill": "Ajouter une compétence",
+    "generate": "Générer le CV"
   }
 } 
