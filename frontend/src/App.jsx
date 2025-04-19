@@ -13,6 +13,8 @@ import AdminRoute from './components/AdminRoute';
 import SetupAdmin from './pages/SetupAdmin';
 import Templates from './pages/Templates';
 import AuthCallback from './pages/AuthCallback';
+import AuthCallback from './pages/AuthCallback';
+import Templates from './pages/Templates';
 
 // Styles
 import './App.css';
@@ -27,23 +29,23 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/templates" element={<Templates />} />
-          
+
           {/* Routes d'administration */}
           <Route path="/admin/login" element={<AdminLogin />} />
-          <Route 
-            path="/admin/dashboard" 
+          <Route
+            path="/admin/dashboard"
             element={
               <AdminRoute>
                 <AdminDashboard />
               </AdminRoute>
-            } 
+            }
           />
-          
+
           {/* Route temporaire pour la configuration de l'administrateur */}
           <Route path="/setup-admin" element={<SetupAdmin />} />
-          
+
           <Route path="/auth/callback" element={<AuthCallback />} />
-          
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
@@ -51,4 +53,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;

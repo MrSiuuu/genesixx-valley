@@ -9,13 +9,10 @@ if (!supabaseUrl || !supabaseAnonKey) {
 }
 
 // Configuration de Supabase avec des options supplémentaires
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
-  auth: {
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: true
-  }
-});
+export const supabase = createClient(
+  supabaseUrl || '',
+  supabaseAnonKey || ''
+);
 
 // Vérifier la connexion à Supabase
 supabase.auth.onAuthStateChange((event, session) => {
