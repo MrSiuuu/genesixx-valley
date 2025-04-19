@@ -180,6 +180,65 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const checkUser = async (session) => {
+    if (!session) return null;
+    
+    try {
+      // Vérifier si l'utilisateur existe déjà dans la table profiles
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .single();
+      
+      if (profileError && profileError.code !== 'PGRST116') {
+        console.error('Erreur lors de la vérification du profil:', profileError);
+        return null;
+      }
+      
+      // Si l'utilisateur n'existe pas dans profiles, le créer
+      if (!profile) {
+        const { error: insertError } = await supabase
+          .from('profiles')
+          .insert([
+            {
+              id: session.user.id,
+              email: session.user.email,
+              name: session.user.user_metadata?.full_name || session.user.email,
+              email_confirmed: session.user.email_confirmed || true, // Les utilisateurs Google ont déjà un email confirmé
+              created_at: new Date().toISOString(),
+            },
+          ]);
+        
+        if (insertError) {
+          console.error('Erreur lors de la création du profil:', insertError);
+          return null;
+        }
+        
+        // Récupérer le profil nouvellement créé
+        const { data: newProfile } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', session.user.id)
+          .single();
+        
+        return {
+          ...session.user,
+          ...newProfile,
+        };
+      }
+      
+      // Retourner l'utilisateur avec les données du profil
+      return {
+        ...session.user,
+        ...profile,
+      };
+    } catch (error) {
+      console.error('Erreur lors de la vérification de l\'utilisateur:', error);
+      return null;
+    }
+  };
+
   const value = {
     user,
     login,
