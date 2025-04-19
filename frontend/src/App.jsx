@@ -11,7 +11,8 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
 import SetupAdmin from './pages/SetupAdmin';
-import Templates from './pages/Templates'; // Ajout de l'importation manquante
+import AuthCallback from './pages/AuthCallback';
+import Templates from './pages/Templates';
 
 // Styles
 import './App.css';
