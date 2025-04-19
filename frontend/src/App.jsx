@@ -13,6 +13,7 @@ import AdminRoute from './components/AdminRoute';
 import SetupAdmin from './pages/SetupAdmin';
 import Templates from './pages/Templates';
 import AuthCallback from './pages/AuthCallback';
+import CVForm from './pages/CVForm';
 
 // Styles
 import './App.css';
@@ -43,6 +44,8 @@ function App() {
           <Route path="/setup-admin" element={<SetupAdmin />} />
 
           <Route path="/auth/callback" element={<AuthCallback />} />
+
+          <Route path="/cv/create" element={<CVForm />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>

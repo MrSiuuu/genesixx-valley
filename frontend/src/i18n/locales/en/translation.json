@@ -35,13 +35,49 @@
   },
   "home": {
     "title": "CV Generator",
-    "subtitle": "Easily create professional CVs",
-    "getStarted": "Get Started",
+    "subtitle": "Create a professional CV that stands out",
+    "description": "Easily generate a modern CV and cover letter in just a few minutes",
+    "accessDashboard": "Access my dashboard",
+    "accessAdmin": "Access administration",
+    "adminArea": "Admin area",
+    "resumePreview": "CV Preview",
+    "discoverMore": "Discover more",
+    "whyChooseUs": "Why choose Genesixx Valley?",
     "features": {
       "title": "Features",
       "easyToUse": "Easy to use",
       "professional": "Professional results",
-      "customizable": "Fully customizable"
+      "customizable": "Fully customizable",
+      "modernDesigns": "Modern and proven designs to showcase your skills",
+      "fastAndSimple": "Fast and simple",
+      "createQuickly": "Create a perfect CV in just a few minutes",
+      "easyUpdate": "Easy updates",
+      "modifyAnytime": "Modify and download your CV anytime"
+    },
+    "stats": {
+      "users": "Users",
+      "templates": "Available templates",
+      "satisfied": "Satisfied clients"
+    },
+    "partners": {
+      "title": "They trust us",
+      "description": "Renowned companies use our CVs to recruit their talents"
+    },
+    "footer": {
+      "tagline": "Your partner for a successful application",
+      "product": "Product",
+      "features": "Features",
+      "templates": "Templates",
+      "pricing": "Pricing",
+      "resources": "Resources",
+      "blog": "Blog",
+      "guides": "Guides",
+      "faq": "FAQ",
+      "company": "Company",
+      "about": "About",
+      "contact": "Contact",
+      "legal": "Legal",
+      "rights": "All rights reserved."
     }
   },
   "dashboard": {
@@ -76,5 +112,29 @@
     "title": "CV Templates",
     "select": "Select",
     "noTemplates": "No templates available at the moment."
+  },
+  "cv": {
+    "createTitle": "Create your CV",
+    "personalInfo": "Personal Information",
+    "fullName": "Full Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "title": "Professional Title",
+    "titlePlaceholder": "e.g. Senior Web Developer",
+    "education": "Education",
+    "institution": "Institution",
+    "degree": "Degree",
+    "date": "Date",
+    "description": "Description",
+    "addEducation": "Add Education",
+    "experience": "Work Experience",
+    "company": "Company",
+    "position": "Position",
+    "addExperience": "Add Experience",
+    "skills": "Skills",
+    "skillPlaceholder": "e.g. JavaScript, React, Node.js",
+    "addSkill": "Add Skill",
+    "generate": "Generate CV"
   }
 } 

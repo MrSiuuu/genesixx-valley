@@ -52,7 +52,11 @@ function Dashboard() {
         </div>
 
         <div className="action-section">
-
+          <div className="dashboard-actions">
+            <Link to="/templates" className="btn btn-primary create-cv-btn">
+              {t('dashboard.createCV')}
+            </Link>
+          </div>
         </div>
 
         <div className="cv-list-section">

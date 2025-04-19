@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import '../styles/templates.css';
 
@@ -8,6 +8,7 @@ function Templates() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchTemplates = async () => {
@@ -31,6 +32,10 @@ function Templates() {
         
         fetchTemplates();
     }, []);
+
+    const handleSelectTemplate = (templateId) => {
+        navigate(`/cv/create?template=${templateId}`);
+    };
 
     if (loading) {
         return <div className="loading-container">{t('common.loading')}</div>;
@@ -69,7 +74,10 @@ function Templates() {
                                     className="template-preview"
                                 />
                             )}
-                            <button className="btn btn-select">
+                            <button 
+                                className="btn btn-select"
+                                onClick={() => handleSelectTemplate(template.id)}
+                            >
                                 {t('templates.select')}
                             </button>
                         </div>
