@@ -11,6 +11,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
 import SetupAdmin from './pages/SetupAdmin';
+import Templates from './pages/Templates';
 
 // Styles
 import './App.css';
@@ -24,6 +25,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/templates" element={<Templates />} />
           
           {/* Routes d'administration */}
           <Route path="/admin/login" element={<AdminLogin />} />

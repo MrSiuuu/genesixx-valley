@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - {{name}}</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="cv-container">
+        <header>
+            <h1>{{name}}</h1>
+            <p>Email : {{email}}</p>
+            <p>Téléphone : {{phone}}</p>
+        </header>
+        <main>
+            <section>
+                <h2>Expériences professionnelles</h2>
+                <ul>
+                    {{experiences}}
+                </ul>
+            </section>
+        </main>
+    </div>
+</body>
+
+</html>

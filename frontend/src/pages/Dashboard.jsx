@@ -8,7 +8,6 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
     if (!loading && !user) {
       navigate('/login');
     }
@@ -28,7 +27,7 @@ function Dashboard() {
   }
 
   if (!user) {
-    return null; // La redirection sera gérée par useEffect
+    return null;
   }
 
   return (
@@ -39,17 +38,22 @@ function Dashboard() {
           Se déconnecter
         </button>
       </header>
-      
+
       <div className="dashboard-content">
         <div className="welcome-section">
           <h2>Bienvenue, {user.name || user.email}</h2>
           <p>Commencez à créer votre CV professionnel dès maintenant.</p>
         </div>
-        
+
         <div className="action-section">
-          <button className="btn btn-primary">Créer un nouveau CV</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate('/templates')}
+          >
+            Créer un nouveau CV
+          </button>
         </div>
-        
+
         <div className="cv-list-section">
           <h3>Mes CV</h3>
           <div className="cv-empty-state">
@@ -58,7 +62,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      
+
       <footer className="dashboard-footer">
         <Link to="/" className="home-link">Retour à l'accueil</Link>
       </footer>
@@ -66,4 +70,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard; 
+export default Dashboard;
