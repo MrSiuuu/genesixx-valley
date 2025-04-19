@@ -1,0 +1,75 @@
+{
+  "common": {
+    "welcome": "Bienvenue",
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "logout": "Se déconnecter",
+    "email": "Email",
+    "password": "Mot de passe",
+    "name": "Nom",
+    "submit": "Soumettre",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "back": "Retour",
+    "home": "Accueil"
+  },
+  "auth": {
+    "loginTitle": "Connexion",
+    "registerTitle": "Inscription",
+    "forgotPassword": "Mot de passe oublié ?",
+    "alreadyHaveAccount": "Déjà un compte ?",
+    "dontHaveAccount": "Pas encore de compte ?",
+    "loginSuccess": "Connexion réussie",
+    "registerSuccess": "Inscription réussie",
+    "logoutSuccess": "Déconnexion réussie",
+    "passwordConfirm": "Confirmer le mot de passe",
+    "passwordsDoNotMatch": "Les mots de passe ne correspondent pas",
+    "invalidCredentials": "Email ou mot de passe incorrect",
+    "loginWithGoogle": "Se connecter avec Google",
+    "orContinueWith": "ou continuer avec"
+  },
+  "home": {
+    "title": "Générateur de CV",
+    "subtitle": "Créez facilement des CV professionnels",
+    "getStarted": "Commencer",
+    "features": {
+      "title": "Fonctionnalités",
+      "easyToUse": "Facile à utiliser",
+      "professional": "Résultats professionnels",
+      "customizable": "Entièrement personnalisable"
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bienvenue, {{name}}",
+    "createCV": "Créer un nouveau CV",
+    "myCVs": "Mes CV",
+    "noCVs": "Vous n'avez pas encore créé de CV.",
+    "createFirstCV": "Créez votre premier CV pour le voir apparaître ici."
+  },
+  "admin": {
+    "title": "Tableau de bord d'administration",
+    "usersList": "Liste des utilisateurs",
+    "usersCount": "Liste des utilisateurs ({{count}})",
+    "userName": "Nom",
+    "userEmail": "Email",
+    "registrationDate": "Date d'inscription",
+    "emailConfirmed": "Email confirmé",
+    "actions": "Actions",
+    "confirmEmail": "Confirmer l'email",
+    "yes": "Oui",
+    "no": "Non"
+  },
+  "errors": {
+    "notFound": "Page non trouvée",
+    "notFoundMessage": "La page que vous recherchez n'existe pas.",
+    "serverError": "Erreur serveur",
+    "unauthorized": "Non autorisé",
+    "unauthorizedMessage": "Vous n'avez pas les droits pour accéder à cette page."
+  }
+} 

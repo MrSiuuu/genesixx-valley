@@ -128,4 +128,10 @@
   min-height: 100vh;
   font-size: 1.2rem;
   color: #666;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 } 

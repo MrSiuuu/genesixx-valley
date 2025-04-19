@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabase';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import '../styles/admin.css';
 
 function AdminDashboard() {
-  const [stats, setStats] = useState({
-    totalUsers: 0,
-    newUsers: 0,
-    totalCVs: 0
-  });
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     // Vérifier si l'utilisateur est connecté et est admin
@@ -44,39 +42,18 @@ function AdminDashboard() {
     try {
       setLoading(true);
       
-      // Récupérer les statistiques
+      // Récupérer la liste des utilisateurs
       const { data: usersData, error: usersError } = await supabase
         .from('profiles')
-        .select('*');
+        .select('*')
+        .order('created_at', { ascending: false });
       
       if (usersError) throw usersError;
       
-      // Récupérer les CVs (à adapter selon votre structure de données)
-      const { data: cvsData, error: cvsError } = await supabase
-        .from('cvs')
-        .select('*');
-      
-      if (cvsError) throw cvsError;
-      
-      // Calculer les statistiques
-      const now = new Date();
-      const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-      
-      const newUsersCount = usersData.filter(user => {
-        const createdAt = new Date(user.created_at);
-        return createdAt >= oneWeekAgo;
-      }).length;
-      
-      setStats({
-        totalUsers: usersData.length,
-        newUsers: newUsersCount,
-        totalCVs: cvsData ? cvsData.length : 0
-      });
-      
       setUsers(usersData);
-    } catch (err) {
-      console.error('Erreur lors du chargement des données admin:', err);
-      setError(err.message);
+    } catch (error) {
+      console.error('Erreur lors du chargement des données:', error);
+      setError(error.message);
     } finally {
       setLoading(false);
     }
@@ -89,8 +66,6 @@ function AdminDashboard() {
 
   const confirmUserEmail = async (userId) => {
     try {
-      // Cette opération nécessite normalement des droits d'admin côté serveur
-      // Ici, nous mettons à jour un champ dans la table profiles
       const { error } = await supabase
         .from('profiles')
         .update({ email_confirmed: true })
@@ -98,55 +73,46 @@ function AdminDashboard() {
       
       if (error) throw error;
       
-      // Mettre à jour la liste des utilisateurs
-      setUsers(users.map(user => 
-        user.id === userId 
-          ? { ...user, email_confirmed: true } 
-          : user
-      ));
-    } catch (err) {
-      console.error('Erreur lors de la confirmation de l\'email:', err);
-      setError(err.message);
+      // Recharger les données après la mise à jour
+      loadAdminData();
+    } catch (error) {
+      console.error('Erreur lors de la confirmation de l\'email:', error);
+      setError(error.message);
     }
   };
 
-  if (loading) return <div className="admin-loading">Chargement du tableau de bord...</div>;
-  if (error) return <div className="admin-error">Erreur: {error}</div>;
+  if (loading) {
+    return <div className="admin-loading">Chargement des données...</div>;
+  }
+
+  if (error) {
+    return <div className="admin-error">Erreur: {error}</div>;
+  }
 
   return (
     <div className="admin-dashboard">
       <header className="admin-header">
-        <h1>Tableau de bord d'administration</h1>
-        <button onClick={handleLogout} className="btn-logout">Déconnexion</button>
+        <div className="header-left">
+          <h1>{t('admin.title')}</h1>
+          <LanguageSwitcher />
+        </div>
+        <button onClick={handleLogout} className="btn-logout">
+          {t('common.logout')}
+        </button>
       </header>
       
       <div className="admin-content">
-        <div className="stats-container">
-          <div className="stat-card">
-            <h3>Utilisateurs totaux</h3>
-            <p className="stat-value">{stats.totalUsers}</p>
-          </div>
-          <div className="stat-card">
-            <h3>Nouveaux utilisateurs (7 jours)</h3>
-            <p className="stat-value">{stats.newUsers}</p>
-          </div>
-          <div className="stat-card">
-            <h3>CVs créés</h3>
-            <p className="stat-value">{stats.totalCVs}</p>
-          </div>
-        </div>
-        
         <div className="users-section">
-          <h2>Liste des utilisateurs</h2>
+          <h2>{t('admin.usersCount', { count: users.length })}</h2>
           <div className="table-container">
             <table className="admin-table">
               <thead>
                 <tr>
-                  <th>Nom</th>
-                  <th>Email</th>
-                  <th>Date d'inscription</th>
-                  <th>Email confirmé</th>
-                  <th>Actions</th>
+                  <th>{t('admin.userName')}</th>
+                  <th>{t('admin.userEmail')}</th>
+                  <th>{t('admin.registrationDate')}</th>
+                  <th>{t('admin.emailConfirmed')}</th>
+                  <th>{t('admin.actions')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -155,14 +121,14 @@ function AdminDashboard() {
                     <td>{user.name || '-'}</td>
                     <td>{user.email}</td>
                     <td>{new Date(user.created_at).toLocaleDateString()}</td>
-                    <td>{user.email_confirmed ? 'Oui' : 'Non'}</td>
+                    <td>{user.email_confirmed ? t('admin.yes') : t('admin.no')}</td>
                     <td>
                       {!user.email_confirmed && (
                         <button 
                           onClick={() => confirmUserEmail(user.id)}
                           className="btn-action"
                         >
-                          Confirmer l'email
+                          {t('admin.confirmEmail')}
                         </button>
                       )}
                     </td>
