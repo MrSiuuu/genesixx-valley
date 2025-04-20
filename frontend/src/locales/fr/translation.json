@@ -1,0 +1,18 @@
+{
+  "templates": {
+    "title": "Choisir un modèle",
+    "viewAll": "Voir tous",
+    "viewMore": "Voir plus",
+    "collapse": "Réduire",
+    "use": "Utiliser",
+    "view": "Aperçu"
+  },
+  "search": {
+    "placeholder": "Rechercher un template...",
+    "allCategories": "Toutes les catégories",
+    "professional": "Professionnel",
+    "academic": "Académique",
+    "creative": "Créatif",
+    "noResults": "Aucun résultat trouvé pour votre recherche."
+  }
+} 

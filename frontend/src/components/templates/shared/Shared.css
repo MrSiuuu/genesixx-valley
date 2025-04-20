@@ -113,47 +113,48 @@ section h2 {
 
 /* Education styles */
 .education-item {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: #f8fafc;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.education-item::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #3498db;
+  z-index: 1;
 }
 
 .education-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
+  margin-bottom: 10px;
 }
 
-.education-header h3 {
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 0;
-}
-
-.education-year {
-  color: #64748b;
-  font-size: 0.9rem;
+.education-degree {
+  font-size: 18px;
+  color: #2c3e50;
+  margin: 0 0 5px;
 }
 
 .education-school {
-  color: #334155;
-  margin-bottom: 0.5rem;
   font-weight: 500;
+  color: #3498db;
+  margin-bottom: 5px;
 }
 
-.education-location {
-  color: #64748b;
-  font-size: 0.9rem;
-  margin-left: 0.5rem;
+.education-year-location {
+  font-size: 14px;
+  color: #7f8c8d;
 }
 
 .education-description {
-  color: #475569;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  margin: 0;
+  color: #34495e;
+  line-height: 1.6;
 }
 
 /* Languages styles */
@@ -206,93 +207,89 @@ section h2 {
 
 /* Experience styles */
 .experience-item {
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: #f8fafc;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-bottom: 25px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.experience-item::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #3498db;
+  z-index: 1;
 }
 
 .experience-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
+  margin-bottom: 10px;
 }
 
 .experience-title {
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 0;
+  font-size: 18px;
+  color: #2c3e50;
+  margin: 0 0 5px;
 }
 
 .experience-company {
-  color: #334155;
   font-weight: 500;
+  color: #3498db;
+  margin-bottom: 5px;
 }
 
-.experience-dates {
-  color: #64748b;
-  font-size: 0.9rem;
+.experience-date {
+  font-size: 14px;
+  color: #7f8c8d;
 }
 
 .experience-description {
-  color: #475569;
-  font-size: 0.95rem;
-  line-height: 1.5;
+  margin: 0;
+  color: #34495e;
+  line-height: 1.6;
 }
 
 /* Certificates styles */
-.certificates-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem;
-}
-
 .certificate-item {
-  background: #f8fafc;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-.certificate-header {
+.certificate-name {
+  font-size: 16px;
+  color: #2c3e50;
+  margin: 0 0 10px;
+}
+
+.certificate-details {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 0.5rem;
-}
-
-.certificate-header h3 {
-  font-weight: 600;
-  color: #1a1a1a;
-  margin: 0;
-  font-size: 1.1rem;
-}
-
-.certificate-date {
-  color: #64748b;
-  font-size: 0.9rem;
+  margin-bottom: 10px;
 }
 
 .certificate-issuer {
-  color: #334155;
-  margin-bottom: 0.75rem;
   font-weight: 500;
+  color: #3498db;
+}
+
+.certificate-date {
+  color: #7f8c8d;
+  font-size: 14px;
 }
 
 .certificate-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: #3b82f6;
+  display: inline-block;
+  color: #3498db;
   text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s ease;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .certificate-link:hover {
-  color: #2563eb;
   text-decoration: underline;
 }
 

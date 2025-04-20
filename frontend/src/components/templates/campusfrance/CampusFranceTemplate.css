@@ -153,3 +153,438 @@
     text-align: center;
   }
 }
+
+/* CampusFranceTemplate.css */
+.campusfrance-template {
+  font-family: 'Roboto', 'Arial', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  background-color: white;
+  color: #333;
+  line-height: 1.6;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar */
+.cf-sidebar {
+  width: 30%;
+  background-color: #002654; /* Bleu France */
+  color: white;
+  padding: 30px 20px;
+}
+
+.cf-profile {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cf-profile-photo {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 15px;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cf-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #EF4135; /* Rouge France */
+  font-size: 48px;
+  font-weight: bold;
+}
+
+.cf-name {
+  font-size: 22px;
+  margin: 0 0 5px;
+  font-weight: 600;
+}
+
+.cf-title {
+  font-size: 16px;
+  margin: 0;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.cf-section-title {
+  font-size: 18px;
+  margin: 0 0 15px;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.cf-section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background-color: #EF4135; /* Rouge France */
+}
+
+.cf-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px;
+}
+
+.cf-contact-item {
+  margin-bottom: 12px;
+}
+
+.cf-contact-label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 3px;
+}
+
+.cf-contact-value {
+  font-size: 14px;
+}
+
+.cf-skills-list {
+  margin-bottom: 30px;
+}
+
+.cf-skill-item {
+  margin-bottom: 15px;
+}
+
+.cf-skill-name {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.cf-skill-bar {
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.cf-skill-level {
+  height: 100%;
+  background-color: #EF4135; /* Rouge France */
+}
+
+.cf-languages-list {
+  margin-bottom: 30px;
+}
+
+.cf-language-item {
+  margin-bottom: 15px;
+}
+
+.cf-language-name {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.cf-language-level {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cf-language-proficiency {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.cf-language-dots {
+  display: flex;
+  gap: 3px;
+}
+
+.cf-language-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cf-language-dot.active {
+  background-color: #EF4135; /* Rouge France */
+}
+
+.cf-certificates-section {
+  margin-bottom: 30px;
+}
+
+.cf-certificates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cf-certificate-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 12px;
+  border-radius: 5px;
+}
+
+.cf-certificate-name {
+  margin: 0 0 5px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.cf-certificate-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Main Content */
+.cf-main-content {
+  width: 70%;
+  padding: 30px;
+}
+
+.cf-section {
+  margin-bottom: 30px;
+}
+
+.cf-main-section-title {
+  color: #002654; /* Bleu France */
+  font-size: 20px;
+  margin: 0 0 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  font-weight: 600;
+}
+
+.cf-summary {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.8;
+}
+
+.cf-education-list,
+.cf-experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.cf-education-item,
+.cf-experience-item {
+  position: relative;
+}
+
+.cf-education-header,
+.cf-experience-header {
+  display: flex;
+  gap: 15px;
+}
+
+.cf-education-year-container,
+.cf-experience-date-container {
+  min-width: 80px;
+  text-align: right;
+}
+
+.cf-education-year,
+.cf-experience-dates {
+  font-size: 14px;
+  color: #002654; /* Bleu France */
+  font-weight: 600;
+}
+
+.cf-education-content,
+.cf-experience-content {
+  flex: 1;
+  padding-left: 15px;
+  border-left: 2px solid #e0e0e0;
+}
+
+.cf-education-degree,
+.cf-experience-title {
+  margin: 0 0 5px;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.cf-education-school,
+.cf-experience-company {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+.cf-education-location {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 10px;
+}
+
+.cf-education-description,
+.cf-experience-description {
+  font-size: 14px;
+  color: #555;
+  margin: 10px 0 0;
+}
+
+.cf-projects-list {
+  display: grid;
+  gap: 20px;
+}
+
+.cf-project-item {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  border-left: 3px solid #002654; /* Bleu France */
+}
+
+.cf-project-name {
+  margin: 0 0 10px;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+}
+
+.cf-project-description {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.cf-project-technologies {
+  margin-top: 10px;
+}
+
+.cf-tech-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  margin-right: 5px;
+}
+
+.cf-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+
+.cf-tech-item {
+  background-color: #e0e0e0;
+  color: #333;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+/* Preview mode */
+.preview-mode {
+  font-size: 0.9em;
+}
+
+.preview-mode .cf-sidebar {
+  padding: 20px 15px;
+}
+
+.preview-mode .cf-profile-photo {
+  width: 80px;
+  height: 80px;
+}
+
+.preview-mode .cf-name {
+  font-size: 18px;
+}
+
+.preview-mode .cf-title {
+  font-size: 14px;
+}
+
+.preview-mode .cf-main-content {
+  padding: 20px;
+}
+
+.preview-mode .cf-main-section-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .campusfrance-template {
+    flex-direction: column;
+  }
+  
+  .cf-sidebar,
+  .cf-main-content {
+    width: 100%;
+  }
+  
+  .cf-profile-photo {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .cf-education-header,
+  .cf-experience-header {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .cf-education-year-container,
+  .cf-experience-date-container {
+    text-align: left;
+    min-width: auto;
+  }
+  
+  .cf-education-content,
+  .cf-experience-content {
+    padding-left: 0;
+    border-left: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .campusfrance-template {
+    box-shadow: none;
+  }
+  
+  .cf-sidebar {
+    background-color: #002654 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .cf-photo-placeholder,
+  .cf-section-title::after,
+  .cf-skill-level,
+  .cf-language-dot.active {
+    background-color: #EF4135 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  .cf-main-section-title {
+    color: #002654 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
