@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const Template = require('../models/template');
 
 const router = express.Router();
 
@@ -46,6 +47,84 @@ router.get('/templates', (req, res) => {
         console.error('Erreur lors de la récupération des templates :', error);
         res.status(500).json({ error: 'Erreur lors de la récupération des templates.' });
     }
+});
+
+// Récupérer les templates par catégorie et sous-catégorie
+router.get('/category/:category/subcategory/:subcategory', async (req, res) => {
+  try {
+    const { category, subcategory } = req.params;
+    const { limit, offset } = req.query;
+    
+    const query = { 
+      category, 
+      subcategory 
+    };
+    
+    const options = {};
+    
+    if (limit) {
+      options.limit = parseInt(limit);
+    }
+    
+    if (offset) {
+      options.offset = parseInt(offset);
+    }
+    
+    const templates = await Template.find(query, null, options);
+    const total = await Template.countDocuments(query);
+    
+    res.json({
+      templates,
+      total,
+      limit: limit ? parseInt(limit) : templates.length,
+      offset: offset ? parseInt(offset) : 0
+    });
+  } catch (error) {
+    console.error('Error fetching templates by subcategory:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Récupérer les catégories et sous-catégories disponibles
+router.get('/categories', async (req, res) => {
+  try {
+    const categories = await Template.aggregate([
+      {
+        $group: {
+          _id: {
+            category: "$category",
+            subcategory: "$subcategory"
+          },
+          count: { $sum: 1 }
+        }
+      },
+      {
+        $group: {
+          _id: "$_id.category",
+          subcategories: {
+            $push: {
+              name: "$_id.subcategory",
+              count: "$count"
+            }
+          },
+          totalCount: { $sum: "$count" }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          category: "$_id",
+          subcategories: 1,
+          totalCount: 1
+        }
+      }
+    ]);
+    
+    res.json(categories);
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 });
 
 module.exports = router;

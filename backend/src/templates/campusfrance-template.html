@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus France Template</title>
+  <style>
+    /* Copiez ici le CSS de CampusFranceTemplate.css */
+    .cf-sidebar {
+      background-color: #002654;
+      color: white;
+      /* etc. */
+    }
+    /* ... autres styles ... */
+  </style>
+</head>
+<body>
+  <div class="campusfrance-template">
+    <div class="cf-sidebar">
+      <div class="cf-profile">
+        <div class="cf-profile-photo">
+          <div class="cf-photo-placeholder">
+            <span>{{name.[0]}}</span>
+          </div>
+        </div>
+        <h1 class="cf-name">{{name}}</h1>
+        {{#if title}}<h2 class="cf-title">{{title}}</h2>{{/if}}
+      </div>
+
+      <div class="cf-contact-info">
+        <h3 class="cf-section-title">Contact</h3>
+        <ul class="cf-contact-list">
+          {{#if email}}
+          <li class="cf-contact-item">
+            <span class="cf-contact-icon">✉</span>
+            <span>{{email}}</span>
+          </li>
+          {{/if}}
+          <!-- Ajoutez d'autres informations de contact -->
+        </ul>
+      </div>
+      
+      <!-- Ajoutez d'autres sections de la sidebar -->
+    </div>
+    
+    <div class="cf-main">
+      <!-- Contenu principal du CV -->
+    </div>
+  </div>
+</body>
+</html> 
