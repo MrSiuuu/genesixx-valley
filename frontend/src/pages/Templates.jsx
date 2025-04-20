@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 import '../styles/templates.css';
 
 // Import preview images
@@ -11,6 +12,8 @@ const campusfranceTemplatePreview = `${import.meta.env.VITE_API_URL}/previews/ca
 function Templates() {
     const { t } = useTranslation();
     const navigate = useNavigate();
+    const [previewOpen, setPreviewOpen] = useState(false);
+    const [selectedPreview, setSelectedPreview] = useState(null);
 
     const templates = [
         {
@@ -49,6 +52,16 @@ function Templates() {
         navigate(`/cv/create?template=${templateId}`);
     };
 
+    const handleViewTemplate = (preview) => {
+        setSelectedPreview(preview);
+        setPreviewOpen(true);
+    };
+
+    const closePreview = () => {
+        setPreviewOpen(false);
+        setSelectedPreview(null);
+    };
+
     return (
         <div className="templates-container">
             <header className="templates-header">
@@ -74,12 +87,20 @@ function Templates() {
                                                 className="template-preview"
                                             />
                                             <div className="template-overlay">
-                                                <button
-                                                    className="btn btn-select"
-                                                    onClick={() => handleSelectTemplate(template.id)}
-                                                >
-                                                    {t('templates.select')}
-                                                </button>
+                                                <div className="template-buttons">
+                                                    <button
+                                                        className="btn btn-view"
+                                                        onClick={() => handleViewTemplate(template.preview)}
+                                                    >
+                                                        {t('templates.view')}
+                                                    </button>
+                                                    <button
+                                                        className="btn btn-use"
+                                                        onClick={() => handleSelectTemplate(template.id)}
+                                                    >
+                                                        {t('templates.use')}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="template-info">
@@ -92,6 +113,23 @@ function Templates() {
                     </div>
                 ))}
             </div>
+
+            {/* Preview Modal */}
+            {previewOpen && (
+                <div className="template-preview-modal">
+                    <div className="modal-overlay" onClick={closePreview}></div>
+                    <div className="modal-content">
+                        <button className="modal-close" onClick={closePreview}>×</button>
+                        <div className="modal-body">
+                            <img 
+                                src={selectedPreview} 
+                                alt="Template preview" 
+                                className="full-preview-image" 
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
