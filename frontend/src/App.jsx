@@ -1,3 +1,4 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 
@@ -45,6 +46,10 @@ function App() {
 
           <Route path="/auth/callback" element={<AuthCallback />} />
 
+          {/* Route pour créer un CV avec un template spécifique */}
+          <Route path="/cv/create/:template" element={<CVForm />} />
+          
+          {/* Route par défaut pour créer un CV */}
           <Route path="/cv/create" element={<CVForm />} />
 
           <Route path="*" element={<NotFound />} />

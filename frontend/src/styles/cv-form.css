@@ -298,3 +298,118 @@ input[type="range"]::-webkit-slider-thumb:hover {
   border-radius: 4px;
   margin-bottom: 1rem;
 }
+
+/* Mise en page en deux colonnes pour l'aperçu en direct */
+.split-view {
+  display: flex;
+  gap: 2rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.form-section-container {
+  flex: 1;
+  min-width: 0; /* Empêche le débordement sur les petits écrans */
+}
+
+.preview-section-container {
+  flex: 1;
+  position: sticky;
+  top: 2rem;
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.preview-header {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.preview-header h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+.preview-content {
+  transform: scale(0.8);
+  transform-origin: top center;
+  margin-bottom: -20%; /* Compense la réduction d'échelle */
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.toggle-preview-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.toggle-preview-btn:hover {
+  background-color: #2980b9;
+}
+
+/* Styles responsives */
+@media (max-width: 1200px) {
+  .split-view {
+    flex-direction: column;
+  }
+  
+  .preview-section-container {
+    position: static;
+    max-height: none;
+    margin-top: 2rem;
+  }
+  
+  .preview-content {
+    transform: none;
+    margin-bottom: 0;
+  }
+}
+
+/* Styles pour les formulaires */
+.cv-form {
+  max-width: 100%;
+}
+
+/* Ajustements pour les boutons d'action */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+/* Styles pour les groupes de formulaires */
+.form-group {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.template-info {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  display: inline-block;
+}

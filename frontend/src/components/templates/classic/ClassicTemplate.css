@@ -50,3 +50,306 @@
     font-size: 0.9em;
     color: #555;
 }
+
+.classic-template {
+  font-family: 'Roboto', 'Arial', sans-serif;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px;
+  background-color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  color: #333;
+  line-height: 1.6;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 35px;
+  border-bottom: 3px solid #2980b9;
+  padding-bottom: 25px;
+  position: relative;
+}
+
+.name {
+  font-size: 32px;
+  margin: 0;
+  color: #2c3e50;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 400;
+  color: #3498db;
+  margin: 8px 0 20px;
+  letter-spacing: 0.5px;
+}
+
+.contact-info {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 15px;
+}
+
+.contact-item {
+  color: #34495e;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.contact-item i {
+  color: #3498db;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 22px;
+  color: #2c3e50;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: #3498db;
+}
+
+.summary {
+  line-height: 1.8;
+  color: #34495e;
+  font-size: 16px;
+  text-align: justify;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  bottom: 5px;
+  width: 2px;
+  background-color: #ecf0f1;
+}
+
+.two-column-section {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.column {
+  flex: 1;
+}
+
+.skills-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+
+.skill-item {
+  margin-bottom: 12px;
+}
+
+.skill-name {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.skill-bar {
+  height: 8px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-level {
+  height: 100%;
+  background: linear-gradient(to right, #3498db, #2980b9);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.languages-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.language-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ecf0f1;
+}
+
+.language-name {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.language-level {
+  color: #3498db;
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+.certificates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.projects-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+
+.project-item {
+  padding: 15px;
+  border-left: 3px solid #3498db;
+  background-color: #f9f9f9;
+  border-radius: 0 5px 5px 0;
+}
+
+.project-name {
+  margin: 0 0 10px;
+  color: #2c3e50;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.project-description {
+  margin: 0 0 15px;
+  color: #34495e;
+  font-size: 15px;
+}
+
+.project-technologies {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tech-label {
+  font-weight: 500;
+  color: #2c3e50;
+  font-size: 14px;
+}
+
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tech-tag {
+  background-color: #e1f0fa;
+  color: #3498db;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.footer {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 12px;
+  color: #95a5a6;
+  border-top: 1px solid #ecf0f1;
+  padding-top: 15px;
+}
+
+@media print {
+  .classic-template {
+    box-shadow: none;
+    padding: 0;
+  }
+  
+  .section-title::after {
+    background-color: #000;
+  }
+  
+  .skill-level {
+    background: #000;
+  }
+}
+
+@media (max-width: 768px) {
+  .classic-template {
+    padding: 20px;
+  }
+  
+  .two-column-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .header {
+    padding-bottom: 20px;
+  }
+  
+  .name {
+    font-size: 28px;
+  }
+  
+  .title {
+    font-size: 18px;
+  }
+  
+  .section-title {
+    font-size: 20px;
+  }
+  
+  .certificates-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Styles spécifiques pour le mode aperçu */
+.preview-mode {
+  font-size: 0.9em;
+}
+
+.preview-mode .header {
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.preview-mode .section {
+  margin-bottom: 15px;
+}
+
+.preview-mode .section-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.preview-mode .footer {
+  margin-top: 20px;
+  padding-top: 10px;
+}

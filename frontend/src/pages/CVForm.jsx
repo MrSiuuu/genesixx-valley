@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import ClassicTemplate from '../components/templates/classic/ClassicTemplate';
-import StudentTemplate from '../components/templates/student/StudentTemplate';
 import JobStickerTemplate from '../components/templates/jobsticker/JobStickerTemplate';
 import CampusFranceTemplate from '../components/templates/campusfrance/CampusFranceTemplate';
+import CoverLetterGenerator from '../components/CoverLetterGenerator';
 import '../styles/cv-form.css';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'react-toastify';
 
 const CVForm = () => {
   const { t } = useTranslation();
   const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const templateId = queryParams.get('template');
+  const { template } = useParams();
+  const { user } = useAuth();
+  
+  const selectedTemplate = template || 
+                          (location.search ? new URLSearchParams(location.search).get('template') : 'classic');
 
   const [userData, setUserData] = useState({
     name: '',
@@ -70,6 +75,26 @@ const CVForm = () => {
   });
 
   const [previewMode, setPreviewMode] = useState(false);
+  const [step, setStep] = useState('form');
+  const [coverLetter, setCoverLetter] = useState('');
+  const [livePreview, setLivePreview] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [downloading, setDownloading] = useState(false);
+  const [savedResumeId, setSavedResumeId] = useState(null);
+  const [savedCoverLetterId, setSavedCoverLetterId] = useState(null);
+
+  useEffect(() => {
+    if (step === 'preview') {
+      setPreviewMode(true);
+    } else {
+      setPreviewMode(false);
+    }
+  }, [step]);
+
+  useEffect(() => {
+    console.log('Template parameter:', template);
+    console.log('Selected template:', selectedTemplate);
+  }, [template, selectedTemplate]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -166,8 +191,167 @@ const CVForm = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStep('preview');
+  };
+
+  const handleCVComplete = () => {
+    setStep('coverLetter');
+  };
+
+  const handleCoverLetterComplete = (letter) => {
+    setCoverLetter(letter);
+    setStep('download');
+  };
+
+  const handleSkipCoverLetter = () => {
+    setStep('download');
+  };
+
+  const handleSaveCV = async () => {
+    if (!user) {
+      toast.error("Vous devez être connecté pour sauvegarder votre CV");
+      return;
+    }
+    
+    try {
+      setSaving(true);
+      
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/cv/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userData,
+          templateId: selectedTemplate,
+          userId: user.id
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Erreur lors de la sauvegarde du CV');
+      }
+      
+      const data = await response.json();
+      setSavedResumeId(data.resumeId);
+      toast.success('CV sauvegardé avec succès');
+    } catch (error) {
+      console.error('Erreur:', error);
+      toast.error('Erreur lors de la sauvegarde du CV');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleSaveCoverLetter = async () => {
+    if (!user) {
+      toast.error("Vous devez être connecté pour sauvegarder votre lettre");
+      return;
+    }
+    
+    if (!coverLetter) {
+      toast.error("Aucune lettre de motivation à sauvegarder");
+      return;
+    }
+    
+    try {
+      setSaving(true);
+      
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/cover-letter/save`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          content: coverLetter,
+          userId: user.id,
+          resumeId: savedResumeId
+        })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Erreur lors de la sauvegarde de la lettre');
+      }
+      
+      const data = await response.json();
+      setSavedCoverLetterId(data.coverLetterId);
+      toast.success('Lettre de motivation sauvegardée avec succès');
+    } catch (error) {
+      console.error('Erreur:', error);
+      toast.error('Erreur lors de la sauvegarde de la lettre');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDownloadCV = async () => {
+    try {
+      setDownloading(true);
+      
+      if (savedResumeId) {
+        window.open(`${import.meta.env.VITE_API_URL}/api/cv/download/${savedResumeId}`, '_blank');
+      } else {
+        await handleSaveCV();
+        if (savedResumeId) {
+          window.open(`${import.meta.env.VITE_API_URL}/api/cv/download/${savedResumeId}`, '_blank');
+        }
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      toast.error('Erreur lors du téléchargement du CV');
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  const handleDownloadCoverLetter = async () => {
+    if (!coverLetter) {
+      toast.error("Aucune lettre de motivation à télécharger");
+      return;
+    }
+    
+    try {
+      setDownloading(true);
+      
+      if (savedCoverLetterId) {
+        window.open(`${import.meta.env.VITE_API_URL}/api/cover-letter/download/${savedCoverLetterId}`, '_blank');
+      } else {
+        await handleSaveCoverLetter();
+        if (savedCoverLetterId) {
+          window.open(`${import.meta.env.VITE_API_URL}/api/cover-letter/download/${savedCoverLetterId}`, '_blank');
+        }
+      }
+    } catch (error) {
+      console.error('Erreur:', error);
+      toast.error('Erreur lors du téléchargement de la lettre');
+    } finally {
+      setDownloading(false);
+    }
+  };
+
+  const handleBackToEdit = () => {
+    setStep('form');
+  };
+
+  const toggleLivePreview = () => {
+    setLivePreview(!livePreview);
+  };
+
   const renderForm = () => (
-    <form className="cv-form">
+    <form className="cv-form" onSubmit={handleSubmit}>
+      <div className="form-header">
+        <h1>{t('cvForm.title')}</h1>
+        <button 
+          type="button" 
+          className="toggle-preview-btn"
+          onClick={toggleLivePreview}
+        >
+          {livePreview ? t('cvForm.hidePreview') : t('cvForm.showPreview')}
+        </button>
+      </div>
+
       <div className="form-section">
         <h2>{t('cvForm.personalInfo')}</h2>
         <input
@@ -191,38 +375,32 @@ const CVForm = () => {
           value={userData.phone}
           onChange={handleInputChange}
         />
-        {(templateId === 'student-template' || templateId === 'campusfrance-template') && (
-          <>
-            <input
-              type="text"
-              name="address"
-              placeholder={t('cvForm.address')}
-              value={userData.address}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="photo"
-              placeholder={t('cvForm.photoUrl')}
-              value={userData.photo}
-              onChange={handleInputChange}
-            />
-            <textarea
-              name="objective"
-              placeholder={t('cvForm.objective')}
-              value={userData.objective}
-              onChange={handleInputChange}
-            />
-          </>
-        )}
-        {templateId === 'jobsticker-template' && (
-          <textarea
-            name="summary"
-            placeholder={t('cvForm.summary')}
-            value={userData.summary}
-            onChange={handleInputChange}
-          />
-        )}
+        <input
+          type="text"
+          name="address"
+          placeholder={t('cvForm.address')}
+          value={userData.address}
+          onChange={handleInputChange}
+        />
+        <input
+          type="text"
+          name="photo"
+          placeholder={t('cvForm.photoUrl')}
+          value={userData.photo}
+          onChange={handleInputChange}
+        />
+        <textarea
+          name="objective"
+          placeholder={t('cvForm.objective')}
+          value={userData.objective}
+          onChange={handleInputChange}
+        />
+        <textarea
+          name="summary"
+          placeholder={t('cvForm.summary')}
+          value={userData.summary}
+          onChange={handleInputChange}
+        />
       </div>
 
       <div className="form-section">
@@ -402,96 +580,92 @@ const CVForm = () => {
         </button>
       </div>
 
-      {(templateId === 'student-template' || templateId === 'campusfrance-template') && (
-        <>
-          <div className="form-section">
-            <h2>{t('cvForm.certificates')}</h2>
-            {userData.certificates.map((cert, index) => (
-              <div key={index} className="certificate-form">
-                <input
-                  type="text"
-                  placeholder={t('cvForm.certificateName')}
-                  value={cert.name}
-                  onChange={(e) => handleCertificateChange(index, 'name', e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder={t('cvForm.issuer')}
-                  value={cert.issuer}
-                  onChange={(e) => handleCertificateChange(index, 'issuer', e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder={t('cvForm.date')}
-                  value={cert.date}
-                  onChange={(e) => handleCertificateChange(index, 'date', e.target.value)}
-                />
-                <input
-                  type="url"
-                  placeholder={t('cvForm.certificateUrl')}
-                  value={cert.url}
-                  onChange={(e) => handleCertificateChange(index, 'url', e.target.value)}
-                />
-                {userData.certificates.length > 1 && (
-                  <button 
-                    type="button" 
-                    className="remove-btn"
-                    onClick={() => removeItem('certificates', index)}
-                  >
-                    {t('cvForm.removeCertificate')}
-                  </button>
-                )}
-              </div>
-            ))}
-            <button type="button" onClick={() => addItem('certificates')} className="add-btn">
-              {t('cvForm.addCertificate')}
-            </button>
+      <div className="form-section">
+        <h2>{t('cvForm.certificates')}</h2>
+        {userData.certificates.map((cert, index) => (
+          <div key={index} className="certificate-form">
+            <input
+              type="text"
+              placeholder={t('cvForm.certificateName')}
+              value={cert.name}
+              onChange={(e) => handleCertificateChange(index, 'name', e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder={t('cvForm.issuer')}
+              value={cert.issuer}
+              onChange={(e) => handleCertificateChange(index, 'issuer', e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder={t('cvForm.date')}
+              value={cert.date}
+              onChange={(e) => handleCertificateChange(index, 'date', e.target.value)}
+            />
+            <input
+              type="url"
+              placeholder={t('cvForm.certificateUrl')}
+              value={cert.url}
+              onChange={(e) => handleCertificateChange(index, 'url', e.target.value)}
+            />
+            {userData.certificates.length > 1 && (
+              <button 
+                type="button" 
+                className="remove-btn"
+                onClick={() => removeItem('certificates', index)}
+              >
+                {t('cvForm.removeCertificate')}
+              </button>
+            )}
           </div>
+        ))}
+        <button type="button" onClick={() => addItem('certificates')} className="add-btn">
+          {t('cvForm.addCertificate')}
+        </button>
+      </div>
 
-          <div className="form-section">
-            <h2>{t('cvForm.projects')}</h2>
-            {userData.projects.map((project, index) => (
-              <div key={index} className="project-form">
-                <input
-                  type="text"
-                  placeholder={t('cvForm.projectName')}
-                  value={project.name}
-                  onChange={(e) => handleProjectChange(index, 'name', e.target.value)}
-                />
-                <textarea
-                  placeholder={t('cvForm.projectDescription')}
-                  value={project.description}
-                  onChange={(e) => handleProjectChange(index, 'description', e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder={t('cvForm.technologies')}
-                  value={project.technologies.join(', ')}
-                  onChange={(e) => handleProjectChange(index, 'technologies', e.target.value.split(',').map(tech => tech.trim()))}
-                />
-                {userData.projects.length > 1 && (
-                  <button 
-                    type="button" 
-                    className="remove-btn"
-                    onClick={() => removeItem('projects', index)}
-                  >
-                    {t('cvForm.removeProject')}
-                  </button>
-                )}
-              </div>
-            ))}
-            <button type="button" onClick={() => addItem('projects')} className="add-btn">
-              {t('cvForm.addProject')}
-            </button>
+      <div className="form-section">
+        <h2>{t('cvForm.projects')}</h2>
+        {userData.projects.map((project, index) => (
+          <div key={index} className="project-form">
+            <input
+              type="text"
+              placeholder={t('cvForm.projectName')}
+              value={project.name}
+              onChange={(e) => handleProjectChange(index, 'name', e.target.value)}
+            />
+            <textarea
+              placeholder={t('cvForm.projectDescription')}
+              value={project.description}
+              onChange={(e) => handleProjectChange(index, 'description', e.target.value)}
+            />
+            <input
+              type="text"
+              placeholder={t('cvForm.technologies')}
+              value={project.technologies.join(', ')}
+              onChange={(e) => handleProjectChange(index, 'technologies', e.target.value.split(',').map(tech => tech.trim()))}
+            />
+            {userData.projects.length > 1 && (
+              <button 
+                type="button" 
+                className="remove-btn"
+                onClick={() => removeItem('projects', index)}
+              >
+                {t('cvForm.removeProject')}
+              </button>
+            )}
           </div>
-        </>
-      )}
+        ))}
+        <button type="button" onClick={() => addItem('projects')} className="add-btn">
+          {t('cvForm.addProject')}
+        </button>
+      </div>
 
       <div className="form-actions">
         <Link to="/templates" className="btn btn-back">
           {t('common.back')}
         </Link>
-        <button type="button" onClick={() => setPreviewMode(true)} className="preview-btn">
+        <button type="submit" className="preview-btn">
           {t('cvForm.preview')}
         </button>
       </div>
@@ -499,35 +673,125 @@ const CVForm = () => {
   );
 
   const renderTemplate = () => {
+    console.log('Rendering template:', selectedTemplate);
+    
+    const templateId = selectedTemplate.includes('-template') 
+      ? selectedTemplate 
+      : `${selectedTemplate}-template`;
+    
+    console.log('Template ID for rendering:', templateId);
+    
     switch(templateId) {
-      case 'student-template':
-        return <StudentTemplate userData={userData} />;
       case 'jobsticker-template':
-        return <JobStickerTemplate userData={userData} />;
+        return <JobStickerTemplate userData={userData} previewMode={step === 'form'} />;
       case 'campusfrance-template':
-        return <CampusFranceTemplate userData={userData} />;
+        return <CampusFranceTemplate userData={userData} previewMode={step === 'form'} />;
       case 'cv-template':
+      case 'classic-template':
       default:
-        return <ClassicTemplate userData={userData} />;
+        return <ClassicTemplate userData={userData} previewMode={step === 'form'} />;
     }
   };
 
   return (
-    <div className="cv-form-container">
-      {previewMode ? (
-        <div className="preview-container">
+    <div className={`cv-form-container ${livePreview ? 'split-view' : ''}`}>
+      {step === 'form' && (
+        <>
+          <div className="form-section-container">
+            {renderForm()}
+          </div>
+          {livePreview && (
+            <div className="preview-section-container">
+              <div className="preview-header">
+                <h2>{t('cvForm.livePreview')}</h2>
+                <div className="template-info">
+                  Template: {selectedTemplate}
+                </div>
+              </div>
+              <div className="preview-content">
+                {renderTemplate()}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+      
+      {step === 'preview' && (
+        <div className="cv-preview">
           {renderTemplate()}
           <div className="preview-actions">
-            <button onClick={() => setPreviewMode(false)} className="edit-btn">
+            <button onClick={handleBackToEdit} className="edit-btn">
               {t('cvForm.backToEdit')}
             </button>
-            <button className="save-btn">
-              {t('cvForm.saveAndDownload')}
+            <button onClick={handleCVComplete} className="continue-btn">
+              {t('cvForm.continue')}
             </button>
           </div>
         </div>
-      ) : (
-        renderForm()
+      )}
+      
+      {step === 'coverLetter' && (
+        <CoverLetterGenerator 
+          userData={userData}
+          onComplete={handleCoverLetterComplete}
+          onSkip={handleSkipCoverLetter}
+        />
+      )}
+      
+      {step === 'download' && (
+        <div className="download-section">
+          <h2>{t('download.title') || 'Télécharger vos documents'}</h2>
+          
+          <div className="download-options">
+            <div className="download-card">
+              <h3>CV</h3>
+              <p>{t('download.cvDescription') || 'Téléchargez votre CV au format PDF'}</p>
+              <div className="download-actions">
+                <button 
+                  onClick={handleSaveCV} 
+                  disabled={saving}
+                  className="btn-save"
+                >
+                  {saving ? t('common.saving') : t('common.save')}
+                </button>
+                <button 
+                  onClick={handleDownloadCV}
+                  disabled={downloading}
+                  className="btn-download"
+                >
+                  {downloading ? t('common.downloading') : t('download.downloadCV')}
+                </button>
+              </div>
+            </div>
+            
+            {coverLetter && (
+              <div className="download-card">
+                <h3>{t('coverLetter.title') || 'Lettre de motivation'}</h3>
+                <p>{t('download.letterDescription') || 'Téléchargez votre lettre de motivation au format PDF'}</p>
+                <div className="download-actions">
+                  <button 
+                    onClick={handleSaveCoverLetter} 
+                    disabled={saving}
+                    className="btn-save"
+                  >
+                    {saving ? t('common.saving') : t('common.save')}
+                  </button>
+                  <button 
+                    onClick={handleDownloadCoverLetter}
+                    disabled={downloading}
+                    className="btn-download"
+                  >
+                    {downloading ? t('common.downloading') : t('download.downloadLetter')}
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+          
+          <button onClick={() => setStep('form')} className="btn-new">
+            {t('download.createNew') || 'Créer un nouveau CV'}
+          </button>
+        </div>
       )}
     </div>
   );

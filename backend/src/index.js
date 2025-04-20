@@ -1,10 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const dotenv = require('dotenv');
 const { createClient } = require('@supabase/supabase-js');
 const routes = require('./routes');
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,12 +17,20 @@ if (!supabaseUrl || !supabaseServiceKey) {
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*', // Ou spécifiez votre domaine frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  exposedHeaders: ['Content-Disposition'] // Important pour les téléchargements
+}));
 app.use(express.json());
 
-// Rendre le client Supabase disponible pour les routes
+// Middleware pour initialiser Supabase
 app.use((req, res, next) => {
-  req.supabase = supabase;
+  req.supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_SERVICE_KEY
+  );
   next();
 });
 

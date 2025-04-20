@@ -219,6 +219,35 @@
     "removeProject": "Supprimer le projet",
     "preview": "Aperçu",
     "backToEdit": "Retour à l'édition",
-    "saveAndDownload": "Enregistrer et télécharger"
+    "saveAndDownload": "Enregistrer et télécharger",
+    "continue": "Continuer"
+  },
+  "coverLetter": {
+    "title": "Lettre de motivation",
+    "description": "Voulez-vous générer une lettre de motivation basée sur votre CV ?",
+    "generate": "Générer une lettre de motivation",
+    "skip": "Passer cette étape",
+    "selectTone": "Choisissez un ton pour votre lettre",
+    "generateButton": "Générer la lettre",
+    "regenerate": "Régénérer",
+    "save": "Enregistrer la lettre",
+    "result": "Votre lettre de motivation",
+    "generationError": "Erreur lors de la génération de la lettre",
+    "tones": {
+      "professional": "Professionnel",
+      "student": "Étudiant",
+      "expert": "Expert",
+      "creative": "Créatif",
+      "formal": "Formel",
+      "dynamic": "Dynamique"
+    },
+    "toneDescriptions": {
+      "professional": "Ton standard et équilibré pour la plupart des candidatures",
+      "student": "Idéal pour les étudiants et jeunes diplômés",
+      "expert": "Met en avant votre expertise et votre expérience approfondie",
+      "creative": "Original et distinctif, pour se démarquer",
+      "formal": "Très conventionnel et respectueux des codes",
+      "dynamic": "Énergique et enthousiaste"
+    }
   }
 }

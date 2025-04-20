@@ -219,6 +219,35 @@
     "removeProject": "Remove Project",
     "preview": "Preview",
     "backToEdit": "Back to Edit",
-    "saveAndDownload": "Save and Download"
+    "saveAndDownload": "Save and Download",
+    "continue": "Continue"
+  },
+  "coverLetter": {
+    "title": "Cover Letter",
+    "description": "Would you like to generate a cover letter based on your CV?",
+    "generate": "Generate a cover letter",
+    "skip": "Skip this step",
+    "selectTone": "Choose a tone for your letter",
+    "generateButton": "Generate letter",
+    "regenerate": "Regenerate",
+    "save": "Save letter",
+    "result": "Your cover letter",
+    "generationError": "Error generating the letter",
+    "tones": {
+      "professional": "Professional",
+      "student": "Student",
+      "expert": "Expert",
+      "creative": "Creative",
+      "formal": "Formal",
+      "dynamic": "Dynamic"
+    },
+    "toneDescriptions": {
+      "professional": "Standard and balanced tone for most applications",
+      "student": "Ideal for students and recent graduates",
+      "expert": "Highlights your expertise and in-depth experience",
+      "creative": "Original and distinctive, to stand out",
+      "formal": "Very conventional and respectful of codes",
+      "dynamic": "Energetic and enthusiastic"
+    }
   }
 }

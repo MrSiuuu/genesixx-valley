@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Executive Pro Template</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      background-color: #f8fafc;
+    }
+    
+    .executive-template {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 30px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .exec-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    
+    .exec-name {
+      font-size: 32px;
+      font-weight: 700;
+      color: #1a365d;
+      margin: 0;
+      line-height: 1.2;
+    }
+    
+    .exec-title {
+      font-size: 18px;
+      font-weight: 400;
+      color: #4a5568;
+      margin: 5px 0 0;
+    }
+    
+    .exec-contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .exec-contact-icon {
+      margin-right: 10px;
+      color: #1a365d;
+    }
+    
+    .exec-divider {
+      height: 2px;
+      background-color: #1a365d;
+      margin: 20px 0;
+    }
+    
+    .exec-summary {
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+    
+    .exec-section-title {
+      color: #1a365d;
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 15px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .exec-two-columns {
+      display: flex;
+      gap: 30px;
+    }
+    
+    .exec-main-column {
+      flex: 2;
+    }
+    
+    .exec-side-column {
+      flex: 1;
+    }
+    
+    .exec-section {
+      margin-bottom: 30px;
+    }
+    
+    .exec-experience-item,
+    .exec-education-item {
+      margin-bottom: 20px;
+    }
+    
+    .exec-experience-header,
+    .exec-education-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 5px;
+    }
+    
+    .exec-experience-title,
+    .exec-education-degree {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2d3748;
+      margin: 0;
+    }
+    
+    .exec-experience-dates,
+    .exec-education-year {
+      font-size: 14px;
+      color: #718096;
+    }
+    
+    .exec-experience-company,
+    .exec-education-school {
+      font-size: 16px;
+      font-weight: 500;
+      color: #4a5568;
+      margin-bottom: 5px;
+    }
+    
+    .exec-experience-description,
+    .exec-education-description {
+      font-size: 14px;
+      line-height: 1.6;
+      color: #4a5568;
+      margin: 5px 0 0;
+    }
+    
+    .exec-skills-list,
+    .exec-languages-list,
+    .exec-certificates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .exec-skill-item {
+      margin-bottom: 10px;
+    }
+    
+    .exec-skill-name {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    
+    .exec-skill-bar {
+      height: 8px;
+      background-color: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .exec-skill-level {
+      height: 100%;
+      background-color: #1a365d;
+    }
+    
+    .exec-language-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    
+    .exec-language-name {
+      font-weight: 500;
+    }
+    
+    .exec-language-level {
+      color: #718096;
+    }
+    
+    .exec-certificate-item {
+      margin-bottom: 10px;
+    }
+    
+    .exec-certificate-name {
+      font-size: 16px;
+      font-weight: 500;
+      margin: 0 0 5px;
+    }
+    
+    .exec-certificate-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #718096;
+    }
+    
+    .exec-footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 12px;
+      color: #a0aec0;
+    }
+    
+    @media print {
+      body {
+        background-color: #fff;
+      }
+      
+      .executive-template {
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .exec-header {
+        flex-direction: column;
+      }
+      
+      .exec-header-right {
+        margin-top: 15px;
+      }
+      
+      .exec-two-columns {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="executive-template">
+    <div class="exec-header">
+      <div class="exec-header-left">
+        <h1 class="exec-name">{{name}}</h1>
+        <h2 class="exec-title">{{title}}</h2>
+      </div>
+      <div class="exec-header-right">
+        <div class="exec-contact-item">
+          <span class="exec-contact-icon">✉</span>
+          <span>{{email}}</span>
+        </div>
+        <div class="exec-contact-item">
+          <span class="exec-contact-icon">📱</span>
+          <span>{{phone}}</span>
+        </div>
+        <div class="exec-contact-item">
+          <span class="exec-contact-icon">📍</span>
+          <span>{{address}}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exec-divider"></div>
+
+    <div class="exec-summary">
+      <h3 class="exec-section-title">Profil Professionnel</h3>
+      <p>{{summary}}</p>
+    </div>
+
+    <div class="exec-two-columns">
+      <div class="exec-main-column">
+        <div class="exec-section">
+          <h3 class="exec-section-title">Expérience Professionnelle</h3>
+          {{#each experiences}}
+          <div class="exec-experience-item">
+            <div class="exec-experience-header">
+              <h4 class="exec-experience-title">{{this.title}}</h4>
+              <span class="exec-experience-dates">{{this.startDate}} - {{this.endDate}}</span>
+            </div>
+            <div class="exec-experience-company">{{this.company}}</div>
+            <p class="exec-experience-description">{{this.description}}</p>
+          </div>
+          {{/each}}
+        </div>
+
+        <div class="exec-section">
+          <h3 class="exec-section-title">Formation</h3>
+          {{#each education}}
+          <div class="exec-education-item">
+            <div class="exec-education-header">
+              <h4 class="exec-education-degree">{{this.degree}}</h4>
+              <span class="exec-education-year">{{this.year}}</span>
+            </div>
+            <div class="exec-education-school">{{this.school}}</div>
+            <div class="exec-education-location">{{this.location}}</div>
+            <p class="exec-education-description">{{this.description}}</p>
+          </div>
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="exec-side-column">
+        <div class="exec-section">
+          <h3 class="exec-section-title">Compétences</h3>
+          <div class="exec-skills-list">
+            {{#each skills}}
+            <div class="exec-skill-item">
+              <span class="exec-skill-name">{{this.name}}</span>
+              <div class="exec-skill-bar">
+                <div class="exec-skill-level" style="width: {{this.level}}%;"></div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+
+        <div class="exec-section">
+          <h3 class="exec-section-title">Langues</h3>
+          <div class="exec-languages-list">
+            {{#each languages}}
+            <div class="exec-language-item">
+              <span class="exec-language-name">{{this.name}}</span>
+              <span class="exec-language-level">{{this.level}}</span>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+
+        <div class="exec-section">
+          <h3 class="exec-section-title">Certifications</h3>
+          <div class="exec-certificates-list">
+            {{#each certificates}}
+            <div class="exec-certificate-item">
+              <h4 class="exec-certificate-name">{{this.name}}</h4>
+              <div class="exec-certificate-details">
+                <span class="exec-certificate-issuer">{{this.issuer}}</span>
+                <span class="exec-certificate-date">{{this.date}}</span>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exec-footer">
+      <p>CV généré avec CV Generator - {{currentDate}}</p>
+    </div>
+  </div>
+</body>
+</html> 
