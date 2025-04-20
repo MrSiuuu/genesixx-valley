@@ -1,72 +1,106 @@
 .templates-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 20px;
 }
 
 .templates-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.templates-header h1 {
+    margin: 0;
+    font-size: 2em;
+    color: #333;
 }
 
 .templates-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
 }
 
 .template-card {
-    border: 1px solid #e0e0e0;
+    background: white;
     border-radius: 8px;
-    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .template-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.template-card h3 {
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.template-preview-container {
+    position: relative;
+    width: 100%;
+    padding-top: 141.4%; /* A4 aspect ratio */
+    margin-bottom: 15px;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #f8f9fa;
 }
 
 .template-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    margin: 1rem 0;
-    border: 1px solid #f0f0f0;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
     border-radius: 4px;
+}
+
+.template-description {
+    margin: 0 0 20px 0;
+    color: #666;
+    flex-grow: 1;
 }
 
 .btn-select {
-    margin-top: 1rem;
-    background-color: #4f46e5;
+    background-color: #007bff;
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+    width: 100%;
 }
 
 .btn-select:hover {
-    background-color: #4338ca;
+    background-color: #0056b3;
 }
 
 .btn-back {
-    background-color: #f3f4f6;
-    color: #374151;
-    border: 1px solid #d1d5db;
-    padding: 0.5rem 1rem;
+    padding: 8px 16px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
     border-radius: 4px;
     text-decoration: none;
-    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    transition: background-color 0.2s;
 }
 
 .btn-back:hover {
-    background-color: #e5e7eb;
+    background-color: #5a6268;
 }
 
 .loading-container,
