@@ -134,6 +134,8 @@
   "templates": {
     "title": "Choisir un modèle",
     "select": "Utiliser ce modèle",
+    "view": "Aperçu",
+    "use": "Utiliser ce modèle",
     "classicDescription": "Un modèle élégant et professionnel adapté à tous les secteurs",
     "studentDescription": "Parfait pour les étudiants et jeunes diplômés, mettant en valeur la formation et les compétences",
     "jobstickerDescription": "Moderne et dynamique, idéal pour les professionnels créatifs",

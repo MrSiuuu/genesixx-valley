@@ -134,6 +134,8 @@
   "templates": {
     "title": "Choose a Template",
     "select": "Use this template",
+    "view": "View",
+    "use": "Use this model",
     "classicDescription": "A clean and professional template suitable for any industry",
     "studentDescription": "Perfect for students and recent graduates, highlighting education and skills",
     "jobstickerDescription": "Modern and dynamic, ideal for creative professionals",
