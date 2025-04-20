@@ -1,0 +1,106 @@
+.jobsticker-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.jobsticker-header {
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.summary-section {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.jobsticker-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.main-content {
+  padding-right: 2rem;
+  border-right: 1px solid #e2e8f0;
+}
+
+.side-content {
+  position: relative;
+}
+
+.sticky-sidebar {
+  position: sticky;
+  top: 2rem;
+}
+
+/* Override shared component styles */
+.jobsticker-container .cv-header h1 {
+  font-size: 2.5rem;
+  color: #0f172a;
+  margin-bottom: 1rem;
+}
+
+.jobsticker-container .cv-header p {
+  color: #475569;
+}
+
+.jobsticker-container section h2 {
+  font-size: 1.75rem;
+  color: #0f172a;
+  border-bottom: none;
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.jobsticker-container section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: #3b82f6;
+  border-radius: 2px;
+}
+
+.jobsticker-container .skill-item,
+.jobsticker-container .language-item {
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.jobsticker-container .skill-item:hover,
+.jobsticker-container .language-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .jobsticker-container {
+    padding: 1.5rem;
+  }
+
+  .jobsticker-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .main-content {
+    padding-right: 0;
+    border-right: none;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 2rem;
+  }
+}

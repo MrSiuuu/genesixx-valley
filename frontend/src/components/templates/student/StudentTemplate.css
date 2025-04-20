@@ -1,0 +1,158 @@
+.student-cv-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-cv-sidebar {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.profile-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 1rem;
+  border: 3px solid #3b82f6;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.student-cv-main {
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+}
+
+/* Override shared styles for student template */
+.student-cv-sidebar .cv-skills,
+.student-cv-sidebar .cv-languages,
+.student-cv-sidebar .cv-certificates {
+  margin-bottom: 1.5rem;
+}
+
+.student-cv-sidebar h2 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  border-bottom-color: #3b82f6;
+}
+
+.student-cv-sidebar .skill-item,
+.student-cv-sidebar .language-item {
+  background: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .student-cv-container {
+    grid-template-columns: 1fr;
+  }
+
+  .student-cv-sidebar {
+    order: 2;
+  }
+
+  .student-cv-main {
+    order: 1;
+  }
+}
+
+.student-template {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+.objective-section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #f0f9ff;
+  border-radius: 0.5rem;
+  border-left: 4px solid #3b82f6;
+}
+
+.objective-section h2 {
+  color: #1a1a1a;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1rem 0;
+}
+
+.objective-section p {
+  color: #334155;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.main-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.left-column,
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Print styles */
+@media print {
+  .student-template {
+    box-shadow: none;
+    padding: 0;
+    max-width: none;
+  }
+
+  .main-content {
+    gap: 1rem;
+  }
+
+  section {
+    page-break-inside: avoid;
+  }
+
+  .objective-section {
+    background: #f8fafc;
+    border-left-width: 2px;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .student-template {
+    padding: 1rem;
+  }
+
+  .main-content {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .left-column,
+  .right-column {
+    gap: 1.5rem;
+  }
+}

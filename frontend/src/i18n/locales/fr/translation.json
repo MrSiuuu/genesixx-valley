@@ -3,7 +3,7 @@
     "welcome": "Bienvenue",
     "login": "Se connecter",
     "register": "S'inscrire",
-    "logout": "Se déconnecter",
+    "logout": "Déconnexion",
     "email": "Email",
     "password": "Mot de passe",
     "name": "Nom",
@@ -35,7 +35,7 @@
   },
   "home": {
     "title": "Générateur de CV",
-    "subtitle": "Créez un CV professionnel qui se démarque",
+    "subtitle": "Créez votre CV professionnel en quelques minutes",
     "description": "Générez facilement un CV moderne et une lettre de motivation en quelques minutes",
     "accessDashboard": "Accéder à mon tableau de bord",
     "accessAdmin": "Accéder à l'administration",
@@ -78,15 +78,38 @@
       "contact": "Contact",
       "legal": "Mentions légales",
       "rights": "Tous droits réservés."
-    }
+    },
+    "getStarted": "Commencer",
+    "login": "Connexion"
+  },
+  "login": {
+    "title": "Connexion",
+    "subtitle": "Bienvenue ! Connectez-vous pour continuer.",
+    "email": "Email",
+    "password": "Mot de passe",
+    "submit": "Se connecter",
+    "googleLogin": "Connexion avec Google",
+    "noAccount": "Pas encore de compte ?",
+    "register": "S'inscrire"
+  },
+  "register": {
+    "title": "Inscription",
+    "subtitle": "Créez votre compte pour commencer",
+    "name": "Nom complet",
+    "email": "Email",
+    "password": "Mot de passe",
+    "submit": "Créer un compte",
+    "googleRegister": "S'inscrire avec Google",
+    "hasAccount": "Déjà un compte ?",
+    "login": "Se connecter"
   },
   "dashboard": {
     "title": "Tableau de bord",
-    "welcome": "Bienvenue, {{name}}",
-    "createCV": "Créer un nouveau CV",
-    "myCVs": "Mes CV",
+    "welcome": "Bienvenue, {{name}} !",
+    "createCV": "Créer un CV",
+    "myCVs": "Mes CVs",
     "noCVs": "Vous n'avez pas encore créé de CV.",
-    "createFirstCV": "Créez votre premier CV pour le voir apparaître ici."
+    "createFirstCV": "Créez votre premier CV maintenant !"
   },
   "admin": {
     "title": "Tableau de bord d'administration",
@@ -109,8 +132,12 @@
     "unauthorizedMessage": "Vous n'avez pas les droits pour accéder à cette page."
   },
   "templates": {
-    "title": "Modèles de CV",
-    "select": "Sélectionner",
+    "title": "Choisir un modèle",
+    "select": "Utiliser ce modèle",
+    "classicDescription": "Un modèle élégant et professionnel adapté à tous les secteurs",
+    "studentDescription": "Parfait pour les étudiants et jeunes diplômés, mettant en valeur la formation et les compétences",
+    "jobstickerDescription": "Moderne et dynamique, idéal pour les professionnels créatifs",
+    "campusfranceDescription": "Spécialement conçu pour les candidatures Campus France",
     "noTemplates": "Aucun modèle disponible pour le moment."
   },
   "cv": {
@@ -136,5 +163,60 @@
     "skillPlaceholder": "ex: JavaScript, React, Node.js",
     "addSkill": "Ajouter une compétence",
     "generate": "Générer le CV"
+  },
+  "cvForm": {
+    "personalInfo": "Informations personnelles",
+    "name": "Nom complet",
+    "email": "Email",
+    "phone": "Numéro de téléphone",
+    "address": "Adresse",
+    "photoUrl": "URL de la photo",
+    "objective": "Objectif académique",
+    "summary": "Résumé professionnel",
+    "experiences": "Expérience professionnelle",
+    "jobTitle": "Intitulé du poste",
+    "company": "Entreprise",
+    "startDate": "Date de début",
+    "endDate": "Date de fin",
+    "description": "Description",
+    "addExperience": "Ajouter une expérience",
+    "removeExperience": "Supprimer l'expérience",
+    "education": "Formation",
+    "degree": "Diplôme",
+    "school": "École/Université",
+    "year": "Année",
+    "location": "Lieu",
+    "addEducation": "Ajouter une formation",
+    "removeEducation": "Supprimer la formation",
+    "skills": "Compétences",
+    "skillName": "Nom de la compétence",
+    "addSkill": "Ajouter une compétence",
+    "removeSkill": "Supprimer la compétence",
+    "languages": "Langues",
+    "languageName": "Langue",
+    "languageLevel": "Niveau (ex: B2, C1)",
+    "basic": "Débutant",
+    "intermediate": "Intermédiaire",
+    "advanced": "Avancé",
+    "fluent": "Courant",
+    "native": "Langue maternelle",
+    "addLanguage": "Ajouter une langue",
+    "removeLanguage": "Supprimer la langue",
+    "certificates": "Certifications",
+    "certificateName": "Nom du certificat",
+    "issuer": "Organisme émetteur",
+    "date": "Date",
+    "certificateUrl": "URL du certificat",
+    "addCertificate": "Ajouter une certification",
+    "removeCertificate": "Supprimer la certification",
+    "projects": "Projets académiques",
+    "projectName": "Nom du projet",
+    "projectDescription": "Description du projet",
+    "technologies": "Technologies utilisées (séparées par des virgules)",
+    "addProject": "Ajouter un projet",
+    "removeProject": "Supprimer le projet",
+    "preview": "Aperçu",
+    "backToEdit": "Retour à l'édition",
+    "saveAndDownload": "Enregistrer et télécharger"
   }
-} 
+}

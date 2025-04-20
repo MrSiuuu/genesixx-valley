@@ -1,18 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './Shared.css';
 
 const Experience = ({ experiences }) => {
   return (
-    <section className="cv-experiences">
-      <h2>Expériences professionnelles</h2>
-      <ul>
+    <section className="cv-experience">
+      <h2>Expérience Professionnelle</h2>
+      <div className="experience-list">
         {experiences.map((exp, index) => (
-          <li key={index}>
-            <strong>{exp.title}</strong> - {exp.company} ({exp.startDate} - {exp.endDate})
-            <p>{exp.description}</p>
-          </li>
+          <div key={index} className="experience-item">
+            <div className="experience-header">
+              <div className="experience-title-group">
+                <h3 className="experience-title">{exp.title}</h3>
+                <div className="experience-company">{exp.company}</div>
+              </div>
+              <div className="experience-dates">
+                {exp.startDate} - {exp.endDate || 'Present'}
+              </div>
+            </div>
+            {exp.description && (
+              <p className="experience-description">{exp.description}</p>
+            )}
+            {exp.achievements && exp.achievements.length > 0 && (
+              <ul className="experience-achievements">
+                {exp.achievements.map((achievement, idx) => (
+                  <li key={idx}>{achievement}</li>
+                ))}
+              </ul>
+            )}
+          </div>
         ))}
-      </ul>
+      </div>
     </section>
   );
 };
@@ -23,10 +41,11 @@ Experience.propTypes = {
       title: PropTypes.string.isRequired,
       company: PropTypes.string.isRequired,
       startDate: PropTypes.string.isRequired,
-      endDate: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
+      endDate: PropTypes.string,
+      description: PropTypes.string,
+      achievements: PropTypes.arrayOf(PropTypes.string)
     })
-  ).isRequired,
+  ).isRequired
 };
 
 export default Experience;
