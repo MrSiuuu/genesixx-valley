@@ -34,8 +34,8 @@
     "orContinueWith": "or continue with"
   },
   "home": {
-    "title": "CV Generator",
-    "subtitle": "Create a professional CV that stands out",
+    "title": "CV Builder",
+    "subtitle": "Create your professional CV in minutes",
     "description": "Easily generate a modern CV and cover letter in just a few minutes",
     "accessDashboard": "Access my dashboard",
     "accessAdmin": "Access administration",
@@ -78,15 +78,38 @@
       "contact": "Contact",
       "legal": "Legal",
       "rights": "All rights reserved."
-    }
+    },
+    "getStarted": "Get Started",
+    "login": "Login"
+  },
+  "login": {
+    "title": "Login",
+    "subtitle": "Welcome back! Please sign in to continue.",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Sign In",
+    "googleLogin": "Login with Google",
+    "noAccount": "Don't have an account?",
+    "register": "Register"
+  },
+  "register": {
+    "title": "Register",
+    "subtitle": "Create your account to get started",
+    "name": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Create Account",
+    "googleRegister": "Register with Google",
+    "hasAccount": "Already have an account?",
+    "login": "Login"
   },
   "dashboard": {
     "title": "Dashboard",
-    "welcome": "Welcome, {{name}}",
-    "createCV": "Create a new CV",
+    "welcome": "Welcome, {{name}}!",
+    "createCV": "Create CV",
     "myCVs": "My CVs",
     "noCVs": "You haven't created any CVs yet.",
-    "createFirstCV": "Create your first CV to see it here."
+    "createFirstCV": "Create your first CV now!"
   },
   "admin": {
     "title": "Admin Dashboard",
@@ -109,8 +132,12 @@
     "unauthorizedMessage": "You do not have permission to access this page."
   },
   "templates": {
-    "title": "CV Templates",
-    "select": "Select",
+    "title": "Choose a Template",
+    "select": "Use this template",
+    "classicDescription": "A clean and professional template suitable for any industry",
+    "studentDescription": "Perfect for students and recent graduates, highlighting education and skills",
+    "jobstickerDescription": "Modern and dynamic, ideal for creative professionals",
+    "campusfranceDescription": "Specially designed for Campus France applications",
     "noTemplates": "No templates available at the moment."
   },
   "cv": {
@@ -136,5 +163,60 @@
     "skillPlaceholder": "e.g. JavaScript, React, Node.js",
     "addSkill": "Add Skill",
     "generate": "Generate CV"
+  },
+  "cvForm": {
+    "personalInfo": "Personal Information",
+    "name": "Full Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "address": "Address",
+    "photoUrl": "Photo URL",
+    "objective": "Academic Objective",
+    "summary": "Professional Summary",
+    "experiences": "Professional Experience",
+    "jobTitle": "Job Title",
+    "company": "Company",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "description": "Description",
+    "addExperience": "Add Experience",
+    "removeExperience": "Remove Experience",
+    "education": "Education",
+    "degree": "Degree/Diploma",
+    "school": "School/University",
+    "year": "Year",
+    "location": "Location",
+    "addEducation": "Add Education",
+    "removeEducation": "Remove Education",
+    "skills": "Skills",
+    "skillName": "Skill Name",
+    "addSkill": "Add Skill",
+    "removeSkill": "Remove Skill",
+    "languages": "Languages",
+    "languageName": "Language",
+    "languageLevel": "Level (e.g., B2, C1)",
+    "basic": "Basic",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "fluent": "Fluent",
+    "native": "Native",
+    "addLanguage": "Add Language",
+    "removeLanguage": "Remove Language",
+    "certificates": "Certifications",
+    "certificateName": "Certificate Name",
+    "issuer": "Issuing Organization",
+    "date": "Date",
+    "certificateUrl": "Certificate URL",
+    "addCertificate": "Add Certificate",
+    "removeCertificate": "Remove Certificate",
+    "projects": "Academic Projects",
+    "projectName": "Project Name",
+    "projectDescription": "Project Description",
+    "technologies": "Technologies Used (comma-separated)",
+    "addProject": "Add Project",
+    "removeProject": "Remove Project",
+    "preview": "Preview",
+    "backToEdit": "Back to Edit",
+    "saveAndDownload": "Save and Download"
   }
-} 
+}
