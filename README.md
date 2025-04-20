@@ -5,4 +5,6 @@ Genesixx valley
 
 
 
-
+installer puppeteer
+backend 
+  npm install puppeteer
