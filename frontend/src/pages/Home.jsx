@@ -143,10 +143,6 @@ function Home() {
                 <Link to="/register" className="btn btn-secondary">
                   {t('common.register')}
                 </Link>
-                
-                <Link to="/admin/login" className="link-admin">
-                  {t('home.adminArea')}
-                </Link>
               </motion.div>
             )}
           </div>
