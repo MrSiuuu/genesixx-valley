@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 const router = express.Router();
 
-// Route pour intégrer le SDK Seamless de CinetPay
 router.get('/seamless', (req, res) => {
     const { id } = req.query;
 
@@ -15,7 +14,7 @@ router.get('/seamless', (req, res) => {
     const templatesPath = path.join(__dirname, '../prices/prices.json');
     const templates = JSON.parse(fs.readFileSync(templatesPath, 'utf-8'));
 
-    // Vérification du prix du template
+    // Vérification du template
     const template = templates.find((t) => t.id === id);
     if (!template) {
         return res.status(404).send('Template non trouvé.');
@@ -87,6 +86,12 @@ router.get('/seamless', (req, res) => {
                         return;
                     }
 
+                    const price = ${JSON.stringify(template.prices)}[countryData.currency];
+                    if (!price) {
+                        alert('Prix non disponible pour ce pays.');
+                        return;
+                    }
+
                     CinetPay.setConfig({
                         apikey: countryData.api_key, // Clé API spécifique au pays
                         site_id: countryData.site_id, // Site ID correspondant au pays
@@ -95,7 +100,7 @@ router.get('/seamless', (req, res) => {
                     });
                     CinetPay.getCheckout({
                         transaction_id: Math.floor(Math.random() * 100000000).toString(),
-                        amount: ${template.price}, // Montant du paiement
+                        amount: price, // Montant du paiement
                         currency: countryData.currency, // Devise correspondant au pays
                         description: 'Achat du template ${id}',
                         customer_country: selectedCountry, // Pays sélectionné
