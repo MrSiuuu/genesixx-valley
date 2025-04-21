@@ -9,6 +9,7 @@ import { fr } from 'date-fns/locale';
 import { toast } from 'react-toastify';
 import { supabase } from '../services/supabase';
 import ConfirmModal from '../components/ConfirmModal';
+import ProfileNotification from '../components/ProfileNotification';
 
 function Dashboard() {
   const { user, logout, loading } = useAuth();
@@ -22,6 +23,7 @@ function Dashboard() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState(null);
   const [deleteType, setDeleteType] = useState(null); // 'cv' ou 'letter'
+  const [isProfileComplete, setIsProfileComplete] = useState(true);
 
   useEffect(() => {
     if (!loading && !user) navigate('/login');
@@ -48,6 +50,33 @@ function Dashboard() {
     };
 
     fetchData();
+  }, [user]);
+
+  useEffect(() => {
+    // Vérifier si le profil est complet
+    const checkProfileCompletion = async () => {
+      if (!user) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from('profiles')
+          .select('name, country, birth_date, gender, city, user_type, profile_completed')
+          .eq('id', user.id)
+          .single();
+          
+        if (error) throw error;
+        
+        // Vérifier si tous les champs requis sont remplis ou si profile_completed est true
+        const isComplete = data.profile_completed || 
+          (data.name && data.country && data.birth_date && data.gender && data.city && data.user_type);
+          
+        setIsProfileComplete(isComplete);
+      } catch (err) {
+        console.error('Erreur lors de la vérification du profil:', err);
+      }
+    };
+    
+    checkProfileCompletion();
   }, [user]);
 
   const handleLogout = async () => {
@@ -120,8 +149,8 @@ function Dashboard() {
           <li className="nav-item active"><Link to="/dashboard" className="nav-link">📊 Accueil</Link></li>
           <li className="nav-item"><Link to="/dashboard" className="nav-link">📄 Mes CVs</Link></li>
           <li className="nav-item"><Link to="/dashboard" className="nav-link">✉️ Lettres</Link></li>
-          <li className="nav-item"><Link to="/profile" className="nav-link">👤 Mon compte</Link></li>
-          <li className="nav-item"><Link to="/support" className="nav-link">📞 Contact</Link></li>
+          <li className="nav-item"><Link to="/profile/edit" className="nav-link">👤 Mon compte</Link></li>
+          <li className="nav-item"><Link to="/contact" className="nav-link">📞 Contact</Link></li>
         </ul>
         <div className="sidebar-footer">
           <button onClick={handleLogout} className="logout-btn">🚪 Déconnexion</button>
@@ -144,6 +173,8 @@ function Dashboard() {
             </div>
           </div>
         </div>
+
+        <ProfileNotification isProfileComplete={isProfileComplete} />
 
         <div className="stats-container">
           <div className="stat-card">

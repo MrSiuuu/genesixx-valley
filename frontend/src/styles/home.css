@@ -935,7 +935,8 @@
   max-height: 100%;
   max-width: 100%;
   object-fit: contain;
-  filter: grayscale(100%);
+  /* filter to add gray color on logo */
+  /* filter: grayscale(100%); */
   transition: filter 0.3s;
 }
 

@@ -54,6 +54,50 @@
       "easyUpdate": "Mise à jour facile",
       "modifyAnytime": "Modifiez et téléchargez votre CV à tout moment"
     },
+    "testimonials": {
+      "title": "Ce que disent nos utilisateurs",
+      "description": "Rejoignez des milliers d'utilisateurs satisfaits qui ont trouvé leur emploi de rêve avec Genesixx Valley.",
+      "quote1": {
+        "jobTitle": "Étudiant en politique",
+        "testimonial": "La possibilité de mettre à jour rapidement mon CV pour différentes candidatures a été inestimable. Les designs sont propres, modernes et m'ont aidé à me démarquer des autres candidats."
+      },
+      "quote2": {
+        "jobTitle": "Étudiant en Informatique",
+        "testimonial": "Genesixx Valley m'a permis de créer un CV qui reflète vraiment mes compétences et mon expérience. J'ai reçu de nombreux compliments sur le design."
+      },
+      "quote3": {
+        "jobTitle": "Étudiant en Marketing Digitale",
+        "testimonial": "Le générateur de CV est incroyablement facile à utiliser. J'ai pu créer un CV professionnel en quelques clics. Je le recommande à tous mes amis !"
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "subTitle": "Vous avez des questions ? Nous avons les réponses.",
+      "question1": {
+        "question": "Comment fonctionne Genesixx Valley ?",
+        "answer": "Genesixx Valley vous permet de créer un CV et une lettre de motivation en quelques minutes. Il vous suffit de remplir vos informations personnelles, votre formation et votre expérience professionnelle, et nous générons un CV professionnel pour vous."
+      },
+      "question2": {
+        "question": "Est-ce que Genesixx Valley est gratuit ?",
+        "answer": "Oui, Genesixx Valley est entièrement gratuit. Vous pouvez créer et télécharger votre CV sans frais."
+      },
+      "question3": {
+        "question": "Puis-je modifier mon CV après l'avoir créé ?",
+        "answer": "Oui, vous pouvez modifier votre CV à tout moment. Il vous suffit de vous connecter à votre compte et de mettre à jour vos informations."
+      },
+      "question4": {
+        "question": "Quels types de CV puis-je créer ?",
+        "answer": "Vous pouvez créer différents types de CV, y compris des CV pour étudiants, professionnels et pour des candidatures spécifiques comme Campus France."
+      },
+      "question5": {
+        "question": "Comment puis-je contacter le support ?",
+        "answer": "Vous pouvez nous contacter via notre page de contact ou par email à"
+      },
+      "question6": {
+        "question": "Est-ce que Genesixx Valley est sécurisé ?",
+        "answer": "Oui, nous prenons la sécurité de vos données très au sérieux. Toutes vos informations sont stockées en toute sécurité et ne seront jamais partagées avec des tiers."
+      }
+    },
     "stats": {
       "users": "Utilisateurs",
       "templates": "Templates disponibles",

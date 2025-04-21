@@ -114,6 +114,9 @@ function Login() {
           <Link to="/register" className="auth-link">
             {t('auth.dontHaveAccount')}
           </Link>
+          <Link to="/forgot-password" className="auth-link">
+            {t('auth.forgotPassword')}
+          </Link>
         </div>
       </div>
     </div>

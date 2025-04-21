@@ -17,6 +17,10 @@ import SetupAdmin from './pages/SetupAdmin';
 import Templates from './pages/Templates';
 import AuthCallback from './pages/AuthCallback';
 import CVForm from './pages/CVForm';
+import ProfileEdit from './pages/ProfileEdit';
+import Contact from './pages/Contact';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 // Styles
 import './App.css';
@@ -53,6 +57,13 @@ function App() {
           
           {/* Route par défaut pour créer un CV */}
           <Route path="/cv/create" element={<CVForm />} />
+
+          <Route path="/profile/edit" element={<ProfileEdit />} />
+
+          <Route path="/contact" element={<Contact />} />
+
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
