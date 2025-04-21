@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tech Template</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #1e293b;
+      margin: 0;
+      padding: 0;
+    }
+
+    .tech-template {
+      background: #ffffff;
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      box-shadow: none;
+    }
+
+    .tech-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #1e293b;
+      color: #ffffff;
+      padding: 2rem;
+    }
+
+    .tech-name {
+      font-size: 2rem;
+      margin: 0;
+    }
+
+    .tech-title {
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      color: #cbd5e1;
+    }
+
+    .tech-photo-placeholder {
+      width: 120px;
+      height: 120px;
+      background-color: #cbd5e1;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #1e293b;
+      font-weight: bold;
+    }
+
+    .tech-layout {
+      display: flex;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .tech-left {
+      flex: 2;
+    }
+
+    .tech-right {
+      flex: 1;
+      background-color: #f8fafc;
+      padding: 1.5rem;
+      border-radius: 8px;
+    }
+
+    .tech-section {
+      margin-bottom: 2rem;
+    }
+
+    .tech-section-title {
+      font-size: 1.1rem;
+      border-bottom: 2px solid #1e293b;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    .tech-box {
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+    }
+
+    .tech-muted {
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+
+    .tech-list {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .tech-list li {
+      margin-bottom: 0.8rem;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+  <div class="tech-template">
+    <div class="tech-banner">
+      <div>
+        <h1 class="tech-name">{{name}}</h1>
+        <p class="tech-title">{{title}}</p>
+      </div>
+      <div class="tech-photo-placeholder">{{name.[0]}}</div>
+    </div>
+
+    <div class="tech-layout">
+      <div class="tech-left">
+        {{#if summary}}
+        <div class="tech-section">
+          <h3 class="tech-section-title">Personal Profile</h3>
+          <p>{{summary}}</p>
+        </div>
+        {{/if}}
+
+        {{#if experiences.length}}
+        <div class="tech-section">
+          <h3 class="tech-section-title">Work Experience</h3>
+          {{#each experiences}}
+          <div class="tech-box">
+            <h4>{{this.title}}</h4>
+            <p class="tech-muted">{{this.company}} | {{this.startDate}} - {{this.endDate}}</p>
+            <p>{{this.description}}</p>
+          </div>
+          {{/each}}
+        </div>
+        {{/if}}
+
+        {{#if education.length}}
+        <div class="tech-section">
+          <h3 class="tech-section-title">Educational History</h3>
+          {{#each education}}
+          <div class="tech-box">
+            <h4>{{this.degree}}</h4>
+            <p class="tech-muted">{{this.school}} | {{this.year}}</p>
+            <p>{{this.description}}</p>
+          </div>
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+
+      <div class="tech-right">
+        <div class="tech-section">
+          <h3 class="tech-section-title">Contact Me At</h3>
+          <ul class="tech-list">
+            {{#if phone}}<li>📞 {{phone}}</li>{{/if}}
+            {{#if email}}<li>✉ {{email}}</li>{{/if}}
+            {{#if address}}<li>📍 {{address}}</li>{{/if}}
+          </ul>
+        </div>
+
+        {{#if skills.length}}
+        <div class="tech-section">
+          <h3 class="tech-section-title">Skills Summary</h3>
+          <ul class="tech-list">
+            {{#each skills}}
+              <li>{{this.name}}</li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/if}}
+
+        {{#if awards.length}}
+        <div class="tech-section">
+          <h3 class="tech-section-title">Awards Received</h3>
+          <ul class="tech-list">
+            {{#each awards}}
+              <li><strong>{{this.name}}</strong><br /><span class="tech-muted">{{this.issuer}} ({{this.year}})</span></li>
+            {{/each}}
+          </ul>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

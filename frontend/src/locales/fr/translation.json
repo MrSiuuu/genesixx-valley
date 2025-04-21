@@ -14,5 +14,11 @@
     "academic": "Académique",
     "creative": "Créatif",
     "noResults": "Aucun résultat trouvé pour votre recherche."
+  },
+  "coverLetter": {
+    "jobTitle": "Titre du poste",
+    "jobTitlePlaceholder": "Ex: Développeur Web",
+    "company": "Entreprise",
+    "companyPlaceholder": "Ex: Acme Inc."
   }
 } 

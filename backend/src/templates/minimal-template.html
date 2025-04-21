@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Minimal</title>
+  <style>
+    body {
+      font-family: 'Roboto', 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .minimal-template {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .minimal-header {
+      text-align: center;
+      margin-bottom: 35px;
+      padding-bottom: 25px;
+      position: relative;
+    }
+    
+    .minimal-name {
+      font-size: 32px;
+      margin: 0;
+      color: #2c3e50;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+    
+    .minimal-title {
+      font-size: 20px;
+      font-weight: 400;
+      color: #7f8c8d;
+      margin: 8px 0 20px;
+      letter-spacing: 0.5px;
+    }
+    
+    .minimal-contact-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 15px;
+    }
+    
+    .minimal-contact-item {
+      color: #7f8c8d;
+    }
+    
+    .minimal-section {
+      margin-bottom: 30px;
+    }
+    
+    .minimal-section-title {
+      font-size: 22px;
+      color: #2c3e50;
+      margin: 0 0 20px;
+      position: relative;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #ecf0f1;
+    }
+    
+    .minimal-summary {
+      font-size: 16px;
+      color: #34495e;
+      line-height: 1.7;
+    }
+    
+    .minimal-experience-item {
+      margin-bottom: 20px;
+    }
+    
+    .minimal-experience-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+    
+    .minimal-experience-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0;
+    }
+    
+    .minimal-experience-date {
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+    
+    .minimal-experience-company {
+      font-size: 16px;
+      color: #34495e;
+      margin: 0 0 5px;
+    }
+    
+    .minimal-experience-description {
+      color: #34495e;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    
+    .minimal-two-columns {
+      display: flex;
+      gap: 30px;
+    }
+    
+    .minimal-column {
+      flex: 1;
+    }
+    
+    .minimal-skills-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .minimal-skill-item {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .minimal-skill-name {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .minimal-skill-bar {
+      height: 6px;
+      background-color: #ecf0f1;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    
+    .minimal-skill-level {
+      height: 100%;
+      background-color: #3498db;
+    }
+    
+    .minimal-languages-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .minimal-language-item {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .minimal-language-name {
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .minimal-language-level {
+      color: #7f8c8d;
+    }
+    
+    .minimal-footer {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ecf0f1;
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="minimal-template">
+    <div class="minimal-header">
+      <h1 class="minimal-name">{{name}}</h1>
+      {{#if title}}<p class="minimal-title">{{title}}</p>{{/if}}
+      <div class="minimal-contact-info">
+        {{#if email}}<span class="minimal-contact-item">{{email}}</span>{{/if}}
+        {{#if phone}}<span class="minimal-contact-item">{{phone}}</span>{{/if}}
+        {{#if address}}<span class="minimal-contact-item">{{address}}</span>{{/if}}
+      </div>
+    </div>
+
+    {{#if summary}}
+    <div class="minimal-section">
+      <h2 class="minimal-section-title">Profil</h2>
+      <p class="minimal-summary">{{summary}}</p>
+    </div>
+    {{/if}}
+
+    {{#if experiences}}
+    <div class="minimal-section">
+      <h2 class="minimal-section-title">Expérience professionnelle</h2>
+      <div class="minimal-experiences-container">
+        {{#each experiences}}
+        <div class="minimal-experience-item">
+          <div class="minimal-experience-header">
+            <h3 class="minimal-experience-title">{{this.title}}</h3>
+            <span class="minimal-experience-date">
+              {{this.startDate}} - {{#if this.endDate}}{{this.endDate}}{{else}}Présent{{/if}}
+            </span>
+          </div>
+          <p class="minimal-experience-company">{{this.company}}</p>
+          <p class="minimal-experience-description">{{this.description}}</p>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if education}}
+    <div class="minimal-section">
+      <h2 class="minimal-section-title">Formation</h2>
+      <div class="minimal-education-container">
+        {{#each education}}
+        <div class="minimal-education-item">
+          <div class="minimal-education-header">
+            <h3 class="minimal-education-degree">{{this.degree}}</h3>
+            <span class="minimal-education-year">{{this.year}}</span>
+          </div>
+          <p class="minimal-education-school">{{this.school}}</p>
+          {{#if this.description}}
+          <p class="minimal-education-description">{{this.description}}</p>
+          {{/if}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="minimal-two-columns">
+      <div class="minimal-column">
+        {{#if skills}}
+        <div class="minimal-section">
+          <h2 class="minimal-section-title">Compétences</h2>
+          <div class="minimal-skills-container">
+            {{#each skills}}
+            <div class="minimal-skill-item">
+              <span class="minimal-skill-name">{{this.name}}</span>
+              {{#if this.level}}
+              <div class="minimal-skill-bar">
+                <div class="minimal-skill-level" style="width: {{this.level}}%;"></div>
+              </div>
+              {{/if}}
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/if}}
+      </div>
+
+      <div class="minimal-column">
+        {{#if languages}}
+        <div class="minimal-section">
+          <h2 class="minimal-section-title">Langues</h2>
+          <div class="minimal-languages-container">
+            {{#each languages}}
+            <div class="minimal-language-item">
+              <span class="minimal-language-name">{{this.name}}</span>
+              {{#if this.level}}<span class="minimal-language-level">{{this.level}}</span>{{/if}}
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+
+    {{#if certificates}}
+    <div class="minimal-section">
+      <h2 class="minimal-section-title">Certifications</h2>
+      <div class="minimal-certificates-container">
+        {{#each certificates}}
+        <div class="minimal-certificate-item">
+          <h3 class="minimal-certificate-name">{{this.name}}</h3>
+          <div class="minimal-certificate-details">
+            <span class="minimal-certificate-issuer">{{this.issuer}}</span>
+            {{#if this.date}}<span class="minimal-certificate-date">{{this.date}}</span>{{/if}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if projects}}
+    <div class="minimal-section">
+      <h2 class="minimal-section-title">Projets</h2>
+      <div class="minimal-projects-container">
+        {{#each projects}}
+        <div class="minimal-project-item">
+          <h3 class="minimal-project-name">{{this.name}}</h3>
+          <p class="minimal-project-description">{{this.description}}</p>
+          {{#if this.technologies}}
+          <div class="minimal-project-technologies">
+            <span class="minimal-tech-label">Technologies :</span>
+            <div class="minimal-tech-tags">
+              {{#each this.technologies}}
+              <span class="minimal-tech-tag">{{this}}</span>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="minimal-footer">
+      <p>CV généré avec CV Generator - {{currentDate}}</p>
+    </div>
+  </div>
+</body>
+</html> 

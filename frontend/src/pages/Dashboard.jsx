@@ -6,6 +6,9 @@ import LanguageSwitcher from '../components/LanguageSwitcher';
 import '../styles/dashboard.css';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { toast } from 'react-toastify';
+import { supabase } from '../services/supabase';
+import ConfirmModal from '../components/ConfirmModal';
 
 function Dashboard() {
   const { user, logout, loading } = useAuth();
@@ -14,170 +17,236 @@ function Dashboard() {
   const [resumes, setResumes] = useState([]);
   const [coverLetters, setCoverLetters] = useState([]);
   const [loadingResumes, setLoadingResumes] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('cvs'); // 'cvs' ou 'letters'
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [itemToDelete, setItemToDelete] = useState(null);
+  const [deleteType, setDeleteType] = useState(null); // 'cv' ou 'letter'
 
   useEffect(() => {
-    if (!loading && !user) {
-      navigate('/login');
-    }
+    if (!loading && !user) navigate('/login');
   }, [user, loading, navigate]);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchData = async () => {
       if (!user) return;
-      
+      setLoadingResumes(true);
+
       try {
-        setLoadingResumes(true);
-        
-        // Récupérer les CV
-        const resumesResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/cv/user/${user.id}`);
-        if (resumesResponse.ok) {
-          const resumesData = await resumesResponse.json();
-          setResumes(resumesData);
-        }
-        
-        // Récupérer les lettres
-        const lettersResponse = await fetch(`${import.meta.env.VITE_API_URL}/api/cover-letter/user/${user.id}`);
-        if (lettersResponse.ok) {
-          const lettersData = await lettersResponse.json();
-          setCoverLetters(lettersData);
-        }
-      } catch (error) {
-        console.error('Erreur lors du chargement des données:', error);
+        const [cvRes, clRes] = await Promise.all([
+          fetch(`${import.meta.env.VITE_API_URL}/api/cv/user/${user.id}`),
+          fetch(`${import.meta.env.VITE_API_URL}/api/cover-letter/user/${user.id}`)
+        ]);
+
+        if (cvRes.ok) setResumes(await cvRes.json());
+        if (clRes.ok) setCoverLetters(await clRes.json());
+      } catch (err) {
+        console.error(err);
       } finally {
         setLoadingResumes(false);
       }
     };
-    
-    fetchUserData();
+
+    fetchData();
   }, [user]);
 
   const handleLogout = async () => {
     try {
       await logout();
       navigate('/');
-    } catch (error) {
-      console.error('Erreur lors de la déconnexion:', error);
+    } catch (err) {
+      toast.error('Erreur de déconnexion');
     }
   };
 
-  const handleDownloadResume = (resumeId) => {
-    window.open(`${import.meta.env.VITE_API_URL}/api/cv/download/${resumeId}`, '_blank');
+  const handleDeleteClick = (type, id) => {
+    setDeleteType(type);
+    setItemToDelete(id);
+    setShowConfirmModal(true);
   };
 
-  const handleDownloadLetter = (letterId) => {
-    window.open(`${import.meta.env.VITE_API_URL}/api/cover-letter/download/${letterId}`, '_blank');
+  const handleConfirmDelete = async () => {
+    try {
+      if (!user) {
+        toast.error('Vous devez être connecté pour effectuer cette action');
+        return;
+      }
+      
+      const table = deleteType === 'cv' ? 'resumes' : 'cover_letters';
+      const { error } = await supabase
+        .from(table)
+        .delete()
+        .eq('id', itemToDelete);
+      
+      if (error) {
+        console.error('Erreur Supabase:', error);
+        toast.error(`Erreur lors de la suppression ${deleteType === 'cv' ? 'du CV' : 'de la lettre'}`);
+      } else {
+        // Mettre à jour l'interface utilisateur
+        if (deleteType === 'cv') {
+          setResumes(prevResumes => prevResumes.filter(cv => cv.id !== itemToDelete));
+          toast.success('CV supprimé avec succès');
+        } else {
+          setCoverLetters(prevLetters => prevLetters.filter(letter => letter.id !== itemToDelete));
+          toast.success('Lettre supprimée avec succès');
+        }
+      }
+    } catch (error) {
+      console.error('Erreur lors de la suppression:', error);
+      toast.error('Erreur de connexion');
+    } finally {
+      setShowConfirmModal(false);
+      setItemToDelete(null);
+      setDeleteType(null);
+    }
   };
 
-  if (loading) {
-    return <div className="loading-container">Chargement...</div>;
-  }
+  const handleCancelDelete = () => {
+    setShowConfirmModal(false);
+    setItemToDelete(null);
+    setDeleteType(null);
+  };
 
-  if (!user) {
-    return null;
-  }
+  const filteredResumes = resumes.filter(r => (r.data?.name || '').toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredLetters = coverLetters.filter(l => (l.job_title || '').toLowerCase().includes(searchQuery.toLowerCase()));
 
   return (
-    <div className="dashboard-container">
-      <header className="dashboard-header">
-        <div className="header-left">
-          <h1>{t('dashboard.title')}</h1>
-          <LanguageSwitcher />
+    <div className="dashboard-layout">
+      <aside className="sidebar">
+        <div className="sidebar-header">
+          <h2 className="sidebar-title">Material Dashboard</h2>
         </div>
-        <button onClick={handleLogout} className="btn btn-logout">
-          {t('common.logout')}
-        </button>
-      </header>
-
-      <div className="dashboard-content">
-        <div className="welcome-section">
-          <h2>{t('dashboard.welcome', { name: user.name || user.email })}</h2>
-          <p>{t('home.subtitle')}</p>
+        <ul className="nav-list">
+          <li className="nav-item active"><Link to="/dashboard" className="nav-link">📊 Accueil</Link></li>
+          <li className="nav-item"><Link to="/dashboard" className="nav-link">📄 Mes CVs</Link></li>
+          <li className="nav-item"><Link to="/dashboard" className="nav-link">✉️ Lettres</Link></li>
+          <li className="nav-item"><Link to="/profile" className="nav-link">👤 Mon compte</Link></li>
+          <li className="nav-item"><Link to="/support" className="nav-link">📞 Contact</Link></li>
+        </ul>
+        <div className="sidebar-footer">
+          <button onClick={handleLogout} className="logout-btn">🚪 Déconnexion</button>
         </div>
+      </aside>
 
-        <div className="action-section">
+      <main className="main-content">
+        <div className="dashboard-header">
+          <h1>Dashboard</h1>
           <div className="dashboard-actions">
-            <Link to="/templates" className="btn btn-primary create-cv-btn">
-              {t('dashboard.createCV')}
+            <input 
+              type="text" 
+              placeholder="Rechercher..." 
+              value={searchQuery} 
+              onChange={e => setSearchQuery(e.target.value)} 
+              className="search-input" 
+            />
+            <div className="language-switcher-container">
+              <LanguageSwitcher />
+            </div>
+          </div>
+        </div>
+
+        <div className="stats-container">
+          <div className="stat-card">
+            <div className="stat-header">📄 CVs</div>
+            <div className="stat-value">{resumes.length}</div>
+            <div className="stat-trend positive">+11%</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-header">✉️ Lettres</div>
+            <div className="stat-value">{coverLetters.length}</div>
+            <div className="stat-trend positive">+4%</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-header">📅 Dernière activité</div>
+            <div className="stat-value">21</div>
+            <div className="stat-trend positive">+9%</div>
+          </div>
+        </div>
+
+        {/* Section combinée pour CV et lettres */}
+        <div className="content-section combined-section">
+          <div className="section-header">
+            <div className="tabs-container">
+              <button 
+                className={`tab-btn ${activeTab === 'cvs' ? 'active' : ''}`} 
+                onClick={() => setActiveTab('cvs')}
+              >
+                Mes CVs
+              </button>
+              <button 
+                className={`tab-btn ${activeTab === 'letters' ? 'active' : ''}`} 
+                onClick={() => setActiveTab('letters')}
+              >
+                Mes Lettres
+              </button>
+            </div>
+            <Link to={activeTab === 'cvs' ? "/templates" : "/cover-letter/create"} className="create-new-btn">
+              + Créer
             </Link>
           </div>
-        </div>
 
-        <div className="cv-list-section">
-          <h3>{t('dashboard.myCVs')}</h3>
-          
-          {loadingResumes ? (
-            <div className="loading-indicator">{t('common.loading')}</div>
-          ) : resumes.length > 0 ? (
-            <div className="cv-grid">
-              {resumes.map(resume => (
-                <div key={resume.id} className="cv-item">
-                  <div className="cv-item-header">
-                    <h4>{resume.data.name || 'CV sans nom'}</h4>
-                    <span className="cv-date">
-                      {format(new Date(resume.updated_at), 'dd MMMM yyyy', { locale: fr })}
-                    </span>
+          <div className="tab-content">
+            {activeTab === 'cvs' && (
+              <div className="items-list">
+                {filteredResumes.length > 0 ? (
+                  filteredResumes.map(cv => (
+                    <div key={cv.id} className="list-item">
+                      <div className="item-info">
+                        <div className="item-name">{cv.data?.name || 'CV sans nom'}</div>
+                        <div className="item-date">{format(new Date(cv.updated_at), 'dd MMM yyyy', { locale: fr })}</div>
+                      </div>
+                      <div className="item-actions">
+                        <button className="action-btn edit-btn" onClick={() => navigate(`/cv/edit/${cv.id}`)}>✏️</button>
+                        <button className="action-btn download-btn" onClick={() => window.open(`${import.meta.env.VITE_API_URL}/api/cv/download/${cv.id}`)}>⬇️</button>
+                        <button className="action-btn delete-btn" onClick={() => handleDeleteClick('cv', cv.id)}>🗑️</button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="empty-state">
+                    <p>Vous n'avez pas encore de CV</p>
+                    <Link to="/templates" className="create-btn">Créer mon premier CV</Link>
                   </div>
-                  <div className="cv-template-info">
-                    Template: {resume.template_id}
-                  </div>
-                  <div className="cv-actions">
-                    <Link to={`/cv/edit/${resume.id}`} className="btn-edit">
-                      {t('common.edit')}
-                    </Link>
-                    <button 
-                      onClick={() => handleDownloadResume(resume.id)} 
-                      className="btn-download"
-                    >
-                      {t('common.download')}
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="cv-empty-state">
-              <p>{t('dashboard.noCVs')}</p>
-              <p>{t('dashboard.createFirstCV')}</p>
-            </div>
-          )}
-        </div>
+                )}
+              </div>
+            )}
 
-        {coverLetters.length > 0 && (
-          <div className="letters-section">
-            <h3>{t('dashboard.myLetters')}</h3>
-            <div className="letters-grid">
-              {coverLetters.map(letter => (
-                <div key={letter.id} className="letter-item">
-                  <div className="letter-item-header">
-                    <h4>{t('coverLetter.title')}</h4>
-                    <span className="letter-date">
-                      {format(new Date(letter.updated_at), 'dd MMMM yyyy', { locale: fr })}
-                    </span>
+            {activeTab === 'letters' && (
+              <div className="items-list">
+                {filteredLetters.length > 0 ? (
+                  filteredLetters.map(letter => (
+                    <div key={letter.id} className="list-item">
+                      <div className="item-info">
+                        <div className="item-name">{letter.job_title || 'Lettre'} {letter.company && `- ${letter.company}`}</div>
+                        <div className="item-date">{format(new Date(letter.updated_at), 'dd MMM yyyy', { locale: fr })}</div>
+                      </div>
+                      <div className="item-actions">
+                        <button className="action-btn edit-btn" onClick={() => navigate(`/cover-letter/edit/${letter.id}`)}>✏️</button>
+                        <button className="action-btn download-btn" onClick={() => window.open(`${import.meta.env.VITE_API_URL}/api/cover-letter/download/${letter.id}`)}>⬇️</button>
+                        <button className="action-btn delete-btn" onClick={() => handleDeleteClick('letter', letter.id)}>🗑️</button>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="empty-state">
+                    <p>Vous n'avez pas encore de lettre de motivation</p>
+                    <Link to="/cover-letter/create" className="create-btn">Créer ma première lettre</Link>
                   </div>
-                  <div className="letter-preview">
-                    {letter.content.substring(0, 100)}...
-                  </div>
-                  <div className="letter-actions">
-                    <Link to={`/cover-letter/edit/${letter.id}`} className="btn-edit">
-                      {t('common.edit')}
-                    </Link>
-                    <button 
-                      onClick={() => handleDownloadLetter(letter.id)} 
-                      className="btn-download"
-                    >
-                      {t('common.download')}
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+                )}
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      </main>
 
-      <footer className="dashboard-footer">
-        <Link to="/" className="home-link">{t('common.home')}</Link>
-      </footer>
+      <ConfirmModal 
+        isOpen={showConfirmModal}
+        message={deleteType === 'cv' 
+          ? "Êtes-vous sûr de vouloir supprimer ce CV ?" 
+          : "Êtes-vous sûr de vouloir supprimer cette lettre de motivation ?"}
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+      />
     </div>
   );
 }

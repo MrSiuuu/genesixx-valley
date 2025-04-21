@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import ClassicTemplate from '../components/templates/classic/ClassicTemplate';
-import JobStickerTemplate from '../components/templates/jobsticker/JobStickerTemplate';
-import CampusFranceTemplate from '../components/templates/campusfrance/CampusFranceTemplate';
+import { ClassicTemplate, JobStickerTemplate, CampusFranceTemplate, TechTemplate, ExecutiveTemplate, MinimalistTemplate, StudentTemplate } from '../components/templates';
 import CoverLetterGenerator from '../components/CoverLetterGenerator';
 import '../styles/cv-form.css';
 import { useAuth } from '../contexts/AuthContext';
@@ -95,6 +93,11 @@ const CVForm = () => {
     console.log('Template parameter:', template);
     console.log('Selected template:', selectedTemplate);
   }, [template, selectedTemplate]);
+
+  useEffect(() => {
+    console.log('Template sélectionné:', selectedTemplate);
+    console.log('Données utilisateur:', userData);
+  }, [selectedTemplate, userData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -673,22 +676,33 @@ const CVForm = () => {
   );
 
   const renderTemplate = () => {
-    console.log('Rendering template:', selectedTemplate);
-    
-    const templateId = selectedTemplate.includes('-template') 
-      ? selectedTemplate 
-      : `${selectedTemplate}-template`;
-    
-    console.log('Template ID for rendering:', templateId);
-    
-    switch(templateId) {
-      case 'jobsticker-template':
-        return <JobStickerTemplate userData={userData} previewMode={step === 'form'} />;
-      case 'campusfrance-template':
-        return <CampusFranceTemplate userData={userData} previewMode={step === 'form'} />;
+    switch(selectedTemplate) {
       case 'cv-template':
       case 'classic-template':
+      case 'classic':
+        return <ClassicTemplate userData={userData} previewMode={step === 'form'} />;
+      case 'student-template':
+      case 'student':
+        return <StudentTemplate userData={userData} previewMode={step === 'form'} />;
+      case 'jobsticker-template':
+      case 'jobsticker':
+        return <JobStickerTemplate userData={userData} previewMode={step === 'form'} />;
+      case 'campusfrance-template':
+      case 'campusfrance':
+        return <CampusFranceTemplate userData={userData} previewMode={step === 'form'} />;
+      case 'tech-template':
+      case 'tech':
+        return <TechTemplate userData={userData} previewMode={step === 'form'} />;
+      case 'executive-template':
+      case 'executive':
+        return <ExecutiveTemplate userData={userData} previewMode={step === 'form'} />;
+      case 'minimal-template':
+      case 'minimalist-template':
+      case 'minimal':
+      case 'minimalist':
+        return <MinimalistTemplate userData={userData} previewMode={step === 'form'} />;
       default:
+        console.log('Template non reconnu:', selectedTemplate);
         return <ClassicTemplate userData={userData} previewMode={step === 'form'} />;
     }
   };

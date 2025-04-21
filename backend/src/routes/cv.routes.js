@@ -2,6 +2,10 @@ const express = require('express');
 const { saveCV, getUserCVs } = require('../controllers/cv.controller');
 const { protect } = require('../middlewares/auth.middleware');
 const { generatePDF } = require('../services/pdf.service');
+const path = require('path');
+const fs = require('fs');
+const { authMiddleware } = require('../middlewares/auth.middleware');
+
 const router = express.Router();
 
 // // Route to save a CV
@@ -118,6 +122,44 @@ router.get('/download/:resumeId', async (req, res) => {
   } catch (error) {
     console.error('Erreur détaillée lors du téléchargement du CV:', error);
     res.status(500).json({ error: 'Erreur lors du téléchargement du CV', details: error.message });
+  }
+});
+
+// Middleware de débogage temporaire
+const debugToken = (req, res, next) => {
+  console.log('Headers de la requête:', req.headers);
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
+    console.log('Token reçu:', token);
+    // Afficher les 10 premiers caractères du token pour vérifier son format
+    console.log('Début du token:', token.substring(0, 10) + '...');
+  } else {
+    console.log('Pas de header d\'autorisation');
+  }
+  next();
+};
+
+// Route pour supprimer un CV
+router.delete('/:id', authMiddleware, async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    // Supprimer le CV avec Supabase
+    const { error } = await req.supabase
+      .from('resumes')
+      .delete()
+      .eq('id', id);
+    
+    if (error) {
+      console.error('Erreur Supabase:', error);
+      return res.status(500).json({ message: 'Erreur lors de la suppression' });
+    }
+    
+    res.status(200).json({ message: 'CV supprimé avec succès' });
+  } catch (error) {
+    console.error('Erreur lors de la suppression du CV:', error);
+    res.status(500).json({ message: 'Erreur serveur' });
   }
 });
 

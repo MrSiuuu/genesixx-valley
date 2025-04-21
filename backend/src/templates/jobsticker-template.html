@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV JobSticker</title>
+  <style>
+    .jobsticker-template {
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .js-header {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      padding: 40px 30px;
+      border-radius: 10px 10px 0 0;
+      text-align: center;
+    }
+
+    .js-name {
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+
+    .js-title {
+      font-size: 18px;
+      font-weight: 400;
+      margin: 10px 0 20px;
+      opacity: 0.9;
+    }
+
+    .js-contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .js-contact-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .js-contact-icon {
+      font-size: 16px;
+    }
+
+    .js-content {
+      padding: 30px;
+      background-color: white;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .js-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+      margin-bottom: 30px;
+    }
+
+    .js-summary {
+      background-color: #f8f9fa;
+    }
+
+    .js-card-title {
+      font-size: 22px;
+      color: #333;
+      margin: 0 0 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .js-card-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: #6a11cb;
+    }
+
+    .js-summary-text {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .js-two-columns {
+      display: flex;
+      gap: 30px;
+    }
+
+    .js-main-column {
+      flex: 2;
+    }
+
+    .js-side-column {
+      flex: 1;
+    }
+
+    .js-timeline {
+      position: relative;
+    }
+
+    .js-timeline-item {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 25px;
+    }
+
+    .js-timeline-marker {
+      position: absolute;
+      left: 0;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #6a11cb;
+    }
+
+    .js-timeline-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 5px;
+    }
+
+    .js-timeline-subtitle {
+      display: flex;
+      justify-content: space-between;
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .js-timeline-content {
+      font-size: 15px;
+      color: #444;
+    }
+
+    .js-skills-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .js-skill-item {
+      margin-bottom: 15px;
+    }
+
+    .js-skill-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+    }
+
+    .js-skill-name {
+      font-weight: 500;
+    }
+
+    .js-skill-level-text {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .js-skill-bar {
+      height: 8px;
+      background-color: #e9ecef;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .js-skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+    }
+
+    .js-languages-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .js-language-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+
+    .js-language-name {
+      font-weight: 500;
+    }
+
+    .js-language-level {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .js-certificates-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .js-certificate-item {
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+
+    .js-certificate-name {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+
+    .js-certificate-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .js-certificate-link {
+      display: inline-block;
+      color: #6a11cb;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .js-footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+      font-size: 12px;
+      color: #999;
+    }
+
+    @media print {
+      .jobsticker-template {
+        box-shadow: none;
+      }
+      
+      .js-header {
+        background: #6a11cb !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      
+      .js-skill-progress,
+      .js-timeline-marker,
+      .js-card-title::after {
+        background: #6a11cb !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="jobsticker-template">
+    <div class="js-header">
+      <h1 class="js-name">{{name}}</h1>
+      {{#if title}}<h2 class="js-title">{{title}}</h2>{{/if}}
+      <div class="js-contact-grid">
+        {{#if email}}
+        <div class="js-contact-item">
+          <span class="js-contact-icon">✉</span>
+          <span>{{email}}</span>
+        </div>
+        {{/if}}
+        {{#if phone}}
+        <div class="js-contact-item">
+          <span class="js-contact-icon">📱</span>
+          <span>{{phone}}</span>
+        </div>
+        {{/if}}
+        {{#if address}}
+        <div class="js-contact-item">
+          <span class="js-contact-icon">📍</span>
+          <span>{{address}}</span>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="js-content">
+      {{#if summary}}
+      <div class="js-card js-summary">
+        <h2 class="js-card-title">À propos de moi</h2>
+        <p class="js-summary-text">{{summary}}</p>
+      </div>
+      {{/if}}
+
+      <div class="js-two-columns">
+        <div class="js-main-column">
+          {{#if experiences}}
+          <div class="js-card">
+            <h2 class="js-card-title">Expérience Professionnelle</h2>
+            <div class="js-timeline">
+              {{#each experiences}}
+              <div class="js-timeline-item">
+                <div class="js-timeline-marker"></div>
+                <div class="js-timeline-content">
+                  <h3 class="js-timeline-title">{{this.title}}</h3>
+                  <div class="js-timeline-subtitle">
+                    <span>{{this.company}}</span>
+                    <span>{{this.startDate}} - {{#if this.endDate}}{{this.endDate}}{{else}}Présent{{/if}}</span>
+                  </div>
+                  <p>{{this.description}}</p>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+
+          {{#if education}}
+          <div class="js-card">
+            <h2 class="js-card-title">Formation</h2>
+            <div class="js-timeline">
+              {{#each education}}
+              <div class="js-timeline-item">
+                <div class="js-timeline-marker"></div>
+                <div class="js-timeline-content">
+                  <h3 class="js-timeline-title">{{this.degree}}</h3>
+                  <div class="js-timeline-subtitle">
+                    <span>{{this.school}}</span>
+                    <span>{{this.year}}</span>
+                  </div>
+                  {{#if this.location}}<div>{{this.location}}</div>{{/if}}
+                  {{#if this.description}}<p>{{this.description}}</p>{{/if}}
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+        </div>
+
+        <div class="js-side-column">
+          {{#if skills}}
+          <div class="js-card">
+            <h2 class="js-card-title">Compétences</h2>
+            <div class="js-skills-list">
+              {{#each skills}}
+              <div class="js-skill-item">
+                <div class="js-skill-header">
+                  <span class="js-skill-name">{{this.name}}</span>
+                  {{#if this.level}}<span class="js-skill-level-text">{{this.level}}%</span>{{/if}}
+                </div>
+                {{#if this.level}}
+                <div class="js-skill-bar">
+                  <div class="js-skill-progress" style="width: {{this.level}}%;"></div>
+                </div>
+                {{/if}}
+              </div>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+
+          {{#if languages}}
+          <div class="js-card">
+            <h2 class="js-card-title">Langues</h2>
+            <div class="js-languages-list">
+              {{#each languages}}
+              <div class="js-language-item">
+                <span class="js-language-name">{{this.name}}</span>
+                {{#if this.level}}<span class="js-language-level">{{this.level}}</span>{{/if}}
+              </div>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+
+          {{#if certificates}}
+          <div class="js-card">
+            <h2 class="js-card-title">Certifications</h2>
+            <div class="js-certificates-list">
+              {{#each certificates}}
+              <div class="js-certificate-item">
+                <h3 class="js-certificate-name">{{this.name}}</h3>
+                <div class="js-certificate-details">
+                  <span>{{this.issuer}}</span>
+                  {{#if this.date}}<span>{{this.date}}</span>{{/if}}
+                </div>
+                {{#if this.url}}
+                <a href="{{this.url}}" target="_blank" rel="noopener noreferrer" class="js-certificate-link">
+                  Voir le certificat
+                </a>
+                {{/if}}
+              </div>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+
+    <div class="js-footer">
+      <p>CV généré avec CV Generator - {{currentDate}}</p>
+    </div>
+  </div>
+</body>
+</html> 

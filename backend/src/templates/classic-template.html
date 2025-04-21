@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV Classic</title>
+  <style>
+    .classic-template {
+      font-family: 'Roboto', 'Arial', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+      background-color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+      border-bottom: 3px solid #2980b9;
+      padding-bottom: 25px;
+      position: relative;
+    }
+
+    .name {
+      font-size: 32px;
+      margin: 0;
+      color: #2c3e50;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 400;
+      color: #3498db;
+      margin: 8px 0 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 15px;
+    }
+
+    .contact-item {
+      color: #34495e;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .section {
+      margin-bottom: 30px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      color: #2c3e50;
+      margin: 0 0 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: #3498db;
+    }
+
+    .summary {
+      font-size: 16px;
+      color: #34495e;
+      line-height: 1.7;
+    }
+
+    .timeline {
+      margin-top: 25px;
+    }
+
+    .timeline-item {
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .timeline-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0 0 5px;
+    }
+
+    .timeline-subtitle {
+      display: flex;
+      justify-content: space-between;
+      color: #7f8c8d;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .timeline-content {
+      font-size: 15px;
+      color: #34495e;
+      line-height: 1.6;
+    }
+
+    .two-column-section {
+      display: flex;
+      gap: 30px;
+    }
+
+    .column {
+      flex: 1;
+    }
+
+    .skills-container, .languages-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .skill-item, .language-item {
+      background-color: #f5f7fa;
+      padding: 12px 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .skill-name, .language-name {
+      font-weight: 500;
+      color: #2c3e50;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .skill-bar {
+      height: 8px;
+      background-color: #ecf0f1;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .skill-level {
+      height: 100%;
+      background-color: #3498db;
+    }
+
+    .language-level {
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+
+    .certificates-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .certificate-item {
+      background-color: #f5f7fa;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .certificate-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0 0 10px;
+    }
+
+    .certificate-details {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #7f8c8d;
+    }
+
+    .projects-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .project-item {
+      background-color: #f5f7fa;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .project-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0 0 10px;
+    }
+
+    .project-description {
+      margin: 0 0 15px;
+      color: #34495e;
+      font-size: 15px;
+    }
+
+    .project-technologies {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tech-label {
+      font-weight: 500;
+      color: #2c3e50;
+      font-size: 14px;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tech-tag {
+      background-color: #e1f0fa;
+      color: #3498db;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 12px;
+      color: #95a5a6;
+      border-top: 1px solid #ecf0f1;
+      padding-top: 15px;
+    }
+
+    @media print {
+      .classic-template {
+        box-shadow: none;
+        padding: 0;
+      }
+      
+      .section-title::after {
+        background-color: #000;
+      }
+      
+      .skill-level {
+        background: #000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="classic-template">
+    <div class="header">
+      <h1 class="name">{{name}}</h1>
+      {{#if title}}<h2 class="title">{{title}}</h2>{{/if}}
+      <div class="contact-info">
+        {{#if email}}<div class="contact-item">{{email}}</div>{{/if}}
+        {{#if phone}}<div class="contact-item">{{phone}}</div>{{/if}}
+        {{#if address}}<div class="contact-item">{{address}}</div>{{/if}}
+      </div>
+    </div>
+
+    {{#if summary}}
+    <div class="section">
+      <h2 class="section-title">Profil Professionnel</h2>
+      <p class="summary">{{summary}}</p>
+    </div>
+    {{/if}}
+
+    {{#if experiences}}
+    <div class="section">
+      <h2 class="section-title">Expérience Professionnelle</h2>
+      <div class="timeline">
+        {{#each experiences}}
+        <div class="timeline-item">
+          <h3 class="timeline-title">{{this.title}}</h3>
+          <div class="timeline-subtitle">
+            <span>{{this.company}}</span>
+            <span>{{this.startDate}} - {{#if this.endDate}}{{this.endDate}}{{else}}Présent{{/if}}</span>
+          </div>
+          <p class="timeline-content">{{this.description}}</p>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if education}}
+    <div class="section">
+      <h2 class="section-title">Formation</h2>
+      <div class="timeline">
+        {{#each education}}
+        <div class="timeline-item">
+          <h3 class="timeline-title">{{this.degree}}</h3>
+          <div class="timeline-subtitle">
+            <span>{{this.school}}</span>
+            <span>{{this.year}}</span>
+          </div>
+          {{#if this.location}}<div>{{this.location}}</div>{{/if}}
+          {{#if this.description}}<p class="timeline-content">{{this.description}}</p>{{/if}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="two-column-section">
+      <div class="column">
+        {{#if skills}}
+        <div class="section">
+          <h2 class="section-title">Compétences</h2>
+          <div class="skills-container">
+            {{#each skills}}
+            <div class="skill-item">
+              <span class="skill-name">{{this.name}}</span>
+              {{#if this.level}}
+              <div class="skill-bar">
+                <div class="skill-level" style="width: {{this.level}}%;"></div>
+              </div>
+              {{/if}}
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/if}}
+      </div>
+
+      <div class="column">
+        {{#if languages}}
+        <div class="section">
+          <h2 class="section-title">Langues</h2>
+          <div class="languages-container">
+            {{#each languages}}
+            <div class="language-item">
+              <span class="language-name">{{this.name}}</span>
+              {{#if this.level}}<span class="language-level">{{this.level}}</span>{{/if}}
+            </div>
+            {{/each}}
+          </div>
+        </div>
+        {{/if}}
+      </div>
+    </div>
+
+    {{#if certificates}}
+    <div class="section">
+      <h2 class="section-title">Certifications</h2>
+      <div class="certificates-grid">
+        {{#each certificates}}
+        <div class="certificate-item">
+          <h3 class="certificate-name">{{this.name}}</h3>
+          <div class="certificate-details">
+            <span>{{this.issuer}}</span>
+            {{#if this.date}}<span>{{this.date}}</span>{{/if}}
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    {{#if projects}}
+    <div class="section">
+      <h2 class="section-title">Projets</h2>
+      <div class="projects-container">
+        {{#each projects}}
+        <div class="project-item">
+          <h3 class="project-name">{{this.name}}</h3>
+          <p class="project-description">{{this.description}}</p>
+          {{#if this.technologies}}
+          <div class="project-technologies">
+            <span class="tech-label">Technologies :</span>
+            <div class="tech-tags">
+              {{#each this.technologies}}
+              <span class="tech-tag">{{this}}</span>
+              {{/each}}
+            </div>
+          </div>
+          {{/if}}
+        </div>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="footer">
+      <p>CV généré avec CV Generator - {{currentDate}}</p>
+    </div>
+  </div>
+</body>
+</html> 

@@ -12,7 +12,7 @@ const path = require('path');
 const generatePDF = async (templateId, data) => {
   try {
     // Chemin vers le template HTML
-    const templatePath = path.join(__dirname, `../templates/${templateId}.html`);
+    let templatePath = path.join(__dirname, `../templates/${templateId}.html`);
     
     // Ajouter des logs pour déboguer
     console.log('Chemin du template:', templatePath);
@@ -22,12 +22,12 @@ const generatePDF = async (templateId, data) => {
     if (!fs.existsSync(templatePath)) {
       console.warn(`Template ${templateId} introuvable, utilisation du template par défaut`);
       // Utiliser un template par défaut
-      templateId = 'executive-template';
-      templatePath = path.join(__dirname, `../templates/${templateId}.html`);
+      let defaultTemplateId = 'executive-template';
+      templatePath = path.join(__dirname, `../templates/${defaultTemplateId}.html`);
       
       // Vérifier si le template par défaut existe
       if (!fs.existsSync(templatePath)) {
-        throw new Error(`Template ${templateId} introuvable`);
+        throw new Error(`Template ${defaultTemplateId} introuvable`);
       }
     }
     
@@ -46,39 +46,43 @@ const generatePDF = async (templateId, data) => {
     // Générer le HTML final
     const html = template(templateData);
     
-    // Lancer Puppeteer avec plus d'options
+    // Lancer le navigateur avec plus de temps d'attente
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: 'new',
       args: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-accelerated-2d-canvas',
-        '--no-first-run',
-        '--no-zygote',
-        '--single-process',
-        '--disable-gpu'
-      ]
+        '--disable-gpu',
+        '--js-flags=--max-old-space-size=512'
+      ],
+      timeout: 60000 // Augmenter le timeout à 60 secondes
     });
     
     const page = await browser.newPage();
     
+    // Augmenter le timeout de navigation
+    await page.setDefaultNavigationTimeout(60000);
+    
     // Définir le contenu HTML
     await page.setContent(html, { waitUntil: 'networkidle0' });
     
-    // Générer le PDF
+    // Attendre que le contenu soit complètement chargé
+    await page.waitForFunction('document.readyState === "complete"', { timeout: 30000 });
+    
+    // Attendre un peu plus avant de générer le PDF
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Générer le PDF avec un timeout plus long
     const pdfBuffer = await page.pdf({
       format: 'A4',
       printBackground: true,
-      margin: {
-        top: '20px',
-        right: '20px',
-        bottom: '20px',
-        left: '20px'
-      }
+      margin: { top: '20px', right: '20px', bottom: '20px', left: '20px' },
+      timeout: 60000
     });
     
-    // Fermer le navigateur
+    // Fermer le navigateur de manière plus sûre
     await browser.close();
     
     return pdfBuffer;
