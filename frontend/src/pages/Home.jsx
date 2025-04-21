@@ -4,6 +4,7 @@ import { useAdmin } from '../hooks/useAdmin';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import { motion } from 'framer-motion';
 import '../styles/home.css';
 
 function Home() {
@@ -15,6 +16,13 @@ function Home() {
   
   // State for counting animations
   const [counting, setCounting] = useState(false);
+  
+  // State for FAQ section
+  const [activeIndex, setActiveIndex] = useState(null);
+  
+  const toggleFAQ = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
   
   // Add viewport meta tag for better responsive behavior
   useEffect(() => {
@@ -47,6 +55,7 @@ function Home() {
 
   // Add intersection observer for stats section
   useEffect(() => {
+    const currentStatsRef = statsRef.current; // Store ref in a variable
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -56,37 +65,60 @@ function Home() {
       });
     }, { threshold: 0.3 });
     
-    if (statsRef.current) {
-      observer.observe(statsRef.current);
+    if (currentStatsRef) {
+      observer.observe(currentStatsRef);
     }
     
     return () => {
-      if (statsRef.current) {
-        observer.unobserve(statsRef.current);
+      if (currentStatsRef) {
+        observer.unobserve(currentStatsRef);
       }
     };
   }, []);
 
   return (
     <div className="home-container">
-      <header className="home-header">
-        <h1>{t('home.title')}</h1>
-        <LanguageSwitcher />
-      </header>
+      <LanguageSwitcher />
       
       <div className="home-page">
         <div className="hero-section">
           <div className="hero-content">
-            <h1 className="hero-title">Genesixx Valley</h1>
-            <p className="hero-subtitle">{t('home.subtitle')}</p>
-            <p className="hero-description">
+            <motion.h1 
+              className="hero-title"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7 }}
+            >
+              <span className="title-gradient">Genesixx</span> Valley
+            </motion.h1>
+            
+            <motion.p 
+              className="hero-subtitle"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              {t('home.subtitle')}
+            </motion.p>
+            
+            <motion.p 
+              className="hero-description"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.4 }}
+            >
               {t('home.description')}
-            </p>
+            </motion.p>
             
             {loading ? (
               <div className="loading-spinner">{t('common.loading')}</div>
             ) : user ? (
-              <div className="hero-actions">
+              <motion.div 
+                className="hero-actions"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.6 }}
+              >
                 <p className="welcome-message">{t('dashboard.welcome', { name: user.name || user.email })}</p>
                 <Link to="/dashboard" className="btn btn-primary">
                   {t('home.accessDashboard')}
@@ -97,9 +129,14 @@ function Home() {
                     {t('home.accessAdmin')}
                   </Link>
                 )}
-              </div>
+              </motion.div>
             ) : (
-              <div className="hero-actions">
+              <motion.div 
+                className="hero-actions"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.6 }}
+              >
                 <Link to="/login" className="btn btn-primary">
                   {t('common.login')}
                 </Link>
@@ -110,7 +147,7 @@ function Home() {
                 <Link to="/admin/login" className="link-admin">
                   {t('home.adminArea')}
                 </Link>
-              </div>
+              </motion.div>
             )}
           </div>
           <div className="hero-image">
@@ -125,7 +162,7 @@ function Home() {
               onClick={scrollToFeatures}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M7 10L12 15L17 10" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </button>
           </div>
@@ -175,6 +212,83 @@ function Home() {
           </div>
         </div>
 
+        {/* Testimonials Section */}
+        <div className="testimonials-section">
+          <div className="container">
+            <h2 className="section-title">{t('home.testimonials.title', 'What Our Users Say')}</h2>
+            <p className="section-subtitle">{t('home.testimonials.subtitle', 'Discover why thousands of professionals trust our platform')}</p>
+            
+            <div className="testimonials-grid">
+              <div className="testimonial-card">
+                <div className="testimonial-rating">★★★★★</div>
+                <p className="testimonial-text">"{t('home.testimonials.quote1', 'Using this platform transformed my job search. The modern templates and intuitive editor helped me create a CV that stands out. Landed my dream job within 2 weeks!')}"</p>
+                <div className="testimonial-author">
+                  <img src="/avatars/testimonial1.jpg" alt="User avatar" className="testimonial-avatar" />
+                  <div className="testimonial-info">
+                    <h4 className="testimonial-name">Sophie Martin</h4>
+                    <p className="testimonial-position">Product Designer</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="testimonial-card">
+                <div className="testimonial-rating">★★★★★</div>
+                <p className="testimonial-text">"{t('home.testimonials.quote2', 'As someone who struggled with creating professional CVs, this tool was a game-changer. Simple, powerful, and the templates are truly impressive. Highly recommended!')}"</p>
+                <div className="testimonial-author">
+                  <img src="/avatars/testimonial2.jpg" alt="User avatar" className="testimonial-avatar" />
+                  <div className="testimonial-info">
+                    <h4 className="testimonial-name">Thomas Lambert</h4>
+                    <p className="testimonial-position">Software Engineer</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="testimonial-card">
+                <div className="testimonial-rating">★★★★★</div>
+                <p className="testimonial-text">"{t('home.testimonials.quote3', 'The ability to quickly update my CV for different applications has been invaluable. The designs are clean, modern, and helped me stand out from other candidates.')}"</p>
+                <div className="testimonial-author">
+                  <img src="/avatars/testimonial3.jpg" alt="User avatar" className="testimonial-avatar" />
+                  <div className="testimonial-info">
+                    <h4 className="testimonial-name">Camille Dupont</h4>
+                    <p className="testimonial-position">Marketing Specialist</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* FAQ Section */}
+        <div className="faq-section">
+          <div className="container">
+            <h2 className="section-title">{t('home.faq.title', 'Frequently Asked Questions')}</h2>
+            <p className="section-subtitle">{t('home.faq.subtitle', 'Get answers to common questions about our platform')}</p>
+            
+            <div className="faq-container">
+              {[...Array(6)].map((_, index) => (
+                <div className="faq-item" key={index}>
+                  <button 
+                    className={`faq-question ${activeIndex === index ? 'active' : ''}`}
+                    onClick={() => toggleFAQ(index)}
+                    aria-expanded={activeIndex === index}
+                  >
+                    {t(`home.faq.q${index + 1}`, getFAQQuestion(index))}
+                    <span className="faq-icon">
+                      {activeIndex === index ? '−' : '+'}
+                    </span>
+                  </button>
+                  <div 
+                    className={`faq-answer ${activeIndex === index ? 'active' : ''}`}
+                    aria-hidden={activeIndex !== index}
+                  >
+                    <p>{t(`home.faq.a${index + 1}`, getFAQAnswer(index))}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Partners Section */}
         <div className="partners-section">
           <div className="partners-content">
@@ -184,22 +298,19 @@ function Home() {
             </p>
             <div className="partners-logos">
               <div className="partner-logo">
-                <img src="/logos/google.svg" alt="Google" />
+                <img src="/logos/dv_logo.svg" alt="Diversis" />
               </div>
               <div className="partner-logo">
-                <img src="/logos/amazon.svg" alt="Amazon" />
+                <img src="/logos/genesixx.png" alt="Genesixx" />
               </div>
               <div className="partner-logo">
-                <img src="/logos/microsoft.svg" alt="Microsoft" />
+                <img src="/logos/axis_logo.svg" alt="Axis-Shop" />
               </div>
               <div className="partner-logo">
-                <img src="/logos/apple.svg" alt="Apple" />
+                <img src="/logos/logo-campus-france.png" alt="Campus-france" />
               </div>
               <div className="partner-logo">
-                <img src="/logos/tesla.svg" alt="Tesla" />
-              </div>
-              <div className="partner-logo">
-                <img src="/logos/meta.svg" alt="Meta" />
+                <img src="/logos/campus-canada.webp" alt="campus-canada" />
               </div>
             </div>
           </div>
@@ -245,6 +356,32 @@ function Home() {
       </div>
     </div>
   );
+}
+
+// Helper function to get default FAQ questions if translations aren't available
+function getFAQQuestion(index) {
+  const questions = [
+    "How do I get started with creating my CV?",
+    "Can I download my CV in different formats?",
+    "Is my data secure on your platform?",
+    "Can I create multiple versions of my CV?",
+    "Are the templates free to use?",
+    "How can I customize my CV design?"
+  ];
+  return questions[index] || "";
+}
+
+// Helper function to get default FAQ answers if translations aren't available
+function getFAQAnswer(index) {
+  const answers = [
+    "Getting started is easy! Simply register for an account, choose a template that suits your style, and use our intuitive editor to add your information. Our step-by-step process will guide you through creating a professional CV in minutes.",
+    "Yes, you can download your CV in multiple formats including PDF, DOCX, and TXT. This gives you flexibility when applying for jobs through different platforms or when sending your CV directly to recruiters.",
+    "Absolutely. We take data security seriously. All your information is encrypted and stored securely. We never share your personal data with third parties without your explicit consent.",
+    "Yes! You can create and save multiple versions of your CV tailored for different job applications or industries. This helps you customize your approach for each opportunity.",
+    "We offer both free and premium templates. Our free templates provide everything you need to create a professional CV, while our premium options offer additional designs and features for those wanting more customization options.",
+    "Our platform offers extensive customization options. You can change colors, fonts, section layouts, and more to match your personal style or industry standards while maintaining professional quality."
+  ];
+  return answers[index] || "";
 }
 
 // CountUp component for animated number counting
