@@ -76,7 +76,6 @@
   background-color: #fff;
   color: #3a86ff;
   border: 2px solid #e2e8f0;
-  margin-left: 1rem;
 }
 
 .btn-secondary:hover {
@@ -225,7 +224,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  align-items: flex-start;
 }
 
 /* Enhanced Down Arrow Styling */
@@ -625,11 +623,6 @@
     gap: 2rem;
   }
 
-  .btn-secondary {
-    margin-left: 0;
-    margin-top: 1rem;
-  }
-
   .hero-actions {
     display: flex;
     flex-direction: column;
@@ -816,6 +809,13 @@
 
   .faq-answer p {
     font-size: 0.9rem;
+  }
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 210px;
   }
 }
 

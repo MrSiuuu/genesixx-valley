@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabase';
 import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 import '../styles/auth.css';
 
 function Register() {
@@ -73,6 +74,9 @@ function Register() {
           </svg>
           {t('common.home')}
         </Link>
+      </div>
+      <div>
+        <LanguageSwitcher />
       </div>
       
       <div className="auth-container">
