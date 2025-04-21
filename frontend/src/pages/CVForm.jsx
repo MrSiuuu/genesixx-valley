@@ -344,15 +344,16 @@ const CVForm = () => {
 
   const renderForm = () => (
     <form className="cv-form" onSubmit={handleSubmit}>
-      <div className="form-header">
-        <h1>{t('cvForm.title')}</h1>
-        <button 
-          type="button" 
-          className="toggle-preview-btn"
-          onClick={toggleLivePreview}
-        >
-          {livePreview ? t('cvForm.hidePreview') : t('cvForm.showPreview')}
+      <div className="form-actions">
+        <Link to="/templates" className="btn btn-back">
+          {t('common.back')}
+        </Link>
+        <button type="submit" className="preview-btn">
+          {t('cvForm.preview')}
         </button>
+      </div>
+      <div className="form-header">
+        <h1>{t('cvForm.title', 'Artboard')}</h1>
       </div>
 
       <div className="form-section">
@@ -661,15 +662,6 @@ const CVForm = () => {
         ))}
         <button type="button" onClick={() => addItem('projects')} className="add-btn">
           {t('cvForm.addProject')}
-        </button>
-      </div>
-
-      <div className="form-actions">
-        <Link to="/templates" className="btn btn-back">
-          {t('common.back')}
-        </Link>
-        <button type="submit" className="preview-btn">
-          {t('cvForm.preview')}
         </button>
       </div>
     </form>

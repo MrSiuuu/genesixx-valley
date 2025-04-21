@@ -41,29 +41,6 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.template-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
-}
-
-.template-preview-container {
-  position: relative;
-  width: 100%;
-  padding-top: 141.4%; /* A4 aspect ratio */
-  background: #f8fafc;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.template-preview-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .template-preview {
@@ -77,40 +54,26 @@
   transition: all 0.3s ease;
 }
 
-.template-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(15, 23, 42, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
 .template-preview-container:hover .template-overlay {
   opacity: 1;
 }
 
 .template-info {
-  padding: 15px;
+  padding: 12px;
   background-color: #fff;
 }
 
 .template-info h3 {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   font-size: 18px;
   color: #333;
 }
 
 .template-description {
-  margin: 0;
-  font-size: 14px;
+  margin: 0 0 12px;
+  font-size: 15px;
   color: #666;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .btn-select {
@@ -159,14 +122,16 @@
 
 .template-buttons {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
+  margin-top: auto;
 }
 
 .btn-view, .btn-use {
-  padding: 8px 16px;
+  padding: 7px 14px;
   border-radius: 4px;
   font-weight: 500;
+  font-size: 0.85rem;
   transition: all 0.2s ease;
   cursor: pointer;
   border: none;

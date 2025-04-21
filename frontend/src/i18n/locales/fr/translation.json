@@ -1,4 +1,11 @@
 {
+  "search": {
+    "placeholder": "Rechercher un modèle",
+    "noResults": "Aucun résultat trouvé",
+    "professional": "Modèle Professionnel",
+    "academic": "Modèle Académique",
+    "creative": "Modèle Créatif"
+  },
   "common": {
     "welcome": "Bienvenue",
     "login": "Se connecter",
@@ -211,6 +218,8 @@
     "generate": "Générer le CV"
   },
   "cvForm": {
+    "title": "Créer votre CV",
+    "livePreview": "Aperçu",
     "personalInfo": "Informations personnelles",
     "name": "Nom complet",
     "email": "Email",
