@@ -257,6 +257,13 @@ const Templates = () => {
         setSelectedPreview(null);
     };
 
+
+    // Fonction pour rediriger vers le paiement Seamless
+    const handleSeamlessPayment = (templateId) => {
+        window.location.href = `http://localhost:3000/api/payment/seamless?id=${templateId}`;
+    };
+
+
     // Fonction pour basculer l'expansion d'une catégorie
     const toggleCategory = (category) => {
         setExpandedCategories(prev => ({
@@ -362,6 +369,12 @@ const Templates = () => {
                                                                     onClick={() => handleViewTemplate(template.preview)}
                                                                 >
                                                                     {t('templates.view')}
+                                                                </button>
+                                                                <button
+                                                                    className="btn btn-use"
+                                                                    onClick={() => handleSeamlessPayment(template.id)}
+                                                                >
+                                                                    {t('Utiliser ce Modèle Payant')}
                                                                 </button>
                                                                 <Link 
                                                                     to={`/cv/create/${template.id}`} 
