@@ -99,12 +99,12 @@
 }
 
 .success-message {
-  padding: 10px;
-  margin-bottom: 20px;
-  color: #155724;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 12px;
   border-radius: 4px;
+  margin-bottom: 16px;
+  text-align: center;
 }
 
 .text-center {
@@ -158,4 +158,10 @@
 .auth-divider span {
   padding: 0 10px;
   font-size: 0.9rem;
+}
+
+.auth-description {
+  color: #6b7280;
+  margin-bottom: 24px;
+  text-align: center;
 } 
