@@ -1,0 +1,34 @@
+[
+    {
+        "id": "cv-template",
+        "prices": {
+            "XOF": 1000,
+            "GNF": 150000,
+            "XAF": 1200
+        }
+    },
+    {
+        "id": "student-template",
+        "prices": {
+            "XOF": 1500,
+            "GNF": 200000,
+            "XAF": 1800
+        }
+    },
+    {
+        "id": "jobsticker-template",
+        "prices": {
+            "XOF": 2000,
+            "GNF": 250000,
+            "XAF": 2200
+        }
+    },
+    {
+        "id": "campusfrance-template",
+        "prices": {
+            "XOF": 2500,
+            "GNF": 300000,
+            "XAF": 2700
+        }
+    }
+]
