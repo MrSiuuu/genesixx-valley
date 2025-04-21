@@ -2,6 +2,8 @@
 CV builder
 Genesixx valley
 
+## Issa pour le login de l'admin
+- Route : /admin/login
 
 
 
