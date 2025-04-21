@@ -36,7 +36,7 @@
   "home": {
     "title": "CV Builder",
     "subtitle": "Create your professional CV in minutes",
-    "description": "Easily generate a modern CV and cover letter in just a few minutes",
+    "description": "Create a remarkable resume and cover letter with Genesixx Valley and join thousands of successful African students.",
     "accessDashboard": "Access my dashboard",
     "accessAdmin": "Access administration",
     "adminArea": "Admin area",
@@ -53,6 +53,50 @@
       "createQuickly": "Create a perfect CV in just a few minutes",
       "easyUpdate": "Easy updates",
       "modifyAnytime": "Modify and download your CV anytime"
+    },
+    "testimonials": {
+      "title": "What our users say",
+      "description": "Join thousands of satisfied users who have found their dream job with Genesixx Valley.",
+      "quote1": {
+        "jobTitle": "Student in Politics",
+        "testimonial": "The ability to quickly update my CV for different applications has been invaluable. The designs are clean, modern, and helped me stand out from other candidates."
+      },
+      "quote2": {
+        "jobTitle": "Student in IT",
+        "testimonial": "As someone who struggled with creating professional CVs, this tool was a game-changer. Simple, powerful, and the templates are truly impressive. Highly recommended!"
+      },
+      "quote3": {
+        "jobTitle": "Student in Digital Marketing",
+        "testimonial": "Using this platform transformed my job search. The modern templates and intuitive editor helped me create a CV that stands out. Landed my dream job within 2 weeks!"
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subTitle": "Find answers to common questions about our CV builder.",
+      "question1": {
+        "question": "How does the CV builder work?",
+        "answer": "Our CV builder allows you to create a professional CV in minutes. Simply fill in your information, choose a template, and download your CV."
+      },
+      "question2": {
+        "question": "Can I customize my CV?",
+        "answer": "Yes! You can customize every aspect of your CV, including fonts, colors, and layout."
+      },
+      "question3": {
+        "question": "Is my data secure?",
+        "answer": "Absolutely! We take data security very seriously and use industry-standard encryption to protect your information."
+      },
+      "question4": {
+        "question": "Can I download my CV in different formats?",
+        "answer": "Yes, you can download your CV in PDF, Word, and other formats."
+      },
+      "question5": {
+        "question": "Do I need to create an account?",
+        "answer": "Creating an account is optional, but it allows you to save and manage your CVs easily."
+      },
+      "question6": {
+        "question": "Is there a mobile app?",
+        "answer": "Currently, we do not have a mobile app, but our website is fully responsive and works well on mobile devices."
+      }
     },
     "stats": {
       "users": "Users",
