@@ -1,0 +1,18 @@
+[
+    {
+        "id": "cv-template",
+        "price": 1000
+    },
+    {
+        "id": "student-template",
+        "price": 1500
+    },
+    {
+        "id": "jobsticker-template",
+        "price": 2000
+    },
+    {
+        "id": "campusfrance-template",
+        "price": 2500
+    }
+]
