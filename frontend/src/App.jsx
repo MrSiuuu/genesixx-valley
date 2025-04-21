@@ -68,7 +68,6 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
-      <ToastContainer position="top-right" autoClose={3000} />
     </AuthProvider>
   );
 }

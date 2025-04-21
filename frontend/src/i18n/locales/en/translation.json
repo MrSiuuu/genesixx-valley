@@ -1,4 +1,11 @@
 {
+  "search": {
+    "placeholder": "Search a template...",
+    "noResults": "No results found",
+    "professional": "Professional Template",
+    "academic": "Academic Template",
+    "creative": "Creative Template"
+  },
   "common": {
     "welcome": "Welcome",
     "login": "Login",
@@ -211,6 +218,9 @@
     "generate": "Generate CV"
   },
   "cvForm": {
+    "title": "CV Builder",
+    "livePreview": "Live Preview",
+    "template": "Template",
     "personalInfo": "Personal Information",
     "name": "Full Name",
     "email": "Email",

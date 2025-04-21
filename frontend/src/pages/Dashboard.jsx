@@ -146,14 +146,14 @@ function Dashboard() {
           <h2 className="sidebar-title">Material Dashboard</h2>
         </div>
         <ul className="nav-list">
-          <li className="nav-item active"><Link to="/dashboard" className="nav-link">📊 Accueil</Link></li>
-          <li className="nav-item"><Link to="/dashboard" className="nav-link">📄 Mes CVs</Link></li>
-          <li className="nav-item"><Link to="/dashboard" className="nav-link">✉️ Lettres</Link></li>
-          <li className="nav-item"><Link to="/profile/edit" className="nav-link">👤 Mon compte</Link></li>
-          <li className="nav-item"><Link to="/contact" className="nav-link">📞 Contact</Link></li>
+          <li className="nav-item active"><Link to="/dashboard" className="nav-link">Accueil</Link></li>
+          <li className="nav-item"><Link to="/dashboard" className="nav-link">Mes CVs</Link></li>
+          <li className="nav-item"><Link to="/dashboard" className="nav-link">Lettres</Link></li>
+          <li className="nav-item"><Link to="/profile/edit" className="nav-link">Mon compte</Link></li>
+          <li className="nav-item"><Link to="/contact" className="nav-link">Contact</Link></li>
         </ul>
         <div className="sidebar-footer">
-          <button onClick={handleLogout} className="logout-btn">🚪 Déconnexion</button>
+          <button onClick={handleLogout} className="logout-btn">Déconnexion</button>
         </div>
       </aside>
 
@@ -168,30 +168,12 @@ function Dashboard() {
               onChange={e => setSearchQuery(e.target.value)} 
               className="search-input" 
             />
-            <div className="language-switcher-container">
-              <LanguageSwitcher />
-            </div>
           </div>
         </div>
 
         <ProfileNotification isProfileComplete={isProfileComplete} />
 
         <div className="stats-container">
-          <div className="stat-card">
-            <div className="stat-header">📄 CVs</div>
-            <div className="stat-value">{resumes.length}</div>
-            <div className="stat-trend positive">+11%</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-header">✉️ Lettres</div>
-            <div className="stat-value">{coverLetters.length}</div>
-            <div className="stat-trend positive">+4%</div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-header">📅 Dernière activité</div>
-            <div className="stat-value">21</div>
-            <div className="stat-trend positive">+9%</div>
-          </div>
         </div>
 
         {/* Section combinée pour CV et lettres */}

@@ -24,7 +24,7 @@ const TemplateSearch = ({ onSearch, onFilter }) => {
       <div className="search-container">
         <input
           type="text"
-          placeholder={t('search.placeholder')}
+          placeholder={t('search.placeholder', 'Rechercher un modèle...')}
           value={searchTerm}
           onChange={handleSearch}
           className="search-input"
@@ -34,10 +34,10 @@ const TemplateSearch = ({ onSearch, onFilter }) => {
           onChange={handleCategoryChange}
           className="category-select"
         >
-          <option value="all">{t('search.allCategories')}</option>
-          <option value="professional">{t('search.professional')}</option>
-          <option value="academic">{t('search.academic')}</option>
-          <option value="creative">{t('search.creative')}</option>
+          <option value="all">{t('search.allCategories', 'Rechercher par Catégory')}</option>
+          <option value="professional">{t('search.professional', 'Modèle Professional')}</option>
+          <option value="academic">{t('search.academic', 'Modèle Academic')}</option>
+          <option value="creative">{t('search.creative', 'Modèle Creative')}</option>
           {/* Vous pouvez ajouter d'autres catégories ici */}
         </select>
       </div>

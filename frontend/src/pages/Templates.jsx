@@ -363,7 +363,12 @@ const Templates = () => {
                                                             className="template-preview"
                                                         />
                                                         <div className="template-overlay">
-                                                            <div className="template-buttons">
+                                                        </div>
+                                                    </div>
+                                                    <div className="template-info">
+                                                        <h3>{template.name}</h3>
+                                                        <p className="template-description">{template.description}</p>
+                                                        <div className="template-buttons">
                                                                 <button
                                                                     className="btn btn-view"
                                                                     onClick={() => handleViewTemplate(template.preview)}
@@ -383,11 +388,6 @@ const Templates = () => {
                                                                     {t('templates.use')}
                                                                 </Link>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="template-info">
-                        <h3>{template.name}</h3>
-                                                        <p className="template-description">{template.description}</p>
                                                     </div>
                                                 </div>
                                             ))}
