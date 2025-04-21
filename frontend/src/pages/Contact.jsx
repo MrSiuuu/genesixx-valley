@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import emailjs from '@emailjs/browser';
+import { toast } from 'react-toastify';
 import '../styles/contact.css';
 
 function Contact() {
   const { t } = useTranslation();
+  const form = useRef();
+  const [sending, setSending] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSending(true);
+    
+    // Remplacez ces valeurs par vos propres identifiants EmailJS
+    emailjs.sendForm(
+      'service_a3kg8n1',     // Votre Service ID
+      'template_b37te1w',    // Votre Template ID
+      form.current,
+      'pE99Z9s9FVc3qf7Og'    // Votre clé publique
+    )
+    .then((result) => {
+      toast.success('Message envoyé avec succès !');
+      form.current.reset();
+    })
+    .catch((error) => {
+      toast.error('Erreur lors de l\'envoi du message');
+      console.error(error);
+    })
+    .finally(() => {
+      setSending(false);
+    });
+  };
 
   return (
     <div className="dashboard-layout">
@@ -95,15 +123,15 @@ function Contact() {
 
           <div className="contact-form-section">
             <h2>Envoyez-nous un message</h2>
-            <form className="contact-form">
+            <form ref={form} className="contact-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name">Nom complet</label>
-                <input type="text" id="name" name="name" required />
+                <input type="text" id="name" name="user_name" required />
               </div>
               
               <div className="form-group">
                 <label htmlFor="email">Email</label>
-                <input type="email" id="email" name="email" required />
+                <input type="email" id="email" name="user_email" required />
               </div>
               
               <div className="form-group">
@@ -116,7 +144,9 @@ function Contact() {
                 <textarea id="message" name="message" rows="5" required></textarea>
               </div>
               
-              <button type="submit" className="submit-btn">Envoyer le message</button>
+              <button type="submit" className="submit-btn" disabled={sending}>
+                {sending ? 'Envoi en cours...' : 'Envoyer le message'}
+              </button>
             </form>
           </div>
         </div>
