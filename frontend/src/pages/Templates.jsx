@@ -9,6 +9,8 @@ const classicTemplatePreview = `${import.meta.env.VITE_API_URL}/previews/cv-temp
 const studentTemplatePreview = `${import.meta.env.VITE_API_URL}/previews/student-template-preview.png`;
 const jobstickerTemplatePreview = `${import.meta.env.VITE_API_URL}/previews/jobsticker-template-preview.png`;
 const campusfranceTemplatePreview = `${import.meta.env.VITE_API_URL}/previews/campusfrance-template-preview.png`;
+const minimalTemplatePreview = `${import.meta.env.VITE_API_URL}/previews/minimal-template-preview.png`;
+const techTemplatePreview = `${import.meta.env.VITE_API_URL}/previews/tech-template-preview.png`;
 
 const Templates = () => {
     const { t } = useTranslation();
@@ -54,7 +56,7 @@ const Templates = () => {
         {
             id: 'tech-template',
             name: 'Tech Innovator',
-            preview: jobstickerTemplatePreview, // Utiliser la même image pour le test
+            preview: techTemplatePreview,
             description: 'Design moderne pour les professionnels de la tech',
             category: 'professional',
             subcategory: 'tech',
@@ -200,6 +202,15 @@ const Templates = () => {
             category: 'creative',
             subcategory: 'multimedia',
             keywords: ['vidéo', 'audio', 'production', 'multimédia']
+        },
+        {
+            id: 'minimal-template',
+            name: 'Minimal Design',
+            preview: minimalTemplatePreview,
+            description: 'Design épuré et minimaliste pour un CV moderne',
+            category: 'professional',
+            subcategory: 'minimal',
+            keywords: ['minimaliste', 'épuré', 'moderne', 'simple']
         }
     ];
 

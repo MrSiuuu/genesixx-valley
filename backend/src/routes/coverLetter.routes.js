@@ -8,28 +8,33 @@ router.post('/generate', generateCoverLetterController);
 // Sauvegarder une lettre de motivation
 router.post('/save', async (req, res) => {
   try {
-    const { content, userId, resumeId } = req.body;
+    const { content, userId, jobTitle, company } = req.body;
     
     if (!content || !userId) {
       return res.status(400).json({ error: 'Données incomplètes' });
     }
+    
+    // Vérifiez si content existe et est un tableau
+    const firstLine = Array.isArray(content) && content.length > 0 ? content[0] : '';
     
     // Insérer dans Supabase
     const { data, error } = await req.supabase
       .from('cover_letters')
       .insert({
         user_id: userId,
-        resume_id: resumeId || null,
-        content,
+        content: content,
+        job_title: jobTitle || '',
+        company: company || '',
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString()
-      });
+      })
+      .select();
     
     if (error) throw error;
     
     res.status(201).json({ 
       message: 'Lettre de motivation sauvegardée avec succès',
-      coverLetterId: data[0].id
+      letterId: data[0].id
     });
   } catch (error) {
     console.error('Erreur lors de la sauvegarde de la lettre de motivation:', error);

@@ -14,7 +14,7 @@ const authMiddleware = (req, res, next) => {
       return res.status(401).json({ message: 'Token d\'authentification invalide' });
     }
     
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || '');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'default_secret_for_development');
     req.user = decoded;
     
     next();

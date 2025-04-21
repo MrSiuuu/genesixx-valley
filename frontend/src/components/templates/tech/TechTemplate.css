@@ -1,0 +1,154 @@
+.tech-template {
+    font-family: 'Segoe UI', sans-serif;
+    background: #ffffff;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0;
+    color: #1e293b;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  /* Header */
+  .tech-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1e293b;
+    color: #fff;
+    padding: 2rem;
+  }
+  
+  .tech-name-title {
+    flex: 1;
+  }
+  
+  .tech-name {
+    font-size: 2rem;
+    margin: 0;
+  }
+  
+  .tech-title {
+    font-size: 1rem;
+    color: #cbd5e1;
+    margin-top: 0.5rem;
+  }
+  
+  .tech-photo img,
+  .tech-photo-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 8px;
+    background-color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: #1e293b;
+    font-weight: bold;
+  }
+  
+  /* Layout */
+  .tech-layout {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+  }
+  
+  .tech-left {
+    flex: 2;
+  }
+  
+  .tech-right {
+    flex: 1;
+    background-color: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+  
+  /* Sections */
+  .tech-section {
+    margin-bottom: 2rem;
+  }
+  
+  .tech-section-title {
+    font-size: 1.1rem;
+    border-bottom: 2px solid #1e293b;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  
+  .tech-summary {
+    line-height: 1.6;
+    color: #334155;
+  }
+  
+  .tech-box {
+    background: #f1f5f9;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+  }
+  
+  .tech-box h4 {
+    margin: 0 0 0.3rem;
+    font-size: 1rem;
+    color: #1e293b;
+  }
+  
+  .tech-muted {
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+  
+  /* Lists */
+  .tech-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .tech-list li {
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    color: #334155;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .tech-layout {
+      flex-direction: column;
+    }
+  
+    .tech-banner {
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+  
+    .tech-photo {
+      margin-top: 1rem;
+    }
+  }
+  
+  /* Print */
+  @media print {
+    .tech-template {
+      box-shadow: none;
+    }
+  
+    .tech-banner {
+      background-color: #1e293b !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  
+    .tech-right {
+      background-color: #f8fafc !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
+  

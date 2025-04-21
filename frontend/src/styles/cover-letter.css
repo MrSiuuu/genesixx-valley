@@ -162,6 +162,36 @@
   background-color: #e2e8f0;
 }
 
+.cover-letter-metadata {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  flex: 1;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
 @media (max-width: 768px) {
   .cover-letter-container {
     padding: 1.5rem;
@@ -180,4 +210,16 @@
   .btn {
     width: 100%;
   }
+}
+
+.btn-download {
+  background-color: #10b981;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-download:hover {
+  background-color: #059669;
 } 

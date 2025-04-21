@@ -87,9 +87,8 @@ export function AuthProvider({ children }) {
       if (error) throw error;
 
       setUser({
-        id: data.user.id,
-        email: data.user.email,
-        name: data.user.user_metadata?.name || data.user.email
+        ...data.user,
+        token: data.user.access_token
       });
       
       return data;
