@@ -340,6 +340,73 @@ section h2 {
   font-weight: 500;
 }
 
+/* Custom Section styles */
+.cv-custom-section {
+  margin-bottom: 2rem;
+}
+
+.custom-items {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.custom-item {
+  position: relative;
+  padding-left: 0; /* Remove left padding that was used for the dot */
+  margin-bottom: 20px;
+}
+
+/* Remove the blue dot before custom item */
+.custom-item::before {
+  display: none; /* Remove the blue dot */
+}
+
+.custom-item-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.custom-item-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.custom-item-date {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.custom-item-description {
+  margin: 0;
+  color: #34495e;
+  line-height: 1.6;
+  font-size: 15px;
+}
+
+/* Make section title style match other sections */
+.cv-custom-section h2 {
+  color: #1a1a1a;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e5e7eb; /* Change blue line to light grey */
+}
+
+/* Responsive design for custom sections */
+@media (max-width: 768px) {
+  .custom-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .header-main {

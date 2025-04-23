@@ -4,6 +4,7 @@ import { styled } from '@stitches/react';
 import '../shared/Experience';
 import '../shared/Education';
 import '../shared/Certificates';
+import CustomSection from '../shared/CustomSection'; // Import the CustomSection component
 
 // Styled components with Radix UI
 const CVContainer = styled('div', {
@@ -319,7 +320,8 @@ const ClassicTemplate = ({ userData, previewMode = false }) => {
     skills = [],
     languages = [],
     certificates = [],
-    projects = []
+    projects = [],
+    customSections = [] // Add this to destructure custom sections
   } = userData || {};
 
   return (
@@ -458,6 +460,12 @@ const ClassicTemplate = ({ userData, previewMode = false }) => {
           </ProjectsContainer>
         </Section>
       )}
+
+      {customSections && customSections.length > 0 && customSections.map((section, index) => (
+        <Section key={`custom-section-${index}`}>
+          <CustomSection section={section} />
+        </Section>
+      ))}
 
       <Footer>
         <p>CV generated with CV Generator - {new Date().toLocaleDateString()}</p>

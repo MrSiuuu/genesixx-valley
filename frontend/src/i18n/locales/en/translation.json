@@ -1,4 +1,14 @@
 {
+  "download" : {
+    "save": "Save",
+    "title": "Download your CV",
+    "subTitle": "Genesixx Valley",
+    "cvDescription": "Download your CV in PDF format.",
+    "downloadCV": "Download CV",
+    "createNew": "Create a new CV",
+    "downloadSuccess": "CV downloaded successfully!",
+    "downloadError": "Error downloading CV."
+  },
   "search": {
     "placeholder": "Search a template...",
     "noResults": "No results found",
@@ -218,6 +228,9 @@
     "generate": "Generate CV"
   },
   "cvForm": {
+    "itemName": "Item Name",
+    "addCustomSection": "Add Custom Section",
+    "removeSection": "Remove Custom Section",
     "title": "CV Builder",
     "livePreview": "Live Preview",
     "template": "Template",
