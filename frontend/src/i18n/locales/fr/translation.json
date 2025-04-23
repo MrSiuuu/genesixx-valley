@@ -1,4 +1,14 @@
 {
+  "download" : {
+    "save": "Sauvegarder",
+    "title": "Télécharger votre CV",
+    "subTitle": "Genezixx Valley",
+    "cvDescription": "Téléchargez votre CV au format PDF.",
+    "downloadCV": "Télécharger le CV",
+    "createNew": "Créer un nouveau CV",
+    "downloadSuccess": "CV téléchargé avec succès.",
+    "downloadError": "Erreur lors du téléchargement du CV."
+  },
   "search": {
     "placeholder": "Rechercher un modèle",
     "noResults": "Aucun résultat trouvé",
@@ -218,6 +228,9 @@
     "generate": "Générer le CV"
   },
   "cvForm": {
+    "itemName": "Nom de l'élément",
+    "addCustomSection": "Ajouter une section personnalisée",
+    "removeSection": "Supprimer la section",
     "title": "Créer votre CV",
     "livePreview": "Aperçu",
     "personalInfo": "Informations personnelles",
