@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabase';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +14,29 @@ function Register() {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  // Liste des pays codée en dur (même liste que dans CountrySelectionModal)
+  const countries = [
+    { code: 'BEN', name: 'Bénin' },
+    { code: 'BFA', name: 'Burkina Faso' },
+    { code: 'CMR', name: 'Cameroun' },
+    { code: 'CPV', name: 'Cap-Vert' },
+    { code: 'TCD', name: 'Tchad' },
+    { code: 'CIV', name: 'Côte d\'Ivoire' },
+    { code: 'GAB', name: 'Gabon' },
+    { code: 'GHA', name: 'Ghana' },
+    { code: 'GIN', name: 'Guinée' },
+    { code: 'GNB', name: 'Guinée-Bissau' },
+    { code: 'MLI', name: 'Mali' },
+    { code: 'MRT', name: 'Mauritanie' },
+    { code: 'NER', name: 'Niger' },
+    { code: 'NGA', name: 'Nigeria' },
+    { code: 'SEN', name: 'Sénégal' },
+    { code: 'TGO', name: 'Togo' }
+  ];
+
+  // Initialiser selectedCountry avec le premier pays de la liste
+  const [selectedCountry, setSelectedCountry] = useState(countries[0].code);
+
   const handleRegister = async (e) => {
     e.preventDefault();
     
@@ -21,17 +44,47 @@ function Register() {
       setLoading(true);
       setError(null);
       
-      const { error } = await supabase.auth.signUp({
+      // Vérifier que nous envoyons bien le pays
+      console.log('Pays sélectionné:', selectedCountry);
+      
+      // 1. Créer l'utilisateur avec Supabase Auth
+      const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
-            name
+            name,
+            country: selectedCountry
           }
         }
       });
       
-      if (error) throw error;
+      if (authError) throw authError;
+      
+      // 2. Créer également une entrée dans la table profiles
+      if (authData && authData.user) {
+        // Trouver le nom du pays correspondant au code
+        const countryName = countries.find(c => c.code === selectedCountry)?.name || selectedCountry;
+        
+        console.log('Nom du pays à enregistrer:', countryName);
+        
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .insert([
+            {
+              id: authData.user.id,
+              name: name,
+              email: email,
+              country: countryName, // Utiliser le nom complet du pays, pas le code
+              created_at: new Date().toISOString()
+            }
+          ]);
+        
+        if (profileError) {
+          console.error('Erreur lors de la création du profil:', profileError);
+          console.error('Détails de l\'erreur:', profileError.details);
+        }
+      }
       
       navigate('/dashboard');
     } catch (error) {
@@ -45,22 +98,18 @@ function Register() {
   const handleGoogleRegister = async () => {
     try {
       setLoading(true);
-      setError(null);
       
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: 'http://localhost:5173/dashboard'
+          redirectTo: `${window.location.origin}/auth/callback`
         }
       });
       
       if (error) throw error;
-      
-      // La redirection est gérée par Supabase
     } catch (error) {
-      console.error('Erreur de connexion avec Google:', error);
+      console.error('Erreur lors de l\'authentification Google:', error);
       setError(error.message);
-    } finally {
       setLoading(false);
     }
   };
@@ -127,6 +176,24 @@ function Register() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+            </div>
+            
+            <div className="form-group">
+              <label htmlFor="country">Pays</label>
+              <select 
+                id="country"
+                value={selectedCountry}
+                onChange={(e) => setSelectedCountry(e.target.value)}
+                required
+                className="form-control"
+              >
+                <option value="" disabled>Sélectionnez votre pays</option>
+                {countries.map(country => (
+                  <option key={country.code} value={country.code}>
+                    {country.name}
+                  </option>
+                ))}
+              </select>
             </div>
             
             <button 

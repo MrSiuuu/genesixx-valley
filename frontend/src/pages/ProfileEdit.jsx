@@ -23,6 +23,25 @@ function ProfileEdit() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   
+  const countries = [
+    { code: 'BEN', name: 'Bénin' },
+    { code: 'BFA', name: 'Burkina Faso' },
+    { code: 'CMR', name: 'Cameroun' },
+    { code: 'CPV', name: 'Cap-Vert' },
+    { code: 'TCD', name: 'Tchad' },
+    { code: 'CIV', name: 'Côte d\'Ivoire' },
+    { code: 'GAB', name: 'Gabon' },
+    { code: 'GHA', name: 'Ghana' },
+    { code: 'GIN', name: 'Guinée' },
+    { code: 'GNB', name: 'Guinée-Bissau' },
+    { code: 'MLI', name: 'Mali' },
+    { code: 'MRT', name: 'Mauritanie' },
+    { code: 'NER', name: 'Niger' },
+    { code: 'NGA', name: 'Nigeria' },
+    { code: 'SEN', name: 'Sénégal' },
+    { code: 'TGO', name: 'Togo' }
+  ];
+  
   useEffect(() => {
     const loadProfile = async () => {
       if (!user) {
@@ -77,16 +96,42 @@ function ProfileEdit() {
     try {
       setSaving(true);
       
-      const { error } = await supabase
+      console.log('Données du formulaire à envoyer:', formData);
+      
+      // 1. Mettre à jour la table profiles
+      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .update({
           ...formData,
           profile_completed: true,
           updated_at: new Date().toISOString()
         })
-        .eq('id', user.id);
+        .eq('id', user.id)
+        .select();
         
-      if (error) throw error;
+      console.log('Résultat de la mise à jour du profil:', { profileData, profileError });
+      
+      if (profileError) throw profileError;
+      
+      // 2. Mettre à jour les métadonnées de l'utilisateur avec le pays
+      const { data: metadataData, error: metadataError } = await supabase.auth.updateUser({
+        data: {
+          country: formData.country
+        }
+      });
+      
+      console.log('Résultat de la mise à jour des métadonnées:', { metadataData, metadataError });
+      
+      if (metadataError) throw metadataError;
+      
+      // 3. Vérifier que les données ont bien été mises à jour
+      const { data: checkData, error: checkError } = await supabase
+        .from('profiles')
+        .select('country')
+        .eq('id', user.id)
+        .single();
+        
+      console.log('Vérification après mise à jour:', { checkData, checkError });
       
       toast.success(t('profile.saveSuccess'));
       navigate('/dashboard');
@@ -122,14 +167,21 @@ function ProfileEdit() {
           
           <div className="form-group">
             <label htmlFor="country">{t('profile.country')}</label>
-            <input
-              type="text"
+            <select
               id="country"
               name="country"
               value={formData.country}
               onChange={handleChange}
               required
-            />
+              className="form-control"
+            >
+              <option value="" disabled>Sélectionnez votre pays</option>
+              {countries.map(country => (
+                <option key={country.code} value={country.code}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
           </div>
           
           <div className="form-group">

@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { supabase } from '../services/supabase';
 import ConfirmModal from '../components/ConfirmModal';
 import ProfileNotification from '../components/ProfileNotification';
+import CountrySelectionModal from '../components/CountrySelectionModal';
 
 function Dashboard() {
   const { user, logout, loading } = useAuth();
@@ -24,6 +25,7 @@ function Dashboard() {
   const [itemToDelete, setItemToDelete] = useState(null);
   const [deleteType, setDeleteType] = useState(null); // 'cv' ou 'letter'
   const [isProfileComplete, setIsProfileComplete] = useState(true);
+  const [showCountryModal, setShowCountryModal] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) navigate('/login');
@@ -77,6 +79,13 @@ function Dashboard() {
     };
     
     checkProfileCompletion();
+  }, [user]);
+
+  useEffect(() => {
+    // Vérifier si l'utilisateur n'a pas de pays défini
+    if (user && !user.country) {
+      setShowCountryModal(true);
+    }
   }, [user]);
 
   const handleLogout = async () => {
@@ -260,6 +269,8 @@ function Dashboard() {
         onConfirm={handleConfirmDelete}
         onCancel={handleCancelDelete}
       />
+
+      {showCountryModal && <CountrySelectionModal />}
     </div>
   );
 }

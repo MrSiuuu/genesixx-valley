@@ -59,10 +59,20 @@ export function AuthProvider({ children }) {
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === 'SIGNED_IN' && session) {
+          // Vérifier si l'utilisateur a un pays défini
+          const hasCountry = session.user.user_metadata?.country;
+          
+          // Vérifier si c'est une première connexion avec Google
+          const isGoogleUser = session.user.app_metadata?.provider === 'google';
+          const isNewUser = session.user.app_metadata?.created_at === session.user.app_metadata?.confirmed_at;
+          
+          // Définir l'utilisateur dans le state
           setUser({
             id: session.user.id,
             email: session.user.email,
-            name: session.user.user_metadata?.name || session.user.email
+            name: session.user.user_metadata?.name || session.user.email,
+            country: session.user.user_metadata?.country,
+            isNewGoogleUser: isGoogleUser && isNewUser && !hasCountry
           });
         } else if (event === 'SIGNED_OUT') {
           setUser(null);
@@ -238,11 +248,39 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const updateUser = async (userData) => {
+    try {
+      setLoading(true);
+      
+      // Mettre à jour les métadonnées utilisateur dans Supabase
+      const { error } = await supabase.auth.updateUser({
+        data: userData
+      });
+      
+      if (error) throw error;
+      
+      // Mettre à jour l'état local
+      setUser(prevUser => ({
+        ...prevUser,
+        ...userData
+      }));
+      
+      return true;
+    } catch (err) {
+      console.error('Erreur lors de la mise à jour du profil:', err);
+      setError(err.message);
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const value = {
     user,
     login,
     register,
     logout,
+    updateUser,
     loading,
     error
   };

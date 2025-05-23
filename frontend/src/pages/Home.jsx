@@ -1,383 +1,58 @@
-import { Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { useAdmin } from '../hooks/useAdmin';
-import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from '../components/LanguageSwitcher';
-import { motion } from 'framer-motion';
-import '../styles/home.css';
+import React from 'react';
 
 function Home() {
-  const { user, loading } = useAuth();
-  const { isAdmin } = useAdmin();
-  const featuresRef = useRef(null);
-  const statsRef = useRef(null);
-  const { t } = useTranslation();
-  
-  // State for counting animations
-  const [counting, setCounting] = useState(false);
-  
-  // State for FAQ section
-  const [activeIndex, setActiveIndex] = useState(null);
-  
-  const toggleFAQ = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
-  
-  // Add viewport meta tag for better responsive behavior
-  useEffect(() => {
-    // Check if the viewport meta tag exists
-    let viewportMeta = document.querySelector('meta[name="viewport"]');
-    
-    // If it doesn't exist, create it
-    if (!viewportMeta) {
-      viewportMeta = document.createElement('meta');
-      viewportMeta.name = 'viewport';
-      document.head.appendChild(viewportMeta);
-    }
-    
-    // Set the content to ensure proper responsive behavior
-    viewportMeta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no';
-    
-    // Cleanup function
-    return () => {
-      // Restore original viewport settings if needed
-      if (viewportMeta) {
-        viewportMeta.content = 'width=device-width, initial-scale=1.0';
-      }
-    };
-  }, []);
-
-  // Scroll to features section function
-  const scrollToFeatures = () => {
-    featuresRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  // Add intersection observer for stats section
-  useEffect(() => {
-    const currentStatsRef = statsRef.current; // Store ref in a variable
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setCounting(true);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    
-    if (currentStatsRef) {
-      observer.observe(currentStatsRef);
-    }
-    
-    return () => {
-      if (currentStatsRef) {
-        observer.unobserve(currentStatsRef);
-      }
-    };
-  }, []);
-
   return (
-    <div className="home-container">
-      <LanguageSwitcher />
-      
-      <div className="home-page">
-        <div className="hero-section">
-          <div className="hero-content">
-            <motion.h1 
-              className="hero-title"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-            >
-              <span className="title-gradient">Genesixx</span> Valley
-            </motion.h1>
-            
-            <motion.p 
-              className="hero-subtitle"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
-              {t('home.subtitle')}
-            </motion.p>
-            
-            <motion.p 
-              className="hero-description"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.4 }}
-            >
-              {t('home.description')}
-            </motion.p>
-            
-            {loading ? (
-              <div className="loading-spinner">{t('common.loading')}</div>
-            ) : user ? (
-              <motion.div 
-                className="hero-actions"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6 }}
-              >
-                <p className="welcome-message">{t('dashboard.welcome', { name: user.name || user.email })}</p>
-                <Link to="/dashboard" className="btn btn-primary">
-                  {t('home.accessDashboard')}
-                </Link>
-                
-                {isAdmin && (
-                  <Link to="/admin/dashboard" className="btn btn-outline admin-link">
-                    {t('home.accessAdmin')}
-                  </Link>
-                )}
-              </motion.div>
-            ) : (
-              <motion.div 
-                className="hero-actions"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.6 }}
-              >
-                <Link to="/login" className="btn btn-primary">
-                  {t('common.login')}
-                </Link>
-                <Link to="/register" className="btn btn-secondary">
-                  {t('common.register')}
-                </Link>
-              </motion.div>
-            )}
-          </div>
-          <div className="hero-image">
-            <img src="/resume-preview.svg" alt={t('home.resumePreview')} className="preview-image" />
-          </div>
-          
-          {/* Down Arrow Navigation */}
-          <div className="scroll-arrow-container">
-            <button 
-              aria-label={t('home.discoverMore')} 
-              className="scroll-down-arrow"
-              onClick={scrollToFeatures}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 10L12 15L17 10" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-100 text-center relative overflow-x-hidden box-border">
+      <div className="w-full flex flex-col items-center justify-center min-h-screen px-4 py-12">
+        <div className="max-w-2xl w-full p-10 bg-white rounded-lg shadow-lg flex flex-col items-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gray-800">Bienvenue sur GeneSixx Valley</h1>
+          <p className="text-lg md:text-xl mb-8 text-gray-600">Votre plateforme de création de CV professionnel</p>
+          <div className="flex flex-col md:flex-row gap-4 w-full justify-center home-actions">
+            <button className="inline-block font-semibold text-white bg-gradient-to-r from-blue-500 to-blue-400 px-7 py-3 rounded-md shadow hover:-translate-y-1 hover:shadow-lg transition btn btn-primary">
+              Commencer maintenant
+            </button>
+            <button className="inline-block font-semibold text-blue-600 border-2 border-blue-100 bg-white px-7 py-3 rounded-md hover:border-blue-500 hover:-translate-y-0.5 transition btn btn-secondary">
+              Découvrir
             </button>
           </div>
         </div>
+      </div>
 
-        <div ref={featuresRef} className="features-section">
-          <h2 className="section-title">{t('home.whyChooseUs')}</h2>
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">📝</div>
-              <p>{t('home.features.modernDesigns')}</p>
+      {/* Features Section */}
+      <div className="w-full py-16 bg-white">
+        <div className="max-w-5xl mx-auto px-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-12 text-center">Pourquoi choisir GeneSixx Valley ?</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Feature Card 1 */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition transform hover:-translate-y-2 flex flex-col items-center">
+              <div className="text-blue-600 text-4xl mb-4">📝</div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Création de CV</h3>
+              <p className="text-gray-500 text-center">Créez un CV professionnel en quelques minutes avec nos modèles modernes.</p>
             </div>
-            <div className="feature-card">
-              <div className="feature-icon">⚡</div>
-              <h3>{t('home.features.fastAndSimple')}</h3>
-              <p>{t('home.features.createQuickly')}</p>
+            {/* Feature Card 2 */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition transform hover:-translate-y-2 flex flex-col items-center">
+              <div className="text-blue-600 text-4xl mb-4">🎨</div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Designs Modernes</h3>
+              <p className="text-gray-500 text-center">Choisissez parmi une large sélection de templates élégants et professionnels.</p>
             </div>
-            <div className="feature-card">
-              <div className="feature-icon">🔄</div>
-              <h3>{t('home.features.easyUpdate')}</h3>
-              <p>{t('home.features.modifyAnytime')}</p>
+            {/* Feature Card 3 */}
+            <div className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition transform hover:-translate-y-2 flex flex-col items-center">
+              <div className="text-blue-600 text-4xl mb-4">⚡</div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Export Rapide</h3>
+              <p className="text-gray-500 text-center">Exportez votre CV en PDF en un clic, prêt à être partagé.</p>
             </div>
-          </div>
-        </div>
-
-        {/* Stats Section */}
-        <div ref={statsRef} className="stats-section">
-          <div className="stats-container">
-            <div className="stat-item">
-              <div className="stat-number">
-                <CountUp end={30000} start={counting ? 0 : 30000} />
-              </div>
-              <div className="stat-label">{t('home.stats.users')}</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">
-                <CountUp end={1000} start={counting ? 0 : 1000} />
-              </div>
-              <div className="stat-label">{t('home.stats.templates')}</div>
-            </div>
-            <div className="stat-item">
-              <div className="stat-number">
-                <CountUp end={27000} start={counting ? 0 : 27000} />
-              </div>
-              <div className="stat-label">{t('home.stats.satisfied')}</div>
-            </div>
-          </div>
-        </div>
-
-        {/* Testimonials Section */}
-        <div className="testimonials-section">
-          <div className="container">
-            <h2 className="section-title">{t('home.testimonials.title', 'What Our Users Say')}</h2>
-            <p className="section-subtitle">{t('home.testimonials.description', 'Discover why thousands of professionals trust our platform')}</p>
-            
-            <div className="testimonials-grid">
-              <div className="testimonial-card">
-                <div className="testimonial-rating">★★★★★</div>
-                <p className="testimonial-text">{t('home.testimonials.quote1.testimonial', 'Using this platform transformed my job search. The modern templates and intuitive editor helped me create a CV that stands out. Landed my dream job within 2 weeks!')}</p>
-                <div className="testimonial-author">
-                  <img src="/avatars/testimonial1.jpg" alt="User avatar" className="testimonial-avatar" />
-                  <div className="testimonial-info">
-                    <h4 className="testimonial-name">Mike Bontto</h4>
-                    <p className="testimonial-position">{t('home.testimonials.quote1.jobTitle','Student in Politics')}</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="testimonial-card">
-                <div className="testimonial-rating">★★★★★</div>
-                <p className="testimonial-text">{t('home.testimonials.quote2.testimonial', 'As someone who struggled with creating professional CVs, this tool was a game-changer. Simple, powerful, and the templates are truly impressive. Highly recommended!')}</p>
-                <div className="testimonial-author">
-                  <img src="/avatars/testimonial2.jpg" alt="User avatar" className="testimonial-avatar" />
-                  <div className="testimonial-info">
-                    <h4 className="testimonial-name">Isac Kouyate</h4>
-                    <p className="testimonial-position">{t('home.testimonials.quote2.jobTitle','Student in IT')}</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="testimonial-card">
-                <div className="testimonial-rating">★★★★★</div>
-                <p className="testimonial-text">{t('home.testimonials.quote3.testimonial', 'The ability to quickly update my CV for different applications has been invaluable. The designs are clean, modern, and helped me stand out from other candidates.')}</p>
-                <div className="testimonial-author">
-                  <img src="/avatars/testimonial3.jpg" alt="User avatar" className="testimonial-avatar" />
-                  <div className="testimonial-info">
-                    <h4 className="testimonial-name">Ashley Djoko</h4>
-                    <p className="testimonial-position">{t('home.testimonials.quote3.jobTitle','Student in Digital Marketing')}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* FAQ Section */}
-        <div className="faq-section">
-          <div className="container">
-            <h2 className="section-title">{t('home.faq.title', 'Frequently Asked Questions')}</h2>
-            <p className="section-subtitle">{t('home.faq.subTitle', 'Get answers to common questions about our platform')}</p>
-            
-            <div className="faq-container">
-              {[...Array(6)].map((_, index) => (
-                <div className="faq-item" key={index}>
-                  <button 
-                    className={`faq-question ${activeIndex === index ? 'active' : ''}`}
-                    onClick={() => toggleFAQ(index)}
-                    aria-expanded={activeIndex === index}
-                  >
-                    {t(`home.faq.question${index + 1}.question`)}
-                    <span className="faq-icon">
-                      {activeIndex === index ? '−' : '+'}
-                    </span>
-                  </button>
-                  <div 
-                    className={`faq-answer ${activeIndex === index ? 'active' : ''}`}
-                    aria-hidden={activeIndex !== index}
-                  >
-                    <p>{t(`home.faq.question${index + 1}.answer`)}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Partners Section */}
-        <div className="partners-section">
-          <div className="partners-content">
-            <h2 className="partners-title">{t('home.partners.title')}</h2>
-            <p className="partners-description">
-              {t('home.partners.description')}
-            </p>
-            <div className="partners-logos">
-              <div className="partner-logo">
-                <img src="/logos/dv_logo.svg" alt="Diversis" />
-              </div>
-              <div className="partner-logo">
-                <img src="/logos/genesixx.png" alt="Genesixx" />
-              </div>
-              <div className="partner-logo">
-                <img src="/logos/axis_logo.svg" alt="Axis-Shop" />
-              </div>
-              <div className="partner-logo">
-                <img src="/logos/logo-campus-france.png" alt="Campus-france" />
-              </div>
-              <div className="partner-logo">
-                <img src="/logos/campus-canada.webp" alt="campus-canada" />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="site-footer">
-          <div className="footer-content">
-            <div className="footer-brand">
-              <h3>Genesixx Valley</h3>
-              <p>{t('home.footer.tagline')}</p>
-            </div>
-            <div className="footer-links">
-              <div className="footer-column">
-                <h4>{t('home.footer.product')}</h4>
-                <ul>
-                  <li><Link to="/features">{t('home.footer.features')}</Link></li>
-                  <li><Link to="/templates">{t('home.footer.templates')}</Link></li>
-                  <li><Link to="/pricing">{t('home.footer.pricing')}</Link></li>
-                </ul>
-              </div>
-              <div className="footer-column">
-                <h4>{t('home.footer.resources')}</h4>
-                <ul>
-                  <li><Link to="/blog">{t('home.footer.blog')}</Link></li>
-                  <li><Link to="/guides">{t('home.footer.guides')}</Link></li>
-                  <li><Link to="/faq">{t('home.footer.faq')}</Link></li>
-                </ul>
-              </div>
-              <div className="footer-column">
-                <h4>{t('home.footer.company')}</h4>
-                <ul>
-                  <li><Link to="/about">{t('home.footer.about')}</Link></li>
-                  <li><Link to="/contact">{t('home.footer.contact')}</Link></li>
-                  <li><Link to="/legal">{t('home.footer.legal')}</Link></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="footer-bottom">
-            <p>&copy; {new Date().getFullYear()} Genesixx Valley. {t('home.footer.rights')}</p>
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="w-full bg-blue-900 text-white py-8 mt-8">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+          <p className="text-sm">© 2024 GeneSixx Valley. Tous droits réservés.</p>
+        </div>
+      </footer>
     </div>
   );
-}
-
-// CountUp component for animated number counting
-function CountUp({ start = 0, end = 0 }) {
-  const [count, setCount] = useState(start);
-  const duration = 2000; // 2 seconds
-  const frames = 60;
-  const increment = (end - start) / frames;
-  
-  useEffect(() => {
-    let currentCount = start;
-    const timer = setInterval(() => {
-      currentCount += increment;
-      if (currentCount >= end) {
-        clearInterval(timer);
-        setCount(end);
-      } else {
-        setCount(Math.floor(currentCount));
-      }
-    }, duration / frames);
-    
-    return () => clearInterval(timer);
-  }, [start, end, increment]);
-  
-  // Format the number with commas
-  return new Intl.NumberFormat('fr-FR').format(count);
 }
 
 export default Home;

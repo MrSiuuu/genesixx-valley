@@ -12,6 +12,32 @@ function AuthCallback() {
         const { data: { session } } = await supabase.auth.getSession();
         
         if (session) {
+          // Vérifier si un profil existe déjà
+          const { data: existingProfile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', session.user.id)
+            .single();
+          
+          // Si aucun profil n'existe, en créer un
+          if (!existingProfile && !profileError) {
+            const { error: insertError } = await supabase
+              .from('profiles')
+              .insert([
+                {
+                  id: session.user.id,
+                  name: session.user.user_metadata?.name || session.user.email,
+                  email: session.user.email,
+                  country: session.user.user_metadata?.country || null,
+                  created_at: new Date().toISOString()
+                }
+              ]);
+            
+            if (insertError) {
+              console.error('Erreur lors de la création du profil:', insertError);
+            }
+          }
+
           // Rediriger vers le tableau de bord
           navigate('/dashboard');
         } else {

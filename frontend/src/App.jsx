@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 // Pages
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -23,7 +24,9 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';
 
 // Styles
-import './App.css';
+
+import './index.css';
+
 
 function App() {
   return (
